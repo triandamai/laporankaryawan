@@ -25,13 +25,13 @@
             android:layout_width="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:orientation="vertical">
+                android:paddingEnd="16dp">
                 <LinearLayout
+                    android:id="@+id/head"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -49,7 +49,40 @@
                         android:textSize="24sp"
                         android:text="Login"/>
                 </LinearLayout>
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/body"
+                    android:layout_below="@id/head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Halo !"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Silahkan masuk untuk melanjutkan"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Email"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Password"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Masuk"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_below="@id/body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="Dengan masuk Anda mematuhi Syarat dan Ketentuan layanan"/>
+            </RelativeLayout>
         </ScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

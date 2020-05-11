@@ -10,7 +10,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -20,7 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -31,4 +33,26 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    api 'com.google.android.material:material:1.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    /* circle imageview(rounded) */
+    api 'de.hdodenhof:circleimageview:3.1.0'
+    /* shimmer recyclerview */
+    api 'com.facebook.shimmer:shimmer:0.5.0'
+    api 'com.todkars:shimmer-recyclerview:0.4.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+
+    /* image loader library */
+    api 'com.squareup.picasso:picasso:2.71828'
+    /* swiperefresh layout */
+    api "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    implementation project(':data')
+    implementation project(':domain')
 }

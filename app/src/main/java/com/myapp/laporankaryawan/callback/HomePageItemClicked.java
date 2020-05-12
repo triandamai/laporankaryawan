@@ -6,9 +6,9 @@ public interface HomePageItemClicked {
     void tambahUser(View v);
     void tambahKota(View v);
     void tambahOutlet(View v);
-    void pegawai(View v);
-    void harian(View v);
-    void bulanan(View v);
-    void logout(View v);
-    void notifikasi(View v);
+    void Pegawai(View v);
+    void Harian(View v);
+    void Bulanan(View v);
+    void LogOut(View v);
+    void Notifikasi(View v);
 }

@@ -27,6 +27,7 @@ public class DataPegawai extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.data_pegawai_fragment, container, false);
+        binding.setIsLoading(true);
         return binding.getRoot();
     }
 

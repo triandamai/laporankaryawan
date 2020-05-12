@@ -62,27 +62,27 @@ public class HomePage extends BaseFragment {
         }
 
         @Override
-        public void pegawai(View v) {
+        public void Pegawai(View v) {
             replaceFragment(DataPegawai.newInstance(),null);
         }
 
         @Override
-        public void harian(View v) {
+        public void Harian(View v) {
             replaceFragment(Laporan.newInstance(),null);
         }
 
         @Override
-        public void bulanan(View v) {
+        public void Bulanan(View v) {
             replaceFragment(Laporan.newInstance(),null);
         }
 
         @Override
-        public void logout(View v) {
+        public void LogOut(View v) {
             replaceFragment(Laporan.newInstance(),null);
         }
 
         @Override
-        public void notifikasi(View v) {
+        public void Notifikasi(View v) {
             replaceFragment(Laporan.newInstance(),null);
         }
     };

@@ -44,7 +44,8 @@
                         android:layout_marginTop="40dp"
                         android:layout_marginBottom="20dp"
                         android:background="@color/putih"
-                        app:cardCornerRadius="14dp">
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -87,7 +88,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
-                                        android:onClick="@{()->click.pegawai()}"
+                                        android:onClick="@{(v)->click.Pegawai(v)}"
                                         android:textColor="@color/biru"
                                         android:text="Lihat Semua >"/>
                                 </LinearLayout>
@@ -116,7 +117,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:textColor="@color/biru"
-                                        android:onClick="@{()->click.harian()}"
+                                        android:onClick="@{(v)->click.Harian(v)}"
                                         android:text="Lihat Semua >"/>
                                 </LinearLayout>
                                 <LinearLayout
@@ -143,7 +144,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/biru"
-                                        android:onClick="@{()->click.bulanan()}"
+                                        android:onClick="@{(v)->click.Bulanan(v)}"
                                         android:text="Lihat Semua >"/>
                                 </LinearLayout>
                             </LinearLayout>
@@ -159,8 +160,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="14dp"
-                        app:cardElevation="10dp">
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="5dp">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -169,7 +170,7 @@
                             android:gravity="center_vertical"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:onClick="@{()->click.notifikasi()}"
+                            android:onClick="@{(v)->click.Notifikasi(v)}"
                             android:background="@color/biru">
                             <ImageView
                                 android:layout_width="20dp"
@@ -210,7 +211,7 @@
                             app:cardCornerRadius="10dp"
                             android:elevation="14dp"
                             android:background="?selectableItemBackground"
-                            android:onClick="@{()->click.tambahKota()}"
+                            android:onClick="@{(v)->click.tambahKota(v)}"
                             android:layout_weight="1">
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -240,7 +241,7 @@
                             app:cardCornerRadius="10dp"
                             android:elevation="14dp"
                             android:background="?selectableItemBackground"
-                            android:onClick="@{()->click.tambahUser()}"
+                            android:onClick="@{(v)->click.tambahUser(v)}"
                             android:layout_weight="1">
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -269,7 +270,7 @@
                             app:cardCornerRadius="14dp"
                             android:elevation="10dp"
                             android:background="?selectableItemBackground"
-                            android:onClick="@{()->click.tambahOutlet()}"
+                            android:onClick="@{(v)->click.tambahOutlet(v)}"
                             android:layout_weight="1">
                             <LinearLayout
                                 android:layout_width="match_parent"

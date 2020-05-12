@@ -1,4 +1,4 @@
-package com.myapp.laporankaryawan.ui.Laporan;
+package com.myapp.laporankaryawan.ui.TambahKota;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,33 +7,29 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.laporankaryawan.R;
-import com.myapp.laporankaryawan.databinding.LaporanFragmentBinding;
 
-public class Laporan extends Fragment {
-    public static String TAG = "Laporan";
-    private LaporanViewModel mViewModel;
-    private LaporanFragmentBinding binding;
+public class TambahKota extends Fragment {
+    public static String TAG = "Tambah Kota";
+    private TambahKotaViewModel mViewModel;
 
-    public static Laporan newInstance() {
-        return new Laporan();
+    public static TambahKota newInstance() {
+        return new TambahKota();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-         binding = DataBindingUtil.inflate(inflater,R.layout.laporan_fragment, container, false);
-         return binding.getRoot();
+        return inflater.inflate(R.layout.tambah_kota_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity(),new LaporanFactory(getContext())).get(LaporanViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(),new TambahKotaFactory(getContext())).get(TambahKotaViewModel.class);
         // TODO: Use the ViewModel
     }
 

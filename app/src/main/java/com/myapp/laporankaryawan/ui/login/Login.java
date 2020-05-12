@@ -16,6 +16,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
-        loginViewModel = new ViewModelProvider(this,new LoginFactory()).get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this,new LoginFactory(getApplicationContext())).get(LoginViewModel.class);
     }
 }

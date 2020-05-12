@@ -1,4 +1,4 @@
-package com.myapp.laporankaryawan.ui.homepage;
+package com.myapp.laporankaryawan.ui.DataPegawai;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,30 +15,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myapp.laporankaryawan.R;
-import com.myapp.laporankaryawan.databinding.HomePageFragmentBinding;
+import com.myapp.laporankaryawan.databinding.DataPegawaiFragmentBinding;
 
-public class HomePage extends Fragment {
-    public static String TAG = "Home Page Fragment";
+public class DataPegawai extends Fragment {
 
-    private HomePageViewModel mViewModel;
-    private HomePageFragmentBinding binding;
+    private DataPegawaiViewModel mViewModel;
+    private DataPegawaiFragmentBinding binding;
 
-    public static HomePage newInstance() {
-        return new HomePage();
+    public static DataPegawai newInstance() {
+        return new DataPegawai();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-      binding = DataBindingUtil.inflate(inflater,R.layout.home_page_fragment, container, false);
-
-      return binding.getRoot();
+        binding = DataBindingUtil.inflate(inflater,R.layout.data_pegawai_fragment, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity(),new HomePageFactory(getContext())).get(HomePageViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(),new DataPegawaiFactory(getContext())).get(DataPegawaiViewModel.class);
         // TODO: Use the ViewModel
     }
 

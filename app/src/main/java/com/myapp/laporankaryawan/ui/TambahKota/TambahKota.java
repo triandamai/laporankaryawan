@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 
-public class TambahKota extends Fragment {
+public class TambahKota extends BaseFragment {
     public static String TAG = "Tambah Kota";
     private TambahKotaViewModel mViewModel;
 

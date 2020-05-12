@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.databinding.DataPegawaiFragmentBinding;
 
-public class DataPegawai extends Fragment {
+public class DataPegawai extends BaseFragment {
     public static String TAG = "Data Pegawai";
     private DataPegawaiViewModel mViewModel;
     private DataPegawaiFragmentBinding binding;

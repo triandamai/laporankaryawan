@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.databinding.LaporanFragmentBinding;
 
-public class Laporan extends Fragment {
+public class Laporan extends BaseFragment {
     public static String TAG = "Laporan";
     private LaporanViewModel mViewModel;
     private LaporanFragmentBinding binding;

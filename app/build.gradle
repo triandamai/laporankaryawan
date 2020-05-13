@@ -62,6 +62,6 @@ dependencies {
     api "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
 
-    implementation project(':data')
-    implementation project(':domain')
+    implementation project(path : ':data')
+    implementation project(path : ':domain')
 }

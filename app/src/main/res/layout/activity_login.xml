@@ -5,6 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.login.Login">
     <data>
+
+        <variable
+            name="vm"
+            type="com.myapp.laporankaryawan.ui.login.LoginViewModel" />
         <variable
             name="isLoading"
             type="boolean" />
@@ -12,15 +16,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<!--        <com.google.android.material.appbar.AppBarLayout-->
-<!--            android:id="@+id/appbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?actionBarSize">-->
-<!--            <androidx.appcompat.widget.Toolbar-->
-<!--                android:id="@+id/toolbar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"/>-->
-<!--        </com.google.android.material.appbar.AppBarLayout>-->
         <ScrollView
             android:layout_width="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -66,17 +61,28 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Email"/>
+                        android:hint="Masukkan Username"
+                        android:maxLines="1"
+                        android:text="@={vm.username}"/>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Password"/>
+                        android:hint="Masukkan Password"
+                        android:text="@={vm.password}"/>
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/putih"
+                        android:onClick="@{(v)->vm.login(v)}"
+                        viewGone="@{!isLoading}"
                         android:background="@drawable/mybtn_primary"
                         android:text="Masuk"/>
+                    <ProgressBar
+                        viewGone="@{isLoading}"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        />
                 </LinearLayout>
                 <TextView
                     android:layout_below="@id/body"

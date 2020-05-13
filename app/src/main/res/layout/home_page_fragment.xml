@@ -5,15 +5,36 @@
         <variable
             name="click"
             type="com.myapp.laporankaryawan.callback.HomePageItemClicked" />
+        <variable
+            name="overview"
+            type="com.myapp.domain.realmobject.HomePageObject" />
+        <variable
+            name="isLoading"
+            type="boolean" />
+        <variable
+            name="isNotifikasiHarian"
+            type="boolean" />
+        <variable
+            name="isNotifikasiBulanan"
+            type="boolean" />
+        <variable
+            name="litener"
+            type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#358BCAE6">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            setRefreshing="@{isLoading}"
+            setRefreshingListener="@{litener}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+          >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -76,7 +97,7 @@
                                         android:textSize="18sp"
                                         android:layout_marginBottom="5dp"
                                         android:textStyle="bold"
-                                        android:text="9"/>
+                                        android:text="@{``+overview.pegawai}"/>
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -104,14 +125,14 @@
                                         android:textSize="18sp"
                                         android:layout_marginBottom="5dp"
                                         android:textStyle="bold"
-                                        android:text="10"/>
+                                        android:text="@{``+overview.lapHarian}"/>
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:layout_marginBottom="10dp"
                                         android:textStyle="bold"
-                                        android:text="Pegawai"/>
+                                        android:text="Lap. Harian"/>
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -132,7 +153,7 @@
                                         android:textSize="18sp"
                                         android:layout_marginBottom="5dp"
                                         android:textStyle="bold"
-                                        android:text="80"/>
+                                        android:text="@{``+overview.lapBulanan}"/>
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -161,6 +182,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="10dp"
+                        viewGone="@{isNotifikasiBulanan}"
                         app:cardElevation="5dp">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -183,7 +205,43 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/putih"
                                 android:layout_weight="2"
-                                android:text="Anda Memiliki 0 Laporan Masuk"/>
+                                android:text="@{`Anda Memiliki `+overview.lapMasukBulanan+` Laporan Bulanan`}"/>
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_keyboard_arrow_right"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardCornerRadius="10dp"
+                        viewGone="@{isNotifikasiHarian}"
+                        app:cardElevation="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="4"
+                            android:gravity="center_vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="@{(v)->click.Notifikasi(v)}"
+                            android:background="@color/biru">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_info"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/putih"
+                                android:layout_weight="2"
+                                android:text="@{`Anda Memiliki `+overview.lapMasukHarian+` Laporan Harian`}"/>
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
@@ -260,7 +318,7 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="2dp"
                                     android:textStyle="bold"
-                                    android:text="Tambah\nKota"/>
+                                    android:text="Tambah\nUser"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
                         <androidx.cardview.widget.CardView
@@ -303,5 +361,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

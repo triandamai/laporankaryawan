@@ -1,5 +1,7 @@
 package com.myapp.data.service;
 
+import com.myapp.domain.model.KotaModel;
+import com.myapp.domain.model.LaporanModel;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.UserModel;
@@ -41,4 +43,76 @@ public interface ApiService {
     @Headers({accept_json,content_type,api_key})
     @POST("user/data")
     Call<ResponseGetKaryawan> getAllKaryawan(@Body LoginModel loginModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("user/data")
+    Call<ResponseGetKaryawan> updateuser(@Body UserModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("user/update_password")
+    Call<ResponseGetKaryawan> ubahpassword(@Body UserModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("user/delete")
+    Call<ResponseGetKaryawan> hapususer(@Body UserModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("user/data")
+    Call<ResponseGetKaryawan> getAllKota(@Body UserModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("kota/add")
+    Call<ResponseGetKaryawan> tambahkota(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("kota/update")
+    Call<ResponseGetKaryawan> ubahkota(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("kota/update")
+    Call<ResponseGetKaryawan> hapusota(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanharian/data")
+    Call<ResponseGetKaryawan> getAllLaporan(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanharian/add")
+    Call<ResponseGetKaryawan> tambahlaporan(@Body LaporanModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanharian/proses")
+    Call<ResponseGetKaryawan> proseslaporan(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("outlet/data")
+    Call<ResponseGetKaryawan> getAllOutlet(@Body OutletModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("outlet/add")
+    Call<ResponseGetKaryawan> tambahoutlet(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("outlet/update")
+    Call<ResponseGetKaryawan> ubahoutlet(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("outlet/delete")
+    Call<ResponseGetKaryawan> hapusoutlet(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanbulanan/data")
+    Call<ResponseGetKaryawan> getAllLaporanBulanan(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanbulanan/add")
+    Call<ResponseGetKaryawan> tambahlaporanbulanan(@Body KotaModel userModel);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanbulanan/proses")
+    Call<ResponseGetKaryawan> laporanbulananproses(@Body KotaModel userModel);
+
+    
+
+
 }

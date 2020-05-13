@@ -60,6 +60,7 @@ dependencies {
     api 'com.squareup.picasso:picasso:2.71828'
     /* swiperefresh layout */
     api "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    api 'com.google.android.play:core:1.7.2'
 
 
     implementation project(path : ':data')

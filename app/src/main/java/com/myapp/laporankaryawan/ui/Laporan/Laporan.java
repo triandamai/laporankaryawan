@@ -15,7 +15,7 @@ import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.databinding.LaporanFragmentBinding;
 
 public class Laporan extends BaseFragment {
-    public static String TAG = "Laporan";
+    public static String TAG = "LaporanObject";
     private LaporanViewModel mViewModel;
     private LaporanFragmentBinding binding;
 

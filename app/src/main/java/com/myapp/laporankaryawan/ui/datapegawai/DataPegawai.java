@@ -1,4 +1,4 @@
-package com.myapp.laporankaryawan.ui.laporanbulanan;
+package com.myapp.laporankaryawan.ui.datapegawai;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,9 +16,6 @@ import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.databinding.DataPegawaiFragmentBinding;
-import com.myapp.laporankaryawan.ui.datapegawai.AdapterDataPegawai;
-import com.myapp.laporankaryawan.ui.datapegawai.DataPegawaiFactory;
-import com.myapp.laporankaryawan.ui.datapegawai.DataPegawaiViewModel;
 
 import java.util.List;
 

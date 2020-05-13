@@ -17,7 +17,7 @@ import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.callback.HomePageItemClicked;
 import com.myapp.laporankaryawan.databinding.HomePageFragmentBinding;
-import com.myapp.laporankaryawan.ui.laporanbulanan.DataPegawai;
+import com.myapp.laporankaryawan.ui.datapegawai.DataPegawai;
 import com.myapp.laporankaryawan.ui.laporanharian.LaporanHarian;
 import com.myapp.laporankaryawan.ui.tambahkota.TambahKota;
 import com.myapp.laporankaryawan.ui.tambahoutlet.TambahOutlet;

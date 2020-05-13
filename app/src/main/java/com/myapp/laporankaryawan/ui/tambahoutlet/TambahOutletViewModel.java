@@ -10,7 +10,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.OutletModel;
-import com.myapp.domain.response.ResponsePostTambahUser;
+import com.myapp.domain.response.ResponsePost;
 import com.myapp.laporankaryawan.callback.SendDataListener;
 
 import retrofit2.Call;
@@ -40,9 +40,9 @@ public class TambahOutletViewModel extends ViewModel {
     public void simpan(View v){
         listener.onStart();
         OutletModel model = new OutletModel();
-        apiService.simpanoutlet(model).enqueue(new Callback<ResponsePostTambahUser>() {
+        apiService.simpanoutlet(model).enqueue(new Callback<ResponsePost>() {
             @Override
-            public void onResponse(Call<ResponsePostTambahUser> call, Response<ResponsePostTambahUser> response) {
+            public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if(cek(response.code(),context,"SImpan Outlet")){
 
                 }else {
@@ -51,7 +51,7 @@ public class TambahOutletViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<ResponsePostTambahUser> call, Throwable t) {
+            public void onFailure(Call<ResponsePost> call, Throwable t) {
 
             }
         });

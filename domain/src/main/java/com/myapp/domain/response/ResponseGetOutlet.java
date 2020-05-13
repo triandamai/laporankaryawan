@@ -2,8 +2,11 @@ package com.myapp.domain.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myapp.domain.model.OutletModel;
 
-public class ResponsePostTambahUser {
+import java.util.List;
+
+public class ResponseGetOutlet {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -13,6 +16,9 @@ public class ResponsePostTambahUser {
     @SerializedName("response_message")
     @Expose
     private String responseMessage;
+    @SerializedName("data")
+    @Expose
+    private List<OutletModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -36,6 +42,14 @@ public class ResponsePostTambahUser {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public List<OutletModel> getData() {
+        return data;
+    }
+
+    public void setData(List<OutletModel> data) {
+        this.data = data;
     }
 
 }

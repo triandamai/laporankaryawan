@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.UserModel;
-import com.myapp.domain.response.ResponsePostTambahUser;
+import com.myapp.domain.response.ResponsePost;
 import com.myapp.laporankaryawan.callback.SendDataListener;
 
 import retrofit2.Call;
@@ -41,9 +41,9 @@ public class TambahUserViewModel extends ViewModel {
         userModel.setNamaUser(nama.getValue());
         userModel.setUsernameUser(username.getValue());
         userModel.setPasswordUser(password.getValue());
-        apiService.simpanuser(userModel).enqueue(new Callback<ResponsePostTambahUser>() {
+        apiService.simpanuser(userModel).enqueue(new Callback<ResponsePost>() {
             @Override
-            public void onResponse(Call<ResponsePostTambahUser> call, Response<ResponsePostTambahUser> response) {
+            public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if(cek(response.code(),context,"Tambah")){
                     listener.onSuccess("Sukes");
                 }else {
@@ -53,7 +53,7 @@ public class TambahUserViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<ResponsePostTambahUser> call, Throwable t) {
+            public void onFailure(Call<ResponsePost> call, Throwable t) {
                 listener.onError(t.getMessage());
             }
         });

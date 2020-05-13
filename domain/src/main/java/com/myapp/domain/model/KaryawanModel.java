@@ -39,9 +39,6 @@ public class KaryawanModel {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-//    @SerializedName("deleted_at")
-//    @Expose
-//    private String deletedAt;
 
     public String getIdUser() {
         return idUser;

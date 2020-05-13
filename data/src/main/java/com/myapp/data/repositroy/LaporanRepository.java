@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KaryawanModel;
-import com.myapp.domain.model.LoginModel;
+import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.realmobject.KaryawanObject;
+import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.domain.response.ResponseGetKaryawan;
+import com.myapp.domain.response.ResponseGetKota;
 import com.myapp.domain.response.ResponseGetOverview;
 
 import io.realm.Realm;
@@ -76,9 +78,8 @@ public  class LaporanRepository {
     }
 
     public void getDataKaryawan(){
-        LoginModel loginModel = new LoginModel();
-        loginModel.setPassword_user("");
-        loginModel.setUsername_nip("");
+        KaryawanModel loginModel = new KaryawanModel();
+
         service.getAllKaryawan(loginModel).enqueue(new Callback<ResponseGetKaryawan>() {
             @Override
             public void onResponse(Call<ResponseGetKaryawan> call, Response<ResponseGetKaryawan> response) {
@@ -118,6 +119,63 @@ public  class LaporanRepository {
             @Override
             public void onFailure(Call<ResponseGetKaryawan> call, Throwable t) {
                 Log.e(TAG,"gagal ambil karyawan"+t.getMessage());
+            }
+        });
+    }
+    public void getDataKota(){
+        KotaModel kotaModel = new KotaModel();
+
+
+        service.getAllKota(kotaModel).enqueue(new Callback<ResponseGetKota>() {
+            @Override
+            public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
+                if(cek(response.code(),context,"getData Home Page")){
+//                    Log.e(TAG,response.body().getData().toString());
+                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                        if(response.body().getData().size() >= 1){
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    realm.delete(KotaObject.class);
+                                }
+                            });
+                            for (KotaModel item : response.body().getData()){
+                                KotaObject kotaObject = new KotaObject();
+                                kotaObject.setIdKota(item.getIdKota());
+                                kotaObject.setCreatedAt(item.getCreatedAt());
+                                kotaObject.setNamaKota(item.getNamaKota());
+                                kotaObject.setUpdatedAt(item.getUpdatedAt());
+                                realm.executeTransaction(new Realm.Transaction() {
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        realm.copyToRealmOrUpdate(kotaObject);
+                                    }
+                                });
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseGetKota> call, Throwable t) {
+
+            }
+        });
+    }
+    public void getDataOutlet(){
+        KotaModel kotaModel = new KotaModel();
+
+        service.getAllKota(kotaModel).enqueue(new Callback<ResponseGetKota>() {
+            @Override
+            public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
+                
+            }
+
+            @Override
+            public void onFailure(Call<ResponseGetKota> call, Throwable t) {
+
             }
         });
     }

@@ -80,7 +80,7 @@ public class HomePage extends BaseFragment {
                     }
 
                     binding.setOverview(homePageObject);
-               
+
             }
         });
 

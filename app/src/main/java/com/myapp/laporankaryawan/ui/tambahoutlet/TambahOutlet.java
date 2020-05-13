@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
+import com.myapp.laporankaryawan.callback.SendDataListener;
 import com.myapp.laporankaryawan.databinding.TambahOutletFragmentBinding;
 
 public class TambahOutlet extends BaseFragment {
@@ -39,6 +40,7 @@ public class TambahOutlet extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(),new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
+        mViewModel.setOnListener(sendDataListener);
         // TODO: Use the ViewModel
 
     }
@@ -60,4 +62,24 @@ public class TambahOutlet extends BaseFragment {
         }
 
     }
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+        }
+
+        @Override
+        public void onSuccess(String message) {
+
+        }
+
+        @Override
+        public void onFailed(String message) {
+
+        }
+
+        @Override
+        public void onError(String message) {
+
+        }
+    };
 }

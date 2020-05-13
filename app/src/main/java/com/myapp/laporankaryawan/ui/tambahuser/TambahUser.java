@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
+import com.myapp.laporankaryawan.callback.SendDataListener;
 import com.myapp.laporankaryawan.databinding.TambahUserFragmentBinding;
 
 public class TambahUser extends BaseFragment {
@@ -29,9 +30,11 @@ public class TambahUser extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-      binding = DataBindingUtil.inflate(inflater,R.layout.tambah_user_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.tambah_user_fragment, container, false);
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Kota","");
+
+        binding.setIsLoading(false);
         return binding.getRoot();
     }
 
@@ -40,6 +43,7 @@ public class TambahUser extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
                 .get(TambahUserViewModel.class);
+        mViewModel.setOnSendData(sendDataListener);
         // TODO: Use the ViewModel
     }
     @Override
@@ -48,7 +52,27 @@ public class TambahUser extends BaseFragment {
 
         inflater.inflate(R.menu.toolbarformnav,menu);
     }
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+            binding.setIsLoading(true);
+        }
 
+        @Override
+        public void onSuccess(String message) {
+            binding.setIsLoading(true);
+        }
+
+        @Override
+        public void onFailed(String message) {
+            binding.setIsLoading(true);
+        }
+
+        @Override
+        public void onError(String message) {
+            binding.setIsLoading(true);
+        }
+    };
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){

@@ -1,47 +1,51 @@
-package com.myapp.domain.realmobject;
+package com.myapp.domain.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class LaporanObject extends RealmObject {
-  @PrimaryKey
+public class LaporanHarianModel {
+    @SerializedName("id_laporanharian")
+    @Expose
     private String idLaporanharian;
-
+    @SerializedName("id_user")
+    @Expose
     private String idUser;
-
+    @SerializedName("id_outlet")
+    @Expose
     private String idOutlet;
-
+    @SerializedName("alamat_laporanharian")
+    @Expose
     private String alamatLaporanharian;
-
+    @SerializedName("latitude_laporanharian")
+    @Expose
     private String latitudeLaporanharian;
-
+    @SerializedName("longitude_laporanharian")
+    @Expose
     private String longitudeLaporanharian;
-
+    @SerializedName("keterangan_laporanharian")
+    @Expose
     private String keteranganLaporanharian;
-
+    @SerializedName("bukti_laporanharian")
+    @Expose
     private String buktiLaporanharian;
-
+    @SerializedName("status_laporanharian")
+    @Expose
     private String statusLaporanharian;
-
+    @SerializedName("created_at")
+    @Expose
     private String createdAt;
-
+    @SerializedName("updated_at")
+    @Expose
     private String updatedAt;
-
-    private String idKota;
-
-    private String namaOutlet;
-
-    private String nipUser;
-
-    private String usernameUser;
-
-    private String namaUser;
-
-    private String fotoUser;
-
-    private String levelUser;
-
-    private String namaKota;
+//    @SerializedName("deleted_at")
+//    @Expose
+//    private Object deletedAt;
+    @SerializedName("user")
+    @Expose
+    private UserModel user;
+    @SerializedName("outlet")
+    @Expose
+    private OutletModel outlet;
 
     public String getIdLaporanharian() {
         return idLaporanharian;
@@ -131,67 +135,27 @@ public class LaporanObject extends RealmObject {
         this.updatedAt = updatedAt;
     }
 
-    public String getIdKota() {
-        return idKota;
+//    public Object getDeletedAt() {
+//        return deletedAt;
+//    }
+//
+//    public void setDeletedAt(Object deletedAt) {
+//        this.deletedAt = deletedAt;
+//    }
+
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setIdKota(String idKota) {
-        this.idKota = idKota;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 
-    public String getNamaOutlet() {
-        return namaOutlet;
+    public OutletModel getOutlet() {
+        return outlet;
     }
 
-    public void setNamaOutlet(String namaOutlet) {
-        this.namaOutlet = namaOutlet;
-    }
-
-    public String getNipUser() {
-        return nipUser;
-    }
-
-    public void setNipUser(String nipUser) {
-        this.nipUser = nipUser;
-    }
-
-    public String getUsernameUser() {
-        return usernameUser;
-    }
-
-    public void setUsernameUser(String usernameUser) {
-        this.usernameUser = usernameUser;
-    }
-
-    public String getNamaUser() {
-        return namaUser;
-    }
-
-    public void setNamaUser(String namaUser) {
-        this.namaUser = namaUser;
-    }
-
-    public String getFotoUser() {
-        return fotoUser;
-    }
-
-    public void setFotoUser(String fotoUser) {
-        this.fotoUser = fotoUser;
-    }
-
-    public String getLevelUser() {
-        return levelUser;
-    }
-
-    public void setLevelUser(String levelUser) {
-        this.levelUser = levelUser;
-    }
-
-    public String getNamaKota() {
-        return namaKota;
-    }
-
-    public void setNamaKota(String namaKota) {
-        this.namaKota = namaKota;
+    public void setOutlet(OutletModel outlet) {
+        this.outlet = outlet;
     }
 }

@@ -7,7 +7,7 @@
             type="Integer" />
         <variable
             name="data"
-            type="com.myapp.domain.realmobject.LaporanObject" />
+            type="com.myapp.domain.realmobject.LaporanBulananObject" />
         <variable
             name="event"
             type="com.myapp.laporankaryawan.callback.AdapterItemClicked" />

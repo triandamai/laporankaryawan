@@ -11,7 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.myapp.domain.realmobject.LaporanObject;
+import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.callback.AdapterItemClicked;
@@ -21,7 +22,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class LaporanHarian extends BaseFragment {
-    public static String TAG = "LaporanObject";
+    public static String TAG = "LaporanHarianObject";
     private LaporanHarianViewModel mViewModel;
     private LaporanHarianFragmentBinding binding;
     private AdapterLaporanHarian adapterLaporanHarian;
@@ -37,7 +38,7 @@ public class LaporanHarian extends BaseFragment {
          binding.setIsLoading(true);
          adapterLaporanHarian = new AdapterLaporanHarian(adapterItemClicked);
          binding.rv.setAdapter(adapterLaporanHarian);
-         mViewModel.init();
+
          return binding.getRoot();
     }
 
@@ -47,23 +48,28 @@ public class LaporanHarian extends BaseFragment {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        mViewModel = new ViewModelProvider(requireActivity(),new LaporanHarianFactory(getContext(),String.valueOf(month),String.valueOf(year))).get(LaporanHarianViewModel.class);
+        LaporanRequestData l = new LaporanRequestData();
+        l.setBulanLaporanharian(month+1);
+        l.setTahunLaporanharian(year);
+
+        mViewModel = new ViewModelProvider(requireActivity(),new LaporanHarianFactory(getContext(),l)).get(LaporanHarianViewModel.class);
         // TODO: Use the ViewModel
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.init();
         observe(mViewModel);
     }
 
     private void observe(LaporanHarianViewModel mViewModel) {
-        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), new Observer<List<LaporanObject>>() {
+        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), new Observer<List<LaporanHarianObject>>() {
             @Override
-            public void onChanged(List<LaporanObject> laporanObjects) {
-                if (laporanObjects.size() >= 1){
+            public void onChanged(List<LaporanHarianObject> laporanHarianObjects) {
+                if (laporanHarianObjects.size() >= 1){
                     binding.setIsLoading(false);
-                    adapterLaporanHarian.setData(laporanObjects);
+                    adapterLaporanHarian.setData(laporanHarianObjects);
                     adapterLaporanHarian.notifyDataSetChanged();
                 }
             }

@@ -2,11 +2,11 @@ package com.myapp.domain.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.LaporanModel;
+import com.myapp.domain.model.LaporanBulananModel;
 
 import java.util.List;
 
-public class ResponseGetLaporan {
+public class ResponseGetLaporanBulanan {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -18,7 +18,7 @@ public class ResponseGetLaporan {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private List<LaporanModel> data = null;
+    private List<LaporanBulananModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -44,11 +44,11 @@ public class ResponseGetLaporan {
         this.responseMessage = responseMessage;
     }
 
-    public List<LaporanModel> getData() {
+    public List<LaporanBulananModel> getData() {
         return data;
     }
 
-    public void setData(List<LaporanModel> data) {
+    public void setData(List<LaporanBulananModel> data) {
         this.data = data;
     }
 }

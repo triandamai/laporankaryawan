@@ -3,18 +3,18 @@ package com.myapp.data.service;
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanModel;
+import com.myapp.domain.model.LaporanRequestData;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.response.ResponseGetKaryawan;
 import com.myapp.domain.response.ResponseGetKota;
-import com.myapp.domain.response.ResponseGetLaporan;
+import com.myapp.domain.response.ResponseGetLaporanBulanan;
+import com.myapp.domain.response.ResponseGetLaporanHarian;
 import com.myapp.domain.response.ResponseGetOutlet;
 import com.myapp.domain.response.ResponseGetOverview;
 import com.myapp.domain.response.ResponsePost;
 import com.myapp.domain.response.ResponsePostLogin;
-
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -81,7 +81,12 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
-    Call<ResponseGetLaporan> getAllLaporanharian(@Body JSONObject laporan);
+    Call<ResponseGetLaporanHarian> getAllLaporanharian(@Body LaporanRequestData laporanRequestData);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanbulanan/data")
+    Call<ResponseGetLaporanBulanan> getAllLaporanbulanan(@Body LaporanRequestData laporanRequestData);
+
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/add")
@@ -109,7 +114,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
-    Call<ResponseGetLaporan> getAllLaporanBulanan(@Body LaporanModel laporanModel);
+    Call<ResponseGetLaporanHarian> getAllLaporanBulanan(@Body LaporanModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/add")

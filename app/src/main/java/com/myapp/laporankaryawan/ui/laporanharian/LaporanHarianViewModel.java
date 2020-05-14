@@ -3,11 +3,13 @@ package com.myapp.laporankaryawan.ui.laporanharian;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveResult;
 import com.myapp.data.repositroy.LaporanRepository;
-import com.myapp.domain.realmobject.LaporanObject;
+import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 
 import org.json.JSONException;
 
@@ -17,23 +19,30 @@ import io.realm.Realm;
 
 public class LaporanHarianViewModel extends ViewModel {
     private Context context;
-    private LiveData<List<LaporanObject>> listLiveData;
+    private LiveData<List<LaporanHarianObject>> listLiveData;
     private Realm realm;
-    public LaporanHarianViewModel(Context context,String tahun,String bulan) {
+    public LaporanHarianViewModel(Context context, LaporanRequestData laporanRequestData) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
 
         try {
-            LaporanRepository.getInstance(context).getLaporanHarian(bulan,tahun);
+            LaporanRepository.getInstance(context).getLaporanHarian(laporanRequestData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
     public void init(){
-        listLiveData = new RealmLiveResult(realm.where(LaporanObject.class).findAll());
+        try {
+            listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).findAll());
+        }catch (NullPointerException e){
+            listLiveData = new MutableLiveData<>();
+        }
     }
 
-    public LiveData<List<LaporanObject>> getListLiveData() {
+    public LiveData<List<LaporanHarianObject>> getListLiveData() {
+        if(listLiveData == null){
+            listLiveData = new MutableLiveData<>();
+        }
         return listLiveData;
     }
     // TODO: Implement the ViewModel

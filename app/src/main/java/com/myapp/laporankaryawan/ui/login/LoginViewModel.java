@@ -10,9 +10,11 @@ import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LoginModel;
+import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.response.ResponsePostLogin;
 import com.myapp.laporankaryawan.callback.SendDataListener;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,12 +25,29 @@ public class LoginViewModel extends ViewModel {
     private Context context;
     private ApiService apiService;
     private SendDataListener listener;
+    private Realm realm;
 
     public MutableLiveData<String> username = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
 
     public LoginViewModel(Context context) {
         this.context = context;
+        this.realm = Realm.getDefaultInstance();
+        HomePageObject object = new HomePageObject();
+        object.setId("1");
+        object.setPegawai(0);
+        object.setLapBulanan(0);
+        object.setLapHarian(0);
+        object.setLapMasukBulanan(0);
+        object.setLapMasukHarian(0);
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(object);
+            }
+        });
+        realm.close();
 
     }
     public void setSaveListener(SendDataListener ltr){

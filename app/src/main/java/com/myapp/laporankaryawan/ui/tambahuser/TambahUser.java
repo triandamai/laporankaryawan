@@ -31,21 +31,20 @@ public class TambahUser extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.tambah_user_fragment, container, false);
+        mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
+                .get(TambahUserViewModel.class);
+
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Kota","");
-
+        binding.setVm(mViewModel);
+        mViewModel.setOnSendData(sendDataListener);
         binding.setIsLoading(false);
+
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
-                .get(TambahUserViewModel.class);
-        mViewModel.setOnSendData(sendDataListener);
-        // TODO: Use the ViewModel
-    }
+
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -60,17 +59,19 @@ public class TambahUser extends BaseFragment {
 
         @Override
         public void onSuccess(String message) {
-            binding.setIsLoading(true);
+            binding.setIsLoading(false);
         }
 
         @Override
         public void onFailed(String message) {
-            binding.setIsLoading(true);
+            binding.setIsLoading(false);
+            dialogGagal(message);
         }
 
         @Override
         public void onError(String message) {
-            binding.setIsLoading(true);
+            binding.setIsLoading(false);
+            dialogGagal(message);
         }
     };
     @Override

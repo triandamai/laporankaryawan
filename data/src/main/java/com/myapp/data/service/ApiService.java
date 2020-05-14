@@ -6,6 +6,7 @@ import com.myapp.domain.model.LaporanModel;
 import com.myapp.domain.model.LaporanRequestData;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.PostUserModel;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.response.ResponseGetKaryawan;
 import com.myapp.domain.response.ResponseGetKota;
@@ -15,6 +16,8 @@ import com.myapp.domain.response.ResponseGetOutlet;
 import com.myapp.domain.response.ResponseGetOverview;
 import com.myapp.domain.response.ResponsePost;
 import com.myapp.domain.response.ResponsePostLogin;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -41,7 +44,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("auth/register")
-    Call<ResponsePost> simpanuser(@Body UserModel userModel);
+    Call<ResponsePost> simpanuser(@Body PostUserModel userModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/add")
@@ -69,7 +72,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/add")
-    Call<ResponseGetKaryawan> tambahkota(@Body KotaModel kotaModel);
+    Call<ResponseGetKaryawan> simpankota(@Body JSONObject kotaModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/update")

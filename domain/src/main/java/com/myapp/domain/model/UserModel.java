@@ -31,9 +31,6 @@ public class UserModel {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-//    @SerializedName("deleted_at")
-//    @Expose
-//    private Object deletedAt;
 
     public String getIdUser() {
         return idUser;
@@ -107,13 +104,6 @@ public class UserModel {
         this.updatedAt = updatedAt;
     }
 
-//    public Object getDeletedAt() {
-//        return deletedAt;
-//    }
-//
-//    public void setDeletedAt(Object deletedAt) {
-//        this.deletedAt = deletedAt;
-//    }
 
     @Override
     public String toString() {

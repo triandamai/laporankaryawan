@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
+import com.myapp.laporankaryawan.callback.SendDataListener;
 import com.myapp.laporankaryawan.databinding.TambahKotaFragmentBinding;
 
 public class TambahKota extends BaseFragment {
@@ -32,15 +33,12 @@ public class TambahKota extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.tambah_kota_fragment, container, false);
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Kota","");
+        mViewModel = new ViewModelProvider(requireActivity(),new TambahKotaFactory(getContext())).get(TambahKotaViewModel.class);
+        binding.setVm(mViewModel);
+        mViewModel.setOnSendData(sendDataListener);
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity(),new TambahKotaFactory(getContext())).get(TambahKotaViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -60,4 +58,27 @@ public class TambahKota extends BaseFragment {
         }
 
     }
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+            binding.setIsLoading(true);
+        }
+
+        @Override
+        public void onSuccess(String message) {
+            binding.setIsLoading(false);
+        }
+
+        @Override
+        public void onFailed(String message) {
+            binding.setIsLoading(false);
+            dialogGagal(message);
+        }
+
+        @Override
+        public void onError(String message) {
+            binding.setIsLoading(false);
+            dialogGagal(message);
+        }
+    };
 }

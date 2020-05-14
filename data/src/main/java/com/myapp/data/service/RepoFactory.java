@@ -3,6 +3,9 @@ package com.myapp.data.service;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import okhttp3.Cache;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
@@ -11,11 +14,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RepoFactory {
-
+    private static Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(ApiService.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .addConverterFactory(ScalarsConverterFactory.create());
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

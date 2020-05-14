@@ -16,9 +16,7 @@ public class KotaModel {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-//    @SerializedName("deleted_at")
-//    @Expose
-//    private Object deletedAt;
+
 
     public String getIdKota() {
         return idKota;

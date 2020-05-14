@@ -70,6 +70,13 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/sp_16"
+                    android:background="@drawable/ripple_primary"
+                    android:clickable="true"
                     viewGone="@{!isLoading}"
                     android:onClick="@{(v)->vm.simpan(v)}"
                     android:text="Simpan"/>

@@ -1,97 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.login.Login">
+
     <data>
 
         <variable
             name="vm"
             type="com.myapp.laporankaryawan.ui.login.LoginViewModel" />
+
         <variable
             name="isLoading"
             type="boolean" />
     </data>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ScrollView
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/dp_32">
+
+        <LinearLayout
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="match_parent">
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp_16">
+                <ImageView
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_64"
+                    android:src="@drawable/ic_user"
+                    android:layout_gravity="center" />
+
                 <LinearLayout
-                    android:id="@+id/head"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="40sp"
-                    android:gravity="center|left"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/logo"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_8">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textSize="24sp"
-                        android:text="Login"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/body"
-                    android:layout_below="@id/head"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                        android:text="@string/log_in"
+                        android:textSize="@dimen/sp_24"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"/>
+
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Halo !"/>
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:text="Silahkan masuk untuk melanjutkan"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Masukkan Username"
-                        android:maxLines="1"
-                        android:text="@={vm.username}"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Masukkan Password"
-                        android:text="@={vm.password}"/>
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/putih"
-                        android:onClick="@{(v)->vm.login(v)}"
-                        viewGone="@{!isLoading}"
-                        android:background="@drawable/mybtn_primary"
-                        android:text="Masuk"/>
-                    <ProgressBar
-                        viewGone="@{isLoading}"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        />
+                        android:text="@string/e_lapor_pt_samudra_solusindo"
+                        android:textColor="@color/colorPrimary"/>
                 </LinearLayout>
-                <TextView
-                    android:layout_below="@id/body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:text="Dengan masuk Anda mematuhi Syarat dan Ketentuan layanan"/>
-            </RelativeLayout>
-        </ScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </LinearLayout>
+
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_muda_banget"
+                android:hint="@string/username_atau_nip"
+                android:inputType="text"
+                android:padding="@dimen/dp_16"
+                android:gravity="top"
+                android:textSize="@dimen/sp_14"
+                android:singleLine="false"
+                android:textColor="@color/black_tua_hehe"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@={vm.username}" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_muda_banget"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="@dimen/dp_16"
+                android:gravity="top"
+                android:textSize="@dimen/sp_14"
+                android:singleLine="false"
+                android:textColor="@color/black_tua_hehe"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@={vm.password}" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/log_in"
+                android:layout_marginTop="@dimen/dp_16"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="@dimen/sp_16"
+                android:background="@drawable/ripple_primary"
+                android:onClick="@{(v)->vm.login(v)}"
+                viewGone="@{!isLoading}" />
+
+            <ProgressBar
+                viewGone="@{isLoading}"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </layout>

@@ -1,4 +1,22 @@
 <resources>
-    <string name="app_name">LaporanKaryawan</string>
+    <string name="app_name">E-Lapor</string>
     <string name="title_karyawan">Halamankaryawan</string>
+    <string name="selamat_datang">Selamat datang</string>
+    <string name="admin">Admin</string>
+    <string name="pegawai">Pegawai</string>
+    <string name="lap_harian">Lap. Harian</string>
+    <string name="lap_bulanan">Lap. Bulanan</string>
+    <string name="lihat_semua">Lihat Semua</string>
+    <string name="info">Informasi di atas menunjukkan total dari seluruh masing-masing data yang di kelola oleh admin</string>
+    <string name="kelola_data">Kelola data</string>
+    <string name="tambah_nkota">Tambah\nKota</string>
+    <string name="tambah_nuser">Tambah\nKaryawan</string>
+    <string name="tambah_noutlet">Tambah\nOutlet</string>
+    <string name="rekap_nlaporan">Rekap\nLaporan</string>
+    <string name="informasi_kepegawaian">Informasi Kepegawaian</string>
+    <string name="username_atau_nip">Username atau NIP</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="pt_samudra_solusindo">PT Samudra Solusindo</string>
+    <string name="e_lapor_pt_samudra_solusindo">E-Lapor PT Samudra Solusindo</string>
 </resources>

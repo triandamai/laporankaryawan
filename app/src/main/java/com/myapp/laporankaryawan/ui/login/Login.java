@@ -16,16 +16,18 @@ public class Login extends AppCompatActivity {
     public static String TAG = "Login";
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setIsLoading(false);
-        loginViewModel = new ViewModelProvider(this,new LoginFactory(getApplicationContext())).get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this, new LoginFactory(getApplicationContext())).get(LoginViewModel.class);
         binding.setVm(loginViewModel);
         loginViewModel.setSaveListener(sendDataListener);
 
     }
+
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {
@@ -35,12 +37,12 @@ public class Login extends AppCompatActivity {
         @Override
         public void onSuccess(String level) {
             binding.setIsLoading(false);
-            if(level.equalsIgnoreCase("2")){
-            startActivity(new Intent(Login.this, Root.class));
-            finish();
-            }else {
+            if (level.equalsIgnoreCase("2")) {
+                startActivity(new Intent(Login.this, Root.class));
+                finish();
+            } else {
                 Intent intent = new Intent();
-                intent.setClassName(Login.this,"");
+                intent.setClassName(Login.this, "");
                 startActivity(intent);
                 finish();
             }

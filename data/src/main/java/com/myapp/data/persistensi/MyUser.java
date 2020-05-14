@@ -33,11 +33,6 @@ public class MyUser {
             Gson gson = new Gson();
             editor.putString("userdata", gson.toJson(user));
             editor.apply();
-            if (user == null) {
-                Log.d(TAG, "mendengarkan user ");
-            } else {
-                Log.d(TAG, "user tidak ada");
-            }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage().toString());
         }
@@ -49,7 +44,6 @@ public class MyUser {
             Gson gson = new Gson();
             String json = sharedPreferences.getString("userdata", "");
             UserModel user = gson.fromJson(json, UserModel.class);
-            Log.d(TAG, "mengambil user" + json.toString());
             return user;
         } catch (NullPointerException e) {
             Log.e(TAG, e.getMessage().toString());
@@ -59,9 +53,7 @@ public class MyUser {
 
 
     public  void signOut() {
-
         editor.remove("userdata");
         editor.apply();
-        Log.d(TAG, "menghapus persistensi");
     }
 }

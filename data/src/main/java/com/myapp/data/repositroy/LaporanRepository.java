@@ -170,7 +170,7 @@ public  class LaporanRepository {
         service.getAllKota(kotaModel).enqueue(new Callback<ResponseGetKota>() {
             @Override
             public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
-                
+
             }
 
             @Override

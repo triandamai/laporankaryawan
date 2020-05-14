@@ -48,8 +48,8 @@ public class LoginViewModel extends ViewModel {
                 if(cek(response.code(),context,"login")){
                     if(response.body().getResponseCode().toString().equalsIgnoreCase("200")){
 //                        Log.e("login",response.body().toString());
-                        listener.onSuccess(response.body().getData().getLevelUser());
                         MyUser.getInstance(context).setUser(response.body().getData());
+                        listener.onSuccess(response.body().getData().getLevelUser());
                     }else {
                         listener.onFailed(response.body().getResponseMessage());
                     }

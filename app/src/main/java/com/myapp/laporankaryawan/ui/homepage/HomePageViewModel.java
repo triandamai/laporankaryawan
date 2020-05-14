@@ -17,7 +17,6 @@ import io.realm.Realm;
 public class HomePageViewModel extends ViewModel {
     private Context context;
     private Realm realm;
-    private RealmLiveObject realmLiveObject;
 
     private  LiveData<HomePageObject> homePageModelLiveData;
 
@@ -31,19 +30,17 @@ public class HomePageViewModel extends ViewModel {
 
     public void init(){
         try {
-
-            homePageModelLiveData = new RealmLiveObject(Objects.requireNonNull(realm.where(HomePageObject.class).findFirst()));
+            homePageModelLiveData = new RealmLiveObject((realm.where(HomePageObject.class).findFirst()));
         }catch (NullPointerException e){
             homePageModelLiveData = new MutableLiveData<>();
         }
     }
 
     public LiveData<HomePageObject> getHomePageModelLiveData() {
+        if (homePageModelLiveData == null){
+            homePageModelLiveData = new MutableLiveData<>();
+        }
         return homePageModelLiveData;
-    }
-
-    public void setHomePageModelLiveData(LiveData<HomePageObject> homePageModelLiveData) {
-        this.homePageModelLiveData = homePageModelLiveData;
     }
 
 }

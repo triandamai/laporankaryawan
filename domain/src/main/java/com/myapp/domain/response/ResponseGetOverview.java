@@ -50,4 +50,13 @@ public class ResponseGetOverview {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "ResponseGetOverview{" +
+                "status=" + status +
+                ", responseCode=" + responseCode +
+                ", responseMessage='" + responseMessage + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

@@ -14,6 +14,8 @@ import com.myapp.domain.response.ResponseGetOverview;
 import com.myapp.domain.response.ResponsePost;
 import com.myapp.domain.response.ResponsePostLogin;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,7 +23,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiService {
-    String BASE_URL = "http://192.168.1.22/laporan-karyawan-api/v1/";
+//    String BASE_URL = "http://192.168.1.22/laporan-karyawan-api/v1/";
+    String BASE_URL = "http://192.168.100.5/laporan-karyawan-api/v1/";
 
     String accept_urlencoded = "Content-Type: application/x-www-form-urlencoded";
     String accept_json = "Accept: application/json;charset=utf-8";
@@ -78,7 +81,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
-    Call<ResponseGetLaporan> getAllLaporanharian(@Body LaporanModel laporanModel);
+    Call<ResponseGetLaporan> getAllLaporanharian(@Body JSONObject laporan);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/add")

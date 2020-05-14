@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 public  class LaporanHarianFactory implements ViewModelProvider.Factory {
     private Context context;
-    public LaporanHarianFactory(Context context){
-
+    private String tahun,bulan;
+    public LaporanHarianFactory(Context context,String bulan,String tahun){
+        this.bulan = bulan;
+        this.tahun = tahun;
         this.context = context;
     }
 
@@ -18,7 +20,7 @@ public  class LaporanHarianFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(LaporanHarianViewModel.class)) {
-            return (T) new LaporanHarianViewModel(context);
+            return (T) new LaporanHarianViewModel(context,tahun,bulan);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

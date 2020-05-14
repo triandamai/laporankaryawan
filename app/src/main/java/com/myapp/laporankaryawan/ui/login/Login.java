@@ -2,11 +2,13 @@ package com.myapp.laporankaryawan.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.Root;
 import com.myapp.laporankaryawan.callback.SendDataListener;
@@ -16,6 +18,7 @@ public class Login extends AppCompatActivity {
     public static String TAG = "Login";
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
+    private MaterialAlertDialogBuilder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,24 @@ public class Login extends AppCompatActivity {
         @Override
         public void onFailed(String message) {
             binding.setIsLoading(false);
+            dialogGagal(message);
         }
 
         @Override
         public void onError(String message) {
             binding.setIsLoading(false);
+            dialogGagal(message);
         }
     };
+
+    protected void dialogGagal(String message) {
+
+        builder = new MaterialAlertDialogBuilder(Login.this, R.style.dialog);
+        builder.create();
+        builder.setTitle("Oops!");
+        builder.setMessage(message);
+        builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.myapp.laporankaryawan.ui.homepage;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
@@ -28,7 +31,7 @@ public class HomePage extends BaseFragment {
 
     private HomePageViewModel mViewModel;
     private HomePageFragmentBinding binding;
-
+    private MaterialAlertDialogBuilder builder;
     public static HomePage newInstance() {
         return new HomePage();
     }
@@ -50,7 +53,7 @@ public class HomePage extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(),new HomePageFactory(getContext())).get(HomePageViewModel.class);
-        mViewModel.init();
+
 
         // TODO: Use the ViewModel
     }
@@ -58,7 +61,7 @@ public class HomePage extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        mViewModel.init();
         observe(mViewModel);
     }
 
@@ -67,26 +70,39 @@ public class HomePage extends BaseFragment {
             @Override
             public void onChanged(HomePageObject homePageObject) {
 
+                    if(homePageObject != null) {
+                        binding.setIsLoading(false);
+                        int bulanan = Integer.parseInt(homePageObject.getLapMasukBulanan().toString());
+                        int harian = Integer.parseInt(homePageObject.getLapMasukHarian().toString());
+                        if (bulanan >= 1) {
+                            binding.setIsNotifikasiBulanan(true);
+                        }
+                        if (harian >= 1) {
+                            binding.setIsNotifikasiHarian(true);
+                        }
 
-                    binding.setIsLoading(false);
-//                    Log.e(TAG, homePageObject.toString());
-                    int bulanan = Integer.parseInt(homePageObject.getLapMasukBulanan().toString());
-                    int harian = Integer.parseInt(homePageObject.getLapMasukHarian().toString());
-                    if(bulanan >= 1){
-                        binding.setIsNotifikasiBulanan(true);
+                        binding.setOverview(homePageObject);
                     }
-                    if (harian >= 1){
-                        binding.setIsNotifikasiHarian(true);
-                    }
-
-                    binding.setOverview(homePageObject);
-
             }
         });
 
 
     }
+    private void keluar() {
 
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
+        builder.setTitle("Hi..");
+        builder.setMessage("Yakin Mau Keluar ?");
+        builder.setPositiveButton("Keluar", (dialog, which) -> {
+            MyUser.getInstance(getContext()).signOut();
+            signOut();
+        });
+        builder.setNegativeButton("Batal", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.show();
+    }
     private HomePageItemClicked homePageItemClicked = new HomePageItemClicked() {
         @Override
         public void tambahUser(View v) {
@@ -120,7 +136,7 @@ public class HomePage extends BaseFragment {
 
         @Override
         public void LogOut(View v) {
-            replaceFragment(LaporanHarian.newInstance(),null);
+            keluar();
         }
 
         @Override

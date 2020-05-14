@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.myapp.laporankaryawan">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,14 +13,15 @@
     <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_user"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_user"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:name="com.myapp.MyApp"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Root"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="UnusedAttribute">
+        <activity android:name=".Root"/>
         <activity android:name=".ui.login.Login" />
         <activity android:name=".SplashScreen">
             <intent-filter>

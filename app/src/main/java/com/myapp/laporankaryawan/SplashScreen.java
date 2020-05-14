@@ -17,22 +17,18 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         UserModel userModel = MyUser.getInstance(getApplicationContext()).getUser();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(userModel == null){
-                    startActivity(new Intent(SplashScreen.this,Login.class));
+        new Handler().postDelayed(() -> {
+            if (userModel == null) {
+                startActivity(new Intent(SplashScreen.this, Login.class));
+                finish();
+            } else {
+                if (userModel.getLevelUser().equalsIgnoreCase("2")) {
+                    startActivity(new Intent(SplashScreen.this, Root.class));
                     finish();
-                }else {
-                    if(userModel.getLevelUser().equalsIgnoreCase("2")) {
-                        startActivity(new Intent(SplashScreen.this, Root.class));
-                        finish();
-                    }else {
+                } else {
 
-                    }
                 }
             }
-        },1000);
-
+        }, 3000);
     }
 }

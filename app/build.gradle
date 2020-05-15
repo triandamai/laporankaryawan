@@ -61,8 +61,8 @@ dependencies {
     /* swiperefresh layout */
     api "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     api 'com.google.android.play:core:1.7.2'
+    api 'joda-time:joda-time:2.10.6'
 
-
-    implementation project(path : ':data')
-    implementation project(path : ':domain')
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
 }

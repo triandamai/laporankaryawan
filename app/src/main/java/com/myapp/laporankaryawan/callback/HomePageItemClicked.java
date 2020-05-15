@@ -11,4 +11,5 @@ public interface HomePageItemClicked {
     void Bulanan(View v);
     void LogOut(View v);
     void Notifikasi(View v);
+    void RekapLaporan(View v);
 }

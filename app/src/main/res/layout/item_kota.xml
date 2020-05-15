@@ -15,6 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
         android:layout_marginBottom="5dp"
         android:onClick="@{()->callback.onClick(data)}"
         android:orientation="vertical">
@@ -24,8 +26,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@{`RT : `+data.namaKota}" />
-
+            android:text="@{data.namaKota}" />
 
         <View
             android:layout_width="match_parent"

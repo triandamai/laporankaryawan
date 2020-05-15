@@ -22,6 +22,7 @@ import com.myapp.laporankaryawan.callback.HomePageItemClicked;
 import com.myapp.laporankaryawan.databinding.HomePageFragmentBinding;
 import com.myapp.laporankaryawan.ui.datapegawai.DataPegawai;
 import com.myapp.laporankaryawan.ui.laporanharian.LaporanHarian;
+import com.myapp.laporankaryawan.ui.rekapan.HalamanPilihRekapan;
 import com.myapp.laporankaryawan.ui.tambahkota.TambahKota;
 import com.myapp.laporankaryawan.ui.tambahoutlet.TambahOutlet;
 import com.myapp.laporankaryawan.ui.tambahuser.TambahUser;
@@ -142,6 +143,11 @@ public class HomePage extends BaseFragment {
         @Override
         public void Notifikasi(View v) {
             replaceFragment(LaporanHarian.newInstance(),null);
+        }
+
+        @Override
+        public void RekapLaporan(View v) {
+            replaceFragment(HalamanPilihRekapan.newInstance(),null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

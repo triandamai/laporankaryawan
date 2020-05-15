@@ -509,14 +509,14 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
-                                android:onClick="@{(v)->click.tambahOutlet(v)}"
+                                android:onClick="@{(v)->click.RekapLaporan(v)}"
                                 android:layout_weight="1">
 
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
                                     android:background="?attr/selectableItemBackground"
-                                    android:onClick="@{(v)->click.tambahOutlet(v)}"
+                                    android:onClick="@{(v)->click.RekapLaporan(v)}"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"

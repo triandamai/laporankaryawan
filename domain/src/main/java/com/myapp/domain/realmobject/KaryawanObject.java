@@ -96,5 +96,18 @@ public class KaryawanObject extends RealmObject {
         this.updatedAt = updatedAt;
     }
 
-
+    @Override
+    public String toString() {
+        return "KaryawanObject{" +
+                "idUser='" + idUser + '\'' +
+                ", nipUser='" + nipUser + '\'' +
+                ", usernameUser='" + usernameUser + '\'' +
+                ", passwordUser='" + passwordUser + '\'' +
+                ", namaUser='" + namaUser + '\'' +
+                ", fotoUser='" + fotoUser + '\'' +
+                ", levelUser='" + levelUser + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
+    }
 }

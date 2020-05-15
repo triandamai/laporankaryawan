@@ -16,7 +16,7 @@
             type="String" />
         <variable
             name="event"
-            type="com.myapp.laporankaryawan.callback.HalamanRekapanCallback" />
+            type="com.myapp.laporanadmin.callback.HalamanRekapanCallback" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

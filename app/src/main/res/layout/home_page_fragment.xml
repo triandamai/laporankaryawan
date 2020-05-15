@@ -7,7 +7,7 @@
 
         <variable
             name="click"
-            type="com.myapp.laporankaryawan.callback.HomePageItemClicked" />
+            type="com.myapp.laporanadmin.callback.HomePageItemClicked" />
 
         <variable
             name="overview"

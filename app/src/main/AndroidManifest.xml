@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.myapp.laporankaryawan">
+    package="com.myapp.laporanadmin">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,9 +21,9 @@
         android:name="com.myapp.MyApp"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".Root"/>
-        <activity android:name=".ui.login.Login" />
-        <activity android:name=".SplashScreen">
+        <activity android:name="com.myapp.laporanadmin.Root"/>
+        <activity android:name="com.myapp.laporanadmin.ui.login.Login" />
+        <activity android:name="com.myapp.laporanadmin.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

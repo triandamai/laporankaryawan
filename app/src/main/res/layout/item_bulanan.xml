@@ -10,7 +10,7 @@
             type="com.myapp.domain.realmobject.LaporanBulananObject" />
         <variable
             name="event"
-            type="com.myapp.laporankaryawan.callback.AdapterItemClicked" />
+            type="com.myapp.laporanadmin.callback.AdapterItemClicked" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

@@ -9,7 +9,7 @@
             type="boolean" />
         <variable
             name="vm"
-            type="com.myapp.laporankaryawan.ui.tambahkota.TambahKotaViewModel" />
+            type="com.myapp.laporanadmin.ui.tambahkota.TambahKotaViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

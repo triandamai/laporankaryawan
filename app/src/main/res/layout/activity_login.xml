@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.myapp.laporankaryawan.ui.login.LoginViewModel" />
+            type="com.myapp.laporanadmin.ui.login.LoginViewModel" />
 
         <variable
             name="isLoading"

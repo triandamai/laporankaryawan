@@ -9,7 +9,7 @@
 
         <variable
             name="callback"
-            type="com.myapp.laporankaryawan.ui.bottomsheet.AdapterSheetKota.ItemClicked" />
+            type="com.myapp.laporanadmin.ui.bottomsheet.AdapterSheetKota.ItemClicked" />
     </data>
 
     <LinearLayout

@@ -10,7 +10,7 @@
             type="com.myapp.domain.realmobject.KaryawanObject" />
         <variable
             name="event"
-            type="com.myapp.laporankaryawan.ui.bottomsheet.AdapterSheetKaryawan.ItemClicked" />
+            type="com.myapp.laporanadmin.ui.bottomsheet.AdapterSheetKaryawan.ItemClicked" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

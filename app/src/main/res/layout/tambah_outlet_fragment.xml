@@ -9,10 +9,10 @@
             type="boolean" />
         <variable
             name="vm"
-            type="com.myapp.laporankaryawan.ui.tambahoutlet.TambahOutletViewModel" />
+            type="com.myapp.laporanadmin.ui.tambahoutlet.TambahOutletViewModel" />
         <variable
             name="event"
-            type="com.myapp.laporankaryawan.callback.SheetShow" />
+            type="com.myapp.laporanadmin.callback.SheetShow" />
         <variable
             name="kota"
             type="com.myapp.domain.model.KotaModel" />

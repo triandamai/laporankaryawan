@@ -20,4 +20,6 @@
     <string name="pt_samudra_solusindo">PT Samudra Solusindo</string>
     <string name="e_lapor_pt_samudra_solusindo">E-Lapor PT Samudra Solusindo</string>
     <string name="pilih_karyawan">Pilih Karyawan</string>
+    <string name="namakota">Masukkan Nama Kota</string>
+    <string name="waktu_rekap">"Pilih Waktu "</string>
 </resources>

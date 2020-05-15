@@ -26,12 +26,8 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp_10"
             android:text="@{data.namaKota}" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="2dp"
-            android:background="#818181" />
     </LinearLayout>
 </layout>

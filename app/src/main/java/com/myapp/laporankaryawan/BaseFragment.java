@@ -52,6 +52,15 @@ public class BaseFragment extends Fragment {
         builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());
         builder.show();
     }
+    protected void dialogBerhasil(String message) {
+
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
+        builder.setTitle("Info");
+        builder.setMessage(message);
+        builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
     protected void signOut(){
         ((Root) getActivity()).onSignOut();
     }

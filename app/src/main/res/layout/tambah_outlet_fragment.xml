@@ -39,19 +39,32 @@
                 android:paddingStart="@dimen/dp_16"
                 android:paddingEnd="@dimen/dp_16"
                 android:orientation="vertical">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:background="@null"
+                    android:layout_marginTop="@dimen/sp_20"
+                    android:layout_marginBottom="@dimen/dp_24"
+                    android:text="@={vm.namaoutlet}"
+                    android:hint="Masukkan Nama Outlet"/>
                 <EditText
                     android:id="@+id/et_namakota"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/gray_muda_banget"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_16"
+                    android:gravity="top"
+                    android:textSize="@dimen/sp_14"
+                    android:singleLine="false"
+                    android:textColor="@color/black_tua_hehe"
+                    android:layout_marginTop="@dimen/dp_4"
                     android:text="@={kota.namaKota}"
                     android:focusable="false"
                     android:onClick="@{(v)->event.sheetShow(v)}"
-                    android:hint="Nama Kota"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={vm.namaoutlet}"
-                    android:hint="Nama Outlet"/>
+                    android:hint="Pilih Kota"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

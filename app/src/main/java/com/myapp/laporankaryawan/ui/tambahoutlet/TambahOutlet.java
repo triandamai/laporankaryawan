@@ -82,7 +82,7 @@ public class TambahOutlet extends BaseFragment {
         @Override
         public void onSuccess(String message) {
             binding.setIsLoading(false);
-
+            dialogBerhasil(message);
         }
 
         @Override

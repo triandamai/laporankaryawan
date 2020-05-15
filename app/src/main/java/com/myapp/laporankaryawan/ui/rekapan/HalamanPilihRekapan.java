@@ -1,19 +1,18 @@
 package com.myapp.laporankaryawan.ui.rekapan;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.myapp.domain.model.KaryawanModel;
+import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.callback.HalamanRekapanCallback;
 import com.myapp.laporankaryawan.databinding.HalamanPilihRekapanFragmentBinding;
@@ -22,7 +21,7 @@ import com.myapp.laporankaryawan.ui.datepicker.DatePickerMax;
 
 import org.joda.time.DateTime;
 
-public class HalamanPilihRekapan extends Fragment {
+public class HalamanPilihRekapan extends BaseFragment {
 
     private HalamanPilihRekapanViewModel mViewModel;
     private HalamanPilihRekapanFragmentBinding binding;
@@ -36,8 +35,10 @@ public class HalamanPilihRekapan extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-       binding = DataBindingUtil.inflate(inflater,R.layout.halaman_pilih_rekapan_fragment, container, false);
-        mViewModel = new ViewModelProvider(requireActivity(),new HalamanPilihRekapanFactory(getContext())).get(HalamanPilihRekapanViewModel.class);
+        binding = DataBindingUtil.inflate(inflater, R.layout.halaman_pilih_rekapan_fragment, container, false);
+        setActionBar(binding.toolbar,"Data Rekapan","");
+        setHasOptionsMenu(true);
+        mViewModel = new ViewModelProvider(requireActivity(), new HalamanPilihRekapanFactory(getContext())).get(HalamanPilihRekapanViewModel.class);
         sheetKaryawan = new SheetKaryawan();
         datePickerMax = new DatePickerMax();
         datePickerMax.setDateListener(dateListener);
@@ -53,14 +54,14 @@ public class HalamanPilihRekapan extends Fragment {
     private HalamanRekapanCallback halamanRekapanCallback = new HalamanRekapanCallback() {
         @Override
         public void onSelectKaryawan(View v) {
-            sheetKaryawan.show(getActivity().getSupportFragmentManager(),"Pilih Karyawan");
+            sheetKaryawan.show(getActivity().getSupportFragmentManager(), "Pilih Karyawan");
             binding.setIsLoading(true);
 
         }
 
         @Override
         public void onSelectBulan(View v) {
-            datePickerMax.show(getActivity().getSupportFragmentManager(),"ambil tanggal");
+            datePickerMax.show(getActivity().getSupportFragmentManager(), "ambil tanggal");
         }
 
         @Override
@@ -85,7 +86,7 @@ public class HalamanPilihRekapan extends Fragment {
         public void onDatePandaSet(int tahun, int bulan, int hari) {
             datePickerMax.dismiss();
             String monthName = DateTime.now().withMonthOfYear(bulan).toString("MMM");
-            binding.setTanggal(monthName+" "+tahun);
+            binding.setTanggal(monthName + " " + tahun);
         }
     };
 

@@ -28,7 +28,7 @@ public class LaporanBulananViewModel extends ViewModel {
         this.realm = Realm.getDefaultInstance();
 
         try {
-            LaporanRepository.getInstance(context).getLaporanHarian(laporanRequestData);
+            LaporanRepository.getInstance(context).getLaporanBulanan(laporanRequestData);
         } catch (JSONException e) {
             e.printStackTrace();
         }

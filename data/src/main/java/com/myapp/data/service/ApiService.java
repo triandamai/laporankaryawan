@@ -6,6 +6,7 @@ import com.myapp.domain.model.LaporanModel;
 import com.myapp.domain.model.LaporanRequestData;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.model.PostUserModel;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.response.ResponseGetKaryawan;
@@ -48,7 +49,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/add")
-    Call<ResponsePost> simpanoutlet(@Body OutletModel outletModel);
+    Call<ResponsePost> simpanoutlet(@Body PostOutletModel outletModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/data")
@@ -85,10 +86,16 @@ public interface ApiService {
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
     Call<ResponseGetLaporanHarian> getAllLaporanharian(@Body LaporanRequestData laporanRequestData);
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanharian/data")
+    Call<ResponseGetLaporanHarian> getAllLaporanharianRekap(@Body LaporanRequestData laporanRequestData);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
     Call<ResponseGetLaporanBulanan> getAllLaporanbulanan(@Body LaporanRequestData laporanRequestData);
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanbulanan/data")
+    Call<ResponseGetLaporanBulanan> getAllLaporanbulananRekap(@Body LaporanRequestData laporanRequestData);
 
 
     @Headers({accept_json,content_type,api_key})

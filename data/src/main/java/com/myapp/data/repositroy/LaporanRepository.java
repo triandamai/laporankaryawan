@@ -104,15 +104,17 @@ public  class LaporanRepository {
             @Override
             public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
                 if(cek(response.code(),context,"getData lap harian")){
-//                    Log.e(TAG,response.body().toString());
-                    Log.e(TAG,response.toString());
+                    Log.e(TAG,response.body().getData().toString());
+                  //  Log.e(TAG,response.toString());
                     if(response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
 
                                 LaporanHarianObject laporanHarianObject = new LaporanHarianObject();
                                 realm.beginTransaction();
+                                realm.delete(LaporanHarianObject.class);
                                 realm.commitTransaction();
+
                                 for (LaporanModel item : response.body().getData()) {
                                     laporanHarianObject.setIdLaporanharian(item.getIdLaporanharian());
                                     laporanHarianObject.setAlamatLaporanharian(item.getAlamatLaporanharian());
@@ -171,6 +173,8 @@ public  class LaporanRepository {
 
                                 LaporanBulananObject laporanBulananObject = new LaporanBulananObject();
                                 realm.beginTransaction();
+                                realm.delete(LaporanBulananObject.class);
+                                realm.commitTransaction();
 
                                 for (LaporanBulananModel item : response.body().getData()) {
                                     laporanBulananObject.setIdLaporanbulanan(item.getIdLaporanbulanan());

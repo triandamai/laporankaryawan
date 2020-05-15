@@ -2,7 +2,7 @@ package com.myapp.domain.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.LaporanModel;
+import com.myapp.domain.model.LaporanHarianModel;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class ResponseGetLaporanHarian {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private List<LaporanModel> data = null;
+    private List<LaporanHarianModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -44,11 +44,11 @@ public class ResponseGetLaporanHarian {
         this.responseMessage = responseMessage;
     }
 
-    public List<LaporanModel> getData() {
+    public List<LaporanHarianModel> getData() {
         return data;
     }
 
-    public void setData(List<LaporanModel> data) {
+    public void setData(List<LaporanHarianModel> data) {
         this.data = data;
     }
 

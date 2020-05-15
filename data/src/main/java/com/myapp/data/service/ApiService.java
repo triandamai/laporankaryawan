@@ -3,7 +3,8 @@ package com.myapp.data.service;
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
-import com.myapp.domain.model.LaporanModel;
+import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
@@ -84,6 +85,10 @@ public interface ApiService {
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
     Call<ResponseGetLaporanHarian> getAllLaporanharian(@Body LaporanHarianRequestData laporanHarianRequestData);
+
+    @Headers({accept_json,content_type,api_key})
+    @POST("laporanharian/data")
+    Call<ResponseGetLaporanHarian> getAllLaporanharianRekapan(@Body LaporanHarianRekapanRequestData laporanHarianRequestData);
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
     Call<ResponseGetLaporanHarian> getAllLaporanharianRekap(@Body LaporanHarianRequestData laporanHarianRequestData);
@@ -97,11 +102,11 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/add")
-    Call<ResponseGetKaryawan> tambahlaporanharian(@Body LaporanModel laporanModel);
+    Call<ResponseGetKaryawan> tambahlaporanharian(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/proses")
-    Call<ResponseGetKaryawan> proseslaporanharia(@Body LaporanModel laporanModel);
+    Call<ResponseGetKaryawan> proseslaporanharia(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/data")
@@ -121,15 +126,15 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
-    Call<ResponseGetLaporanHarian> getAllLaporanBulanan(@Body LaporanModel laporanModel);
+    Call<ResponseGetLaporanHarian> getAllLaporanBulanan(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/add")
-    Call<ResponseGetKaryawan> tambahlaporanbulanan(@Body LaporanModel laporanModel);
+    Call<ResponseGetKaryawan> tambahlaporanbulanan(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/proses")
-    Call<ResponseGetKaryawan> laporanbulananproses(@Body LaporanModel laporanModel);
+    Call<ResponseGetKaryawan> laporanbulananproses(@Body LaporanHarianModel laporanModel);
 
 
 

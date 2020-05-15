@@ -3,13 +3,17 @@ package com.myapp.data.repositroy;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.gson.Gson;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
-import com.myapp.domain.model.LaporanModel;
+import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.realmobject.KaryawanObject;
@@ -23,6 +27,8 @@ import com.myapp.domain.response.ResponseGetLaporanHarian;
 import com.myapp.domain.response.ResponseGetOverview;
 
 import org.json.JSONException;
+
+import java.util.List;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -116,7 +122,7 @@ public  class LaporanRepository {
                                 realm.delete(LaporanHarianObject.class);
                                 realm.commitTransaction();
 
-                                for (LaporanModel item : response.body().getData()) {
+                                for (LaporanHarianModel item : response.body().getData()) {
                                     laporanHarianObject.setIdLaporanharian(item.getIdLaporanharian());
                                     laporanHarianObject.setAlamatLaporanharian(item.getAlamatLaporanharian());
                                     laporanHarianObject.setBuktiLaporanharian(item.getBuktiLaporanharian());
@@ -160,6 +166,37 @@ public  class LaporanRepository {
                 Log.e(TAG,"gagal ambil laporanharian"+t.getMessage());
             }
         });
+    }
+    public LiveData<List<LaporanHarianModel>> getLaporanHarianRekapan(LaporanHarianRekapanRequestData laporanHarianRequestData) throws JSONException {
+        final MutableLiveData<List<LaporanHarianModel>> data = new MutableLiveData<>();
+        Gson gson = new Gson();
+        Log.e(TAG,gson.toJson(laporanHarianRequestData));
+        service.getAllLaporanharianRekapan(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
+            @Override
+            public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
+                if(cek(response.code(),context,"getData lap harian")){
+                    Log.e(TAG,response.body().getData().toString());
+                    //  Log.e(TAG,response.toString());
+                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        if (response.body().getData() != null) {
+                            data.setValue(response.body().getData());
+                        }else {
+                            data.setValue(null);
+                        }
+                    }else {
+                        data.setValue(null);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseGetLaporanHarian> call, Throwable t) {
+                Log.e(TAG,"gagal ambil laporanharian"+t.getMessage());
+                data.setValue(null);
+            }
+        });
+        return data;
     }
     public void getLaporanBulanan(LaporanBulananRequestData laporanHarianRequestData) throws JSONException {
 

@@ -3,7 +3,7 @@ package com.myapp.domain.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LaporanRequestData {
+public class LaporanHarianRequestData {
     @SerializedName("bulan_laporanharian")
     @Expose
     private Integer bulanLaporanharian;

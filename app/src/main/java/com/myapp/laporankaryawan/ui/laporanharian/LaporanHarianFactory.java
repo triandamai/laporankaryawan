@@ -6,13 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 
 public  class LaporanHarianFactory implements ViewModelProvider.Factory {
     private Context context;
-    private LaporanRequestData laporanRequestData;
-    public LaporanHarianFactory(Context context, LaporanRequestData laporanRequestData){
-        this.laporanRequestData = laporanRequestData;
+    private LaporanHarianRequestData laporanHarianRequestData;
+    public LaporanHarianFactory(Context context, LaporanHarianRequestData laporanHarianRequestData){
+        this.laporanHarianRequestData = laporanHarianRequestData;
         this.context = context;
     }
 
@@ -21,7 +21,7 @@ public  class LaporanHarianFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(LaporanHarianViewModel.class)) {
-            return (T) new LaporanHarianViewModel(context,laporanRequestData);
+            return (T) new LaporanHarianViewModel(context, laporanHarianRequestData);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

@@ -51,4 +51,14 @@ public class ResponseGetLaporanBulanan {
     public void setData(List<LaporanBulananModel> data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseGetLaporanBulanan{" +
+                "status=" + status +
+                ", responseCode=" + responseCode +
+                ", responseMessage='" + responseMessage + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

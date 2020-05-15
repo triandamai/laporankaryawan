@@ -2,8 +2,9 @@ package com.myapp.data.service;
 
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
+import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanModel;
-import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.PostOutletModel;
@@ -82,17 +83,17 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
-    Call<ResponseGetLaporanHarian> getAllLaporanharian(@Body LaporanRequestData laporanRequestData);
+    Call<ResponseGetLaporanHarian> getAllLaporanharian(@Body LaporanHarianRequestData laporanHarianRequestData);
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
-    Call<ResponseGetLaporanHarian> getAllLaporanharianRekap(@Body LaporanRequestData laporanRequestData);
+    Call<ResponseGetLaporanHarian> getAllLaporanharianRekap(@Body LaporanHarianRequestData laporanHarianRequestData);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
-    Call<ResponseGetLaporanBulanan> getAllLaporanbulanan(@Body LaporanRequestData laporanRequestData);
+    Call<ResponseGetLaporanBulanan> getAllLaporanbulanan(@Body LaporanBulananRequestData laporanHarianRequestData);
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
-    Call<ResponseGetLaporanBulanan> getAllLaporanbulananRekap(@Body LaporanRequestData laporanRequestData);
+    Call<ResponseGetLaporanBulanan> getAllLaporanbulananRekap(@Body LaporanHarianRequestData laporanHarianRequestData);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/add")

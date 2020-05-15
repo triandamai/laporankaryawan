@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveResult;
 import com.myapp.data.repositroy.LaporanRepository;
-import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.model.LaporanBulananRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.domain.realmobject.LaporanHarianObject;
 
 import org.json.JSONException;
 
@@ -22,13 +22,13 @@ public class LaporanBulananViewModel extends ViewModel {
     private Context context;
     private LiveData<List<LaporanBulananObject>> listLiveData;
     private Realm realm;
-    public LaporanBulananViewModel(Context context, LaporanRequestData laporanRequestData) {
+    public LaporanBulananViewModel(Context context, LaporanBulananRequestData laporanHarianRequestData) {
         this.context = context;
         this.context = context;
         this.realm = Realm.getDefaultInstance();
 
         try {
-            LaporanRepository.getInstance(context).getLaporanBulanan(laporanRequestData);
+            LaporanRepository.getInstance(context).getLaporanBulanan(laporanHarianRequestData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -42,9 +42,7 @@ public class LaporanBulananViewModel extends ViewModel {
     }
 
     public LiveData<List<LaporanBulananObject>> getListLiveData() {
-        if(listLiveData == null){
-            listLiveData = new MutableLiveData<>();
-        }
+
         return listLiveData;
     }
     // TODO: Implement the ViewModel

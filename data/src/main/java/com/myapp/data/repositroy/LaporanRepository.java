@@ -8,8 +8,9 @@ import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananModel;
+import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanModel;
-import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.domain.realmobject.KotaObject;
@@ -96,11 +97,11 @@ public  class LaporanRepository {
 
 
     }
-    public void getLaporanHarian(LaporanRequestData laporanRequestData) throws JSONException {
+    public void getLaporanHarian(LaporanHarianRequestData laporanHarianRequestData) throws JSONException {
         Gson gson = new Gson();
 
-        Log.e(TAG,gson.toJson(laporanRequestData));
-        service.getAllLaporanharian(laporanRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
+        Log.e(TAG,gson.toJson(laporanHarianRequestData));
+        service.getAllLaporanharian(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
             @Override
             public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
                 if(cek(response.code(),context,"getData lap harian")){
@@ -132,6 +133,7 @@ public  class LaporanRepository {
                                     laporanHarianObject.setNamaOutlet(item.getOutlet().getNamaOutlet());
                                     laporanHarianObject.setNamaUser(item.getUser().getNamaUser());
                                     laporanHarianObject.setNipUser(item.getUser().getNipUser());
+                                    laporanHarianObject.setStatusLaporanharian(item.getStatusLaporanharian());
 
                                     realm.executeTransaction(new Realm.Transaction() {
                                         @Override
@@ -159,11 +161,12 @@ public  class LaporanRepository {
             }
         });
     }
-    public void getLaporanBulanan(LaporanRequestData laporanRequestData) throws JSONException {
+    public void getLaporanBulanan(LaporanBulananRequestData laporanHarianRequestData) throws JSONException {
 
-        service.getAllLaporanbulanan(laporanRequestData).enqueue(new Callback<ResponseGetLaporanBulanan>() {
+        service.getAllLaporanbulanan(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanBulanan>() {
             @Override
             public void onResponse(Call<ResponseGetLaporanBulanan> call, Response<ResponseGetLaporanBulanan> response) {
+                Log.e(TAG,response.toString());
                 if(cek(response.code(),context,"getData lap harian")){
                     Log.e(TAG,response.body().toString());
                     Log.e(TAG,response.toString());
@@ -196,7 +199,7 @@ public  class LaporanRepository {
                                     });
 
                                 }
-                                realm.commitTransaction();
+
                             }finally {
                                 if(realm != null){
                                     realm.close();

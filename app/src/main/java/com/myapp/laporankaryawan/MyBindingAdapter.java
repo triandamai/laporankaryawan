@@ -3,6 +3,7 @@ package com.myapp.laporankaryawan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -41,5 +42,17 @@ public class MyBindingAdapter {
         Picasso.get().load(url)
                 .placeholder(R.drawable.logo)
                 .into(v);
+    }
+    @BindingAdapter("setStatus")
+    public static void setStatus(TextView v,String s){
+        if(s.equalsIgnoreCase("1")){
+            v.setText("Menungggu");
+        }else if(s.equalsIgnoreCase("2")){
+            v.setText("Diterima");
+        }else if(s.equalsIgnoreCase("3")){
+            v.setText("Ditolak");
+        }else {
+            v.setText("Tidak diketahui");
+        }
     }
 }

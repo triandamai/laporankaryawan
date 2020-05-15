@@ -11,7 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.model.LaporanBulananRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
@@ -46,9 +47,9 @@ public class LaporanBulanan extends BaseFragment {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        LaporanRequestData l = new LaporanRequestData();
-        l.setBulanLaporanharian(month+1);
-        l.setTahunLaporanharian(year);
+        LaporanBulananRequestData l = new LaporanBulananRequestData();
+        l.setBulanLaporanbulanan(month+1);
+        l.setTahunLaporanbulanan(year);
         mViewModel = new ViewModelProvider(requireActivity(),new LaporanBulananFactory(getContext(),l)).get(LaporanBulananViewModel.class);
         // TODO: Use the ViewModel
     }

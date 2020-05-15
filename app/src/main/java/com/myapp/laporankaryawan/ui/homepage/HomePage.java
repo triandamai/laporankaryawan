@@ -21,6 +21,7 @@ import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.callback.HomePageItemClicked;
 import com.myapp.laporankaryawan.databinding.HomePageFragmentBinding;
 import com.myapp.laporankaryawan.ui.datapegawai.DataPegawai;
+import com.myapp.laporankaryawan.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporankaryawan.ui.laporanharian.LaporanHarian;
 import com.myapp.laporankaryawan.ui.rekapan.HalamanPilihRekapan;
 import com.myapp.laporankaryawan.ui.tambahkota.TambahKota;
@@ -132,7 +133,7 @@ public class HomePage extends BaseFragment {
 
         @Override
         public void Bulanan(View v) {
-            replaceFragment(LaporanHarian.newInstance(),null);
+            replaceFragment(LaporanBulanan.newInstance(),null);
         }
 
         @Override

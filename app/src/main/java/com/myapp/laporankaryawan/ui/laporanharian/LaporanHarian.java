@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.myapp.domain.model.LaporanRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
@@ -48,7 +48,7 @@ public class LaporanHarian extends BaseFragment {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        LaporanRequestData l = new LaporanRequestData();
+        LaporanHarianRequestData l = new LaporanHarianRequestData();
         l.setBulanLaporanharian(month+1);
         l.setTahunLaporanharian(year);
 

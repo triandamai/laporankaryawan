@@ -167,37 +167,7 @@ public  class LaporanRepository {
             }
         });
     }
-    public LiveData<List<LaporanHarianModel>> getLaporanHarianRekapan(LaporanHarianRekapanRequestData laporanHarianRequestData) throws JSONException {
-        final MutableLiveData<List<LaporanHarianModel>> data = new MutableLiveData<>();
-        Gson gson = new Gson();
-        Log.e(TAG,gson.toJson(laporanHarianRequestData));
-        service.getAllLaporanharianRekapan(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
-            @Override
-            public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
-                if(cek(response.code(),context,"getData lap harian")){
-                    Log.e(TAG,response.body().getData().toString());
-                    //  Log.e(TAG,response.toString());
-                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                        if (response.body().getData() != null) {
-                            data.setValue(response.body().getData());
-                        }else {
-                            data.setValue(null);
-                        }
-                    }else {
-                        data.setValue(null);
-                    }
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseGetLaporanHarian> call, Throwable t) {
-                Log.e(TAG,"gagal ambil laporanharian"+t.getMessage());
-                data.setValue(null);
-            }
-        });
-        return data;
-    }
     public void getLaporanBulanan(LaporanBulananRequestData laporanHarianRequestData) throws JSONException {
 
         service.getAllLaporanbulanan(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanBulanan>() {

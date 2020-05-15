@@ -21,6 +21,7 @@ import com.myapp.laporankaryawan.BaseFragment;
 import com.myapp.laporankaryawan.R;
 import com.myapp.laporankaryawan.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.callback.HalamanRekapanCallback;
+import com.myapp.laporankaryawan.callback.RekapanListener;
 import com.myapp.laporankaryawan.databinding.HalamanPilihRekapanFragmentBinding;
 import com.myapp.laporankaryawan.ui.bottomsheet.SheetKaryawan;
 import com.myapp.laporankaryawan.ui.datepicker.DatePickerMax;
@@ -55,11 +56,12 @@ public class HalamanPilihRekapan extends BaseFragment {
         setHasOptionsMenu(true);
         setDefault();
         mViewModel = new ViewModelProvider(requireActivity(), new HalamanPilihRekapanFactory(getContext())).get(HalamanPilihRekapanViewModel.class);
+        mViewModel.setRekapanListener(prosesrekap);
         sheetKaryawan = new SheetKaryawan();
         datePickerMax = new DatePickerMax();
         datePickerMax.setDateListener(dateListener);
         sheetKaryawan.setOnSheetListener(listener);
-        observe(mViewModel);
+
         binding.setEvent(halamanRekapanCallback);
         binding.setIsLoading(false);
 
@@ -94,21 +96,7 @@ public class HalamanPilihRekapan extends BaseFragment {
         }
     };
 
-    private void observe(HalamanPilihRekapanViewModel mViewModel) {
-        mViewModel.getHarianObject().observe(getViewLifecycleOwner(), new Observer<List<LaporanHarianModel>>() {
-            @Override
-            public void onChanged(List<LaporanHarianModel> laporanHarianModels) {
-                Log.e("hehe",laporanHarianModels.toString());
-                if(laporanHarianModels != null){
-                    binding.setIsLoading(false);
-                    adapterLaporanHarianRekapan.setData(laporanHarianModels);
-                    adapterLaporanHarianRekapan.notifyDataSetChanged();
-                }else {
-                    binding.setIsLoading(false);
-                }
-            }
-        });
-    }
+
 
     private SheetKaryawan.BottomSheetListener listener = new SheetKaryawan.BottomSheetListener() {
         @Override
@@ -119,6 +107,8 @@ public class HalamanPilihRekapan extends BaseFragment {
             l.setIdUser(kotaModel.getIdUser());
             l.setBulanLaporanharian(bulan);
             l.setTahunLaporanharian(tahun);
+            String monthName = DateTime.now().withMonthOfYear(bulan).toString("MMM");
+            binding.setTanggal(monthName + " " + tahun);
             mViewModel.setharianrekap(l);
         }
     };
@@ -149,5 +139,27 @@ public class HalamanPilihRekapan extends BaseFragment {
 
         }
     };
+    private RekapanListener prosesrekap = new RekapanListener() {
+        @Override
+        public void onStart() {
+            binding.setIsLoading(true);
+        }
 
+        @Override
+        public void onSuccess(List<LaporanHarianModel> laporanHarianModels) {
+            binding.setIsLoading(false);
+            adapterLaporanHarianRekapan.setData(laporanHarianModels);
+            adapterLaporanHarianRekapan.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onFailed(String message) {
+            binding.setIsLoading(false);
+        }
+
+        @Override
+        public void onError(String message) {
+            binding.setIsLoading(false);
+        }
+    };
 }

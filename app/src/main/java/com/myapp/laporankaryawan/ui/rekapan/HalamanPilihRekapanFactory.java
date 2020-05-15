@@ -10,6 +10,7 @@ import com.myapp.laporankaryawan.ui.tambahkota.TambahKotaViewModel;
 
 public  class HalamanPilihRekapanFactory implements ViewModelProvider.Factory {
     private Context context;
+
     public HalamanPilihRekapanFactory(Context context){
 
         this.context = context;

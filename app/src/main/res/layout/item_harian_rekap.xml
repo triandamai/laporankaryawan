@@ -21,8 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             android:weightSum="5"
             android:orientation="horizontal">
             <LinearLayout

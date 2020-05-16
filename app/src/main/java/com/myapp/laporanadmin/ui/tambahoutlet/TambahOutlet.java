@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.R;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.OutletModel;
@@ -56,6 +57,7 @@ public class TambahOutlet extends BaseFragment {
         if(tipe == null){
             this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
         }
+        MyUser.getInstance(getContext()).setTipeFormOutlet(tipe);
         if(outletModel != null){
             mViewModel.outletmodel.setValue(outletModel);
         }
@@ -135,4 +137,10 @@ public class TambahOutlet extends BaseFragment {
 
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyUser.getInstance(getContext()).setTipeFormOutlet(null);
+    }
 }

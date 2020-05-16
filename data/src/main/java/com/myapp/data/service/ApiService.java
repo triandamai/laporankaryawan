@@ -46,7 +46,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("auth/register")
-    Call<ResponsePost> simpanuser(@Body PostUserModel userModel);
+    Call<ResponsePost> simpanuser(@Body UserModel userModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/add")
@@ -58,7 +58,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/data")
-    Call<ResponsePost> updateuser(@Body PostUserModel karyawanModel);
+    Call<ResponsePost> updateuser(@Body UserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/update_password")
@@ -66,7 +66,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/delete")
-    Call<ResponsePost> hapususer(@Body PostUserModel karyawanModel);
+    Call<ResponsePost> hapususer(@Body UserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/data")

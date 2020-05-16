@@ -50,8 +50,27 @@ public class MyUser {
             return null;
         }
     }
-
-
+    public void setTipeFormUser(String tipe){
+        editor.putString("tambahuser",tipe);
+        editor.apply();
+    }
+    public String getTipeFormUser(){
+        return sharedPreferences.getString("tambahuser","tambah");
+    }
+    public void setTipeFormKota(String tipe){
+        editor.putString("tambahkota",tipe);
+        editor.apply();
+    }
+    public String getTipeFormKota(){
+        return sharedPreferences.getString("tambakota","tambah");
+    }
+    public void setTipeFormOutlet(String tipe){
+        editor.putString("tambaoutlet",tipe);
+        editor.apply();
+    }
+    public String getTipeFormOutlet(){
+        return sharedPreferences.getString("tambahoutlet","tambah");
+    }
     public  void signOut() {
         editor.remove("userdata");
         editor.apply();

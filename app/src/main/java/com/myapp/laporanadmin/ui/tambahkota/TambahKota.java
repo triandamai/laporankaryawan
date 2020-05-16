@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.R;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahKotaFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.laporanadmin.BaseFragment;
@@ -46,6 +47,7 @@ public class TambahKota extends BaseFragment {
         if(tipe == null){
             this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
         }
+        MyUser.getInstance(getContext()).setTipeFormKota(tipe);
         binding.setTipe(this.tipe);
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Kota","");
@@ -98,4 +100,10 @@ public class TambahKota extends BaseFragment {
             dialogGagal(message);
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyUser.getInstance(getContext()).setTipeFormKota(null);
+    }
 }

@@ -24,13 +24,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
+
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.karumi.dexter.listener.single.BasePermissionListener;
+
 import com.myapp.ImagePickerActivity;
 import com.myapp.R;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahUserFragmentBinding;
 import com.myapp.domain.model.UserModel;
 import com.myapp.laporanadmin.BaseFragment;
@@ -66,16 +66,18 @@ public class TambahUser extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_user_fragment, container, false);
         binding.setPick(pickImage);
 
-        binding.setTipe(this.tipe);
+
         mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
                 .get(TambahUserViewModel.class);
         if(tipe == null){
             this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
         }
+        MyUser.getInstance(getContext()).setTipeFormUser(tipe);
         if(userModel != null){
-            mViewModel.usermodel.setValue(userModel);
+            mViewModel.usermodel.set(userModel);
             binding.setImage(userModel.getFotoUser());
         }
+
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Karyawan","");
         binding.setVm(mViewModel);
@@ -159,31 +161,8 @@ public class TambahUser extends BaseFragment {
         });
     }
 
-    /**
-     * Showing Alert Dialog with Settings option
-     * Navigates user to app settings
-     * NOTE: Keep proper title and message depending on your app
-     */
-    private void showSettingsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("heheh");
-        builder.setMessage("pesan");
-        builder.setPositiveButton("Pengaturan", (dialog, which) -> {
-            dialog.cancel();
-            openSettings();
-        });
-        builder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.cancel());
-        builder.show();
 
-    }
 
-    // navigating user to app settings
-    private void openSettings() {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package",getContext().getPackageName(), null);
-        intent.setData(uri);
-        startActivityForResult(intent, 101);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -196,6 +175,7 @@ public class TambahUser extends BaseFragment {
 
                     // loading profile image from local cache
                     binding.setImage(uri.toString());
+                    mViewModel.foto.setValue(encodeImage(uri.getPath()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

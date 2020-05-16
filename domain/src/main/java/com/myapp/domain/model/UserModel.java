@@ -1,5 +1,7 @@
 package com.myapp.domain.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.myapp.domain.realmobject.KaryawanObject;
@@ -127,6 +129,12 @@ public class UserModel {
         userModel.setCreatedAt(karyawanObject.getCreatedAt());
         return  userModel;
 
+    }
+    public boolean validData(){
+        return !TextUtils.isEmpty(usernameUser) &&
+                !TextUtils.isEmpty(passwordUser) &&
+                !TextUtils.isEmpty(namaUser) &&
+                !TextUtils.isEmpty(nipUser);
     }
     @Override
     public String toString() {

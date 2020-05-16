@@ -17,6 +17,7 @@ public class DataKotaViewModel extends ViewModel {
     private Context context;
     private Realm realm;
     private LiveData<List<KotaObject>> listKota;
+
     public DataKotaViewModel(Context context) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
@@ -28,12 +29,12 @@ public class DataKotaViewModel extends ViewModel {
         LaporanRepository.getInstance(context).getDataKota();
     }
 
-    public void init(){
+    public void init() {
         try {
 
             listKota = new RealmLiveResult(realm.where(KotaObject.class).findAll());
-        }finally {
-            if(realm != null){
+        } finally {
+            if (realm != null) {
                 //realm.close();
             }
         }

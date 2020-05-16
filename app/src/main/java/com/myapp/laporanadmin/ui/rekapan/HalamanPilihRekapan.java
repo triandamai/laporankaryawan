@@ -131,6 +131,16 @@ public class HalamanPilihRekapan extends BaseFragment {
         }
 
         @Override
+        public void onEdit(int pos) {
+
+        }
+
+        @Override
+        public void onDelete(int pos) {
+
+        }
+
+        @Override
         public void onDetail(int pos) {
 
         }

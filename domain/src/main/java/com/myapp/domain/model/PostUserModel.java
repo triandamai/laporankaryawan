@@ -18,6 +18,20 @@ public class PostUserModel {
     @SerializedName("level_user")
     @Expose
     private Integer levelUser;
+    @Expose
+    private String nipUser;
+
+    public String getNipUser() {
+        return nipUser;
+    }
+
+    public void setNipUser(String nipUser) {
+        this.nipUser = nipUser;
+    }
+
+    @SerializedName("nip_user")
+
+
 
     public String getUsernameUser() {
         return usernameUser;
@@ -50,7 +64,8 @@ public class PostUserModel {
     public void setLevelUser(Integer levelUser) {
         this.levelUser = levelUser;
     }
-    public boolean validData(){
+
+    public boolean validData() {
         return !TextUtils.isEmpty(usernameUser) && !TextUtils.isEmpty(passwordUser) && passwordUser.length() >= 5;
     }
 }

@@ -3,65 +3,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.tambahuser.TambahUser">
+
     <data>
+
         <variable
             name="isLoading"
             type="boolean" />
+
         <variable
             name="vm"
             type="com.myapp.laporanadmin.ui.tambahuser.TambahUserViewModel" />
+
         <variable
             name="tipe"
             type="String" />
+
         <variable
             name="image"
             type="String" />
+
         <variable
             name="pick"
             type="com.myapp.laporanadmin.callback.PickImage" />
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:popupTheme="@style/Theme.AppCompat.Light" />
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="@dimen/dp_100"
                     android:layout_gravity="center"
                     setImageUrl="@{image}"
                     android:onClick="@{(v)->pick.ImageClicked(v)}"
-                    android:src="@drawable/logo"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:background="@null"
-                    android:layout_marginTop="@dimen/sp_20"
-                    android:layout_marginBottom="@dimen/dp_24"
+                    android:src="@drawable/ic_user" />
 
-                    android:text="@={vm.usermodel.namaUser}"
-                    android:hint="Masukkan Nama User"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Username"/>
+                    android:text="@string/nama_karyawan"
+                    android:layout_marginTop="@dimen/dp_16" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_muda_banget"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_16"
+                    android:gravity="top"
+                    android:textSize="@dimen/sp_14"
+                    android:singleLine="false"
+                    android:textColor="@color/black_tua_hehe"
+                    android:text="@={vm.usermodel.namaUser}"
+                    android:hint="Masukkan Nama Karyawan" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NIP Karyawan" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,17 +99,19 @@
                     android:singleLine="false"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:text="@={vm.usermodel.usernameUser}"
-                    android:hint="Masukkan Username"/>
+                    android:text="@={vm.usermodel.nipUser}"
+                    android:hint="Masukkan NIP Karyawan" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Password"/>
+                    android:text="Password" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_muda_banget"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:padding="@dimen/dp_16"
                     android:gravity="top"
                     android:textSize="@dimen/sp_14"
@@ -91,16 +119,18 @@
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={vm.usermodel.passwordUser}"
-                    android:hint="Masukkan Password Baru"/>
+                    android:hint="Masukkan Password Baru" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ulang Password"/>
+                    android:text="Ulang Password" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_muda_banget"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:padding="@dimen/dp_16"
                     android:gravity="top"
                     android:textSize="@dimen/sp_14"
@@ -109,11 +139,12 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:layout_marginBottom="@dimen/dp_10"
                     android:text="@={vm.ulangpassword}"
-                    android:hint="Ulangi Password Diatas"/>
+                    android:hint="Ulangi Password Diatas" />
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     style="?android:attr/borderlessButtonStyle"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
@@ -122,12 +153,13 @@
                     android:clickable="true"
                     viewGone="@{!isLoading}"
                     android:onClick="@{(v)->vm.simpan(v,tipe)}"
-                    android:text="Simpan"/>
+                    android:text="Simpan" />
+
                 <ProgressBar
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     viewGone="@{isLoading}"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

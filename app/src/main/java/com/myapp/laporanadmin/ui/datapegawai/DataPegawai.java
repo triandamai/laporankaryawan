@@ -1,15 +1,16 @@
 package com.myapp.laporanadmin.ui.datapegawai;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -21,9 +22,6 @@ import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
-
-
-import java.util.List;
 
 public class DataPegawai extends BaseFragment {
     public static String TAG = "Data Pegawai";
@@ -41,11 +39,12 @@ public class DataPegawai extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.data_pegawai_fragment, container, false);
         binding.setListener(refreshListener);
-        setActionBar(binding.toolbar,"Data Pegawai","");
+        setActionBar(binding.toolbar, "Data Pegawai", "");
+        setHasOptionsMenu(true);
         binding.setIsLoading(true);
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);
         binding.rv.setAdapter(adapterDataPegawai);
-        builder = new MaterialAlertDialogBuilder(getContext(),R.style.dialog);
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
         return binding.getRoot();
     }
@@ -53,7 +52,7 @@ public class DataPegawai extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity(),new DataPegawaiFactory(getContext())).get(DataPegawaiViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), new DataPegawaiFactory(getContext())).get(DataPegawaiViewModel.class);
         mViewModel.init();
         // TODO: Use the ViewModel
     }
@@ -68,12 +67,13 @@ public class DataPegawai extends BaseFragment {
         mViewModel.getKaryawanData().observe(getViewLifecycleOwner(), karyawanObjects -> {
 
             binding.setIsLoading(false);
-            if(karyawanObjects != null) {
+            if (karyawanObjects != null) {
                 adapterDataPegawai.setData(karyawanObjects);
                 adapterDataPegawai.notifyDataSetChanged();
             }
         });
     }
+
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
         @Override
         public void onClick(int pos) {
@@ -85,11 +85,11 @@ public class DataPegawai extends BaseFragment {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
             UserModel userModel = UserModel.covertdariobjek(data);
             builder.setTitle("Hi");
-            builder.setMessage("Mau Edit Karyawan "+userModel.getNamaUser()+"?");
+            builder.setMessage("Mau Edit Karyawan " + userModel.getNamaUser() + "?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
                 dialog.dismiss();
                 String aksi = getContext().getString(R.string.AKSI_UBAH);
-                replaceFragment(TambahUser.newInstance(aksi,userModel),null);
+                replaceFragment(TambahUser.newInstance(aksi, userModel), null);
             });
             builder.setNegativeButton("Batal", (dialog, which) -> {
                 dialog.dismiss();
@@ -107,10 +107,27 @@ public class DataPegawai extends BaseFragment {
 
         }
     };
+
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             mViewModel.fetchFromApi();
         }
     };
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbardata, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_tambah) {
+            replaceFragment(TambahUser.newInstance(), null);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 }

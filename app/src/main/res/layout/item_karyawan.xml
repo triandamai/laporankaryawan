@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="position"
             type="Integer" />
+
         <variable
             name="data"
             type="com.myapp.domain.realmobject.KaryawanObject" />
+
         <variable
             name="event"
             type="com.myapp.laporanadmin.callback.AdapterItemClicked" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="@{()->event.onEdit(position)}">
+        android:background="@color/white"
+        android:onClick="@{()->event.onClick(position)}">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:orientation="horizontal">
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
                 setImageUrl="@{data.fotoUser}"
-                android:layout_margin="5dp"/>
+                android:layout_margin="@dimen/dp_4" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:text="@{data.namaUser}"/>
+                    android:text="@{data.namaUser}" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="@{data.nipUser}"/>
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/black_tua_hehe"
+                    android:text="@{data.nipUser}" />
             </LinearLayout>
         </LinearLayout>
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="#fff"/>-->
     </LinearLayout>
 
 </layout>

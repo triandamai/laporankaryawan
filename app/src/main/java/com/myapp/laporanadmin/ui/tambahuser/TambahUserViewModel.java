@@ -42,7 +42,7 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
         listener.onStart();
         PostUserModel userModel = new PostUserModel();
         userModel.setNamaUser(usermodel.getValue().getNamaUser());
-        userModel.setUsernameUser(usermodel.getValue().getUsernameUser());
+        userModel.setNipUser(usermodel.getValue().getNipUser());
         userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
         userModel.setLevelUser(1);
         if (userModel.validData()) {
@@ -63,7 +63,6 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
     public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
         if (cek(response.code(), context, "Tambah")) {
             listener.onSuccess("Sukes");
-
         } else {
             listener.onFailed("Gagal " + response.body().getResponseMessage());
         }

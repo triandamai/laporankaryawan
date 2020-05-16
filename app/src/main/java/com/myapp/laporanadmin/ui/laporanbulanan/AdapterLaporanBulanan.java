@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myapp.R;
+import com.myapp.databinding.ItemBulananBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.laporanadmin.R;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.databinding.ItemBulananBinding;
+
 
 import java.util.ArrayList;
 import java.util.List;

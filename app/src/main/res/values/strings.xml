@@ -22,4 +22,8 @@
     <string name="pilih_karyawan">Pilih Karyawan</string>
     <string name="namakota">Masukkan Nama Kota</string>
     <string name="waktu_rekap">"Pilih Waktu "</string>
+    <string name="title_activity_main">Main</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

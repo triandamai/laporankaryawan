@@ -11,12 +11,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.R;
+import com.myapp.databinding.LaporanHarianFragmentBinding;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
-import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.databinding.LaporanHarianFragmentBinding;
+import com.myapp.laporanadmin.callback.AdapterItemClicked;;
 
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +34,7 @@ public class LaporanHarian extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-         binding = DataBindingUtil.inflate(inflater,R.layout.laporan_harian_fragment, container, false);
+         binding = DataBindingUtil.inflate(inflater, R.layout.laporan_harian_fragment, container, false);
          binding.setIsLoading(true);
          adapterLaporanHarian = new AdapterLaporanHarian(adapterItemClicked);
          binding.rv.setAdapter(adapterLaporanHarian);

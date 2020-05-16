@@ -11,12 +11,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.R;
+import com.myapp.databinding.LaporanBulananFragmentBinding;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.databinding.LaporanBulananFragmentBinding;
+
 
 import java.util.Calendar;
 import java.util.List;
@@ -33,7 +34,7 @@ public class LaporanBulanan extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-         binding = DataBindingUtil.inflate(inflater,R.layout.laporan_bulanan_fragment, container, false);
+         binding = DataBindingUtil.inflate(inflater, R.layout.laporan_bulanan_fragment, container, false);
          binding.setIsLoading(true);
          adapterLaporanBulanan = new AdapterLaporanBulanan(adapterItemClicked);
          binding.rv.setAdapter(adapterLaporanBulanan);

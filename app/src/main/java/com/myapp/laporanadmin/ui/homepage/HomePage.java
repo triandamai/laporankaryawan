@@ -13,12 +13,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
+import com.myapp.databinding.HomePageFragmentBinding;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
+
 import com.myapp.laporanadmin.callback.HomePageItemClicked;
-import com.myapp.laporanadmin.databinding.HomePageFragmentBinding;
 import com.myapp.laporanadmin.ui.datapegawai.DataPegawai;
 import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
@@ -40,7 +41,7 @@ public class HomePage extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-      binding = DataBindingUtil.inflate(inflater,R.layout.home_page_fragment, container, false);
+      binding = DataBindingUtil.inflate(inflater, R.layout.home_page_fragment, container, false);
       binding.setIsLoading(true);
       binding.setIsNotifikasiBulanan(false);
       binding.setIsNotifikasiBulanan(false);

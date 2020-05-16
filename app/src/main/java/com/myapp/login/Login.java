@@ -1,4 +1,4 @@
-package com.myapp.laporanadmin.ui.login;
+package com.myapp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.myapp.laporanadmin.R;
-import com.myapp.laporanadmin.Root;
+import com.myapp.R;
+import com.myapp.Root;
+import com.myapp.databinding.ActivityLoginBinding;
 import com.myapp.laporanadmin.callback.SendDataListener;
-import com.myapp.laporanadmin.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
     public static String TAG = "Login";

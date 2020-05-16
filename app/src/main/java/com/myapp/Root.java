@@ -1,4 +1,4 @@
-package com.myapp.laporanadmin;
+package com.myapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.myapp.laporanadmin.databinding.ActivityRootBinding;
+
+import com.myapp.databinding.ActivityRootBinding;
 import com.myapp.laporanadmin.ui.homepage.HomePage;
-import com.myapp.laporanadmin.ui.login.Login;
+import com.myapp.login.Login;
+
 
 public class Root extends AppCompatActivity {
     private ActivityRootBinding binding;
@@ -17,7 +19,7 @@ public class Root extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       binding = DataBindingUtil.setContentView(this,R.layout.activity_root);
+       binding = DataBindingUtil.setContentView(this, R.layout.activity_root);
        homePage = HomePage.newInstance();
        addFragment(homePage,null);
        // LaporanRepository.getInstance(Root.this).getDataHomepgae();

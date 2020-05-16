@@ -9,9 +9,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myapp.R;
+import com.myapp.databinding.ItemKotaBinding;
 import com.myapp.domain.realmobject.KotaObject;
-import com.myapp.laporanadmin.R;
-import com.myapp.laporanadmin.databinding.ItemKotaBinding;
+
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,11 +11,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.R;
+import com.myapp.databinding.DataPegawaiFragmentBinding;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.databinding.DataPegawaiFragmentBinding;
+
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class DataPegawai extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.data_pegawai_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.data_pegawai_fragment, container, false);
         setActionBar(binding.toolbar,"Data Pegawai","");
         binding.setIsLoading(true);
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);

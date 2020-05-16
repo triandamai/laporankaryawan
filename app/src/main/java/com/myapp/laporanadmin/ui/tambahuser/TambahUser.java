@@ -13,10 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.R;
+import com.myapp.databinding.TambahUserFragmentBinding;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
 import com.myapp.laporanadmin.callback.SendDataListener;
-import com.myapp.laporanadmin.databinding.TambahUserFragmentBinding;
 
 public class TambahUser extends BaseFragment {
     public static String TAG = "Tambah User Fragment";
@@ -30,7 +30,7 @@ public class TambahUser extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.tambah_user_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.tambah_user_fragment, container, false);
         mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
                 .get(TambahUserViewModel.class);
 

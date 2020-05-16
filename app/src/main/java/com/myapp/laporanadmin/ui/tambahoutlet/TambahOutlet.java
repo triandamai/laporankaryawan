@@ -14,13 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.R;
+import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.callback.SheetShow;
-import com.myapp.laporanadmin.databinding.TambahOutletFragmentBinding;
 import com.myapp.laporanadmin.ui.bottomsheet.SheetKota;
 
 public class TambahOutlet extends BaseFragment {

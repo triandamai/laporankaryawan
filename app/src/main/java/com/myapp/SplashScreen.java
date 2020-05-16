@@ -1,4 +1,4 @@
-package com.myapp.laporanadmin;
+package com.myapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.domain.model.UserModel;
-import com.myapp.laporanadmin.ui.login.Login;
+import com.myapp.login.Login;
 
 public class SplashScreen extends AppCompatActivity {
 

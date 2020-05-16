@@ -13,10 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.R;
+import com.myapp.databinding.TambahKotaFragmentBinding;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.R;
 import com.myapp.laporanadmin.callback.SendDataListener;
-import com.myapp.laporanadmin.databinding.TambahKotaFragmentBinding;
 
 public class TambahKota extends BaseFragment {
     public static String TAG = "Tambah Kota";

@@ -4,12 +4,10 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.R;
-import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.PostUserModel;
@@ -34,39 +32,14 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
     public TambahUserViewModel(Context context) {
         this.context = context;
         this.apiService = LaporanRepository.getService(context);
-
-        try {
-            usermodel.get().getIdUser();
-            usermodel.get().getNamaUser();
-            usermodel.get().getLevelUser();
-            usermodel.get().getCreatedAt();
-            usermodel.get().getFotoUser();
-            usermodel.get().getNipUser();
-            usermodel.get().getPasswordUser();
-            usermodel.get().getUpdatedAt();
-            usermodel.get().getUsernameUser();
-        }catch (NullPointerException e){
-            Log.e("",e.getMessage());
-            UserModel userModel = new UserModel();
-            userModel.setIdUser("");
-            userModel.setFotoUser("");
-            userModel.setNamaUser("");
-            userModel.setUsernameUser("");
-            userModel.setPasswordUser("");
-            userModel.setLevelUser("");
-            userModel.setNipUser("");
-            userModel.setUpdatedAt("");
-            userModel.setCreatedAt("");
-            usermodel.set(userModel);
-        }
     }
 
     public void setOnSendData(SendDataListener listener) {
         this.listener = listener;
     }
 
-    public void simpan(View v) {
-
+    public void simpan(View v, String tipe) {
+        Log.e("simpan user", "tes");
         listener.onStart();
         UserModel userModel = new UserModel();
 

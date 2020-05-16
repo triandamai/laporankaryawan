@@ -281,8 +281,6 @@ public class LaporanRepository {
 
     public void getDataKota() {
         KotaModel kotaModel = new KotaModel();
-
-
         service.getAllKota(kotaModel).enqueue(new Callback<ResponseGetKota>() {
             @Override
             public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
@@ -291,25 +289,14 @@ public class LaporanRepository {
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
-
-                                realm.executeTransaction(new Realm.Transaction() {
-                                    @Override
-                                    public void execute(Realm realm) {
-                                        realm.delete(KotaObject.class);
-                                    }
-                                });
+                                realm.executeTransaction(realm -> realm.delete(KotaObject.class));
                                 for (KotaModel item : response.body().getData()) {
                                     KotaObject kotaObject = new KotaObject();
                                     kotaObject.setIdKota(item.getIdKota());
                                     kotaObject.setCreatedAt(item.getCreatedAt());
                                     kotaObject.setNamaKota(item.getNamaKota());
                                     kotaObject.setUpdatedAt(item.getUpdatedAt());
-                                    realm.executeTransaction(new Realm.Transaction() {
-                                        @Override
-                                        public void execute(Realm realm) {
-                                            realm.copyToRealmOrUpdate(kotaObject);
-                                        }
-                                    });
+                                    realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(kotaObject));
                                 }
                             } finally {
                                 if (realm != null) {

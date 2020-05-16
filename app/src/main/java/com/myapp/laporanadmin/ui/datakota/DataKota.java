@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,8 +21,6 @@ import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
-
-import java.util.List;
 
 public class DataKota extends BaseFragment {
     public static String TAG = "Data Kota";
@@ -77,7 +74,7 @@ public class DataKota extends BaseFragment {
             KotaObject kotaObject = adapterDataKota.getFromPosition(pos);
             KotaModel kotaModel = new KotaModel();
             String tipe = getContext().getString(R.string.AKSI_UBAH);
-            replaceFragment(TambahKota.newInstance(tipe,kotaModel),null);
+            replaceFragment(TambahKota.newInstance(tipe, kotaModel), null);
         }
 
         @Override
@@ -105,7 +102,6 @@ public class DataKota extends BaseFragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
         inflater.inflate(R.menu.toolbardata, menu);
     }
 

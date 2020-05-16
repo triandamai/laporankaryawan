@@ -29,4 +29,6 @@
     <string name="AKSI_HAPUS">hapus</string>
     <string name="AKSI_UBAH">ubah</string>
     <string name="AKSI_TAMBAH">tambah</string>
+    <string name="karyawan">Karyawan</string>
+    <string name="nama_karyawan">Nama Karyawan</string>
 </resources>

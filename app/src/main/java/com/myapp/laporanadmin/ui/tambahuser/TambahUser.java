@@ -77,7 +77,6 @@ public class TambahUser extends BaseFragment {
             mViewModel.usermodel.set(userModel);
             binding.setImage(userModel.getFotoUser());
         }
-
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Karyawan","");
         binding.setVm(mViewModel);

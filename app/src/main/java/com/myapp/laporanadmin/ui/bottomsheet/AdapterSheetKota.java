@@ -29,7 +29,7 @@ public class AdapterSheetKota extends RecyclerView.Adapter<AdapterSheetKota.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemKotaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_kota, parent, false);
+        ItemKotaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_sheet_kota, parent, false);
         return new MyViewHolder(binding);
     }
 

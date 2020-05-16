@@ -76,7 +76,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/add")
-    Call<ResponsePost> simpankota(@Body JSONObject kotaModel);
+    Call<ResponsePost> simpankota(@Body KotaModel kotaModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/update")
@@ -122,11 +122,11 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/update")
-    Call<ResponsePost> ubahoutlet(@Body MutableLiveData<OutletModel> outletModel);
+    Call<ResponsePost> ubahoutlet(@Body PostOutletModel outletModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/delete")
-    Call<ResponsePost> hapusoutlet(@Body MutableLiveData<OutletModel> outletModel);
+    Call<ResponsePost> hapusoutlet(@Body PostOutletModel outletModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")

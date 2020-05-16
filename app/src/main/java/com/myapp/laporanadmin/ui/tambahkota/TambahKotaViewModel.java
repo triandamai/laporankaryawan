@@ -3,6 +3,7 @@ package com.myapp.laporanadmin.ui.tambahkota;
 import android.content.Context;
 import android.view.View;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -26,11 +27,24 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     private Context context;
     private ApiService apiService;
     private SendDataListener listener;
-    public MutableLiveData<KotaModel> kotamodel = new MutableLiveData<>();
+    public ObservableField<KotaModel> kotamodel = new ObservableField<>();
 
     public TambahKotaViewModel(Context context) {
         this.context = context;
         apiService = LaporanRepository.getService(context);
+        try {
+            kotamodel.get().getIdKota();
+            kotamodel.get().getNamaKota();
+            kotamodel.get().getCreatedAt();
+            kotamodel.get().getUpdatedAt();
+        }catch (NullPointerException e){
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setIdKota("");
+            kotaModel.setNamaKota("");
+            kotaModel.setUpdatedAt("");
+            kotaModel.setCreatedAt("");
+            kotamodel.set(kotaModel);
+        }
     }
     public void setOnSendData(SendDataListener listener){
         this.listener = listener;
@@ -38,20 +52,20 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     public void simpan(View v,KotaModel kotaModel,String tipe){
         listener.onStart();
         JSONObject jsonObject = new JSONObject();
-        try {
 
-            jsonObject.put("nama_kota",kotamodel.getValue().getNamaKota());
+        KotaModel kota = new KotaModel();
+        kota.setIdKota(kotamodel.get().getIdKota());
+        kota.setNamaKota(kotamodel.get().getNamaKota());
+        kota.setCreatedAt(kotamodel.get().getCreatedAt());
+        kota.setUpdatedAt(kotamodel.get().getUpdatedAt());
 
-            if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
-                apiService.simpankota(jsonObject).enqueue(this);
-            }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){
-                apiService.ubahkota(kotamodel.getValue()).enqueue(this);
-            }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))){
-                apiService.hapuskota(kotamodel.getValue()).enqueue(this);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            listener.onError(e.getMessage());
+
+        if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+            apiService.simpankota(kota).enqueue(this);
+        }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){
+            apiService.ubahkota(kota).enqueue(this);
+        }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))){
+            apiService.hapuskota(kota).enqueue(this);
         }
     }
 

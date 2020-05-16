@@ -19,6 +19,7 @@ import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
@@ -59,7 +60,10 @@ public class TambahOutlet extends BaseFragment {
         }
         MyUser.getInstance(getContext()).setTipeFormOutlet(tipe);
         if(outletModel != null){
-            mViewModel.outletmodel.setValue(outletModel);
+            PostOutletModel outlet = new PostOutletModel();
+            outlet.setIdKota(Integer.parseInt(outletModel.getIdKota()));
+            outlet.setNamaOutlet(outletModel.getNamaOutlet());
+            mViewModel.outletmodel.set(outlet);
         }
         sheetKota = new SheetKota();
         setHasOptionsMenu(true);

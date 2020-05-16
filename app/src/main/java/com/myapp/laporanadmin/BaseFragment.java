@@ -4,10 +4,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,9 +30,11 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class BaseFragment extends Fragment {
-    private MaterialAlertDialogBuilder builder;
+    protected MaterialAlertDialogBuilder builder;
     public static final int REQUEST_IMAGE = 100;
-    protected void addFragment(Fragment f,String TAG){
+
+
+    protected void addFragment(Fragment f, String TAG){
         try {
             ((Root) requireActivity()).addFragment(f, TAG);
         }catch (NullPointerException e){

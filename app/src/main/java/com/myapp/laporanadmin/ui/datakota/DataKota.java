@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.DataKotaFragmentBinding;
 import com.myapp.domain.model.KotaModel;
@@ -21,6 +22,7 @@ import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
+import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 public class DataKota extends BaseFragment {
     public static String TAG = "Data Kota";
@@ -42,6 +44,7 @@ public class DataKota extends BaseFragment {
         binding.setIsLoading(true);
         adapterDataKota = new AdapterDataKota(adapterItemClicked);
         binding.rv.setAdapter(adapterDataKota);
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         return binding.getRoot();
     }
 
@@ -71,15 +74,25 @@ public class DataKota extends BaseFragment {
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
         @Override
         public void onClick(int pos) {
-            KotaObject kotaObject = adapterDataKota.getFromPosition(pos);
-            KotaModel kotaModel = new KotaModel();
-            String tipe = getContext().getString(R.string.AKSI_UBAH);
-            replaceFragment(TambahKota.newInstance(tipe, kotaModel), null);
+
         }
 
         @Override
         public void onEdit(int pos) {
+            KotaObject kotaObject = adapterDataKota.getFromPosition(pos);
+            KotaModel kotaModel = KotaModel.convertdariobject(kotaObject);
 
+            builder.setTitle("Hi");
+            builder.setMessage("Mau Edit Kota " + kotaModel.getNamaKota() + "?");
+            builder.setPositiveButton("Edit", (dialog, which) -> {
+                dialog.dismiss();
+                String aksi = getContext().getString(R.string.AKSI_UBAH);
+                replaceFragment(TambahKota.newInstance(aksi, kotaModel), null);
+            });
+            builder.setNegativeButton("Batal", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            builder.show();
         }
 
         @Override

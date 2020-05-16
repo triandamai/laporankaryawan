@@ -44,7 +44,7 @@ public class DataPegawai extends BaseFragment {
         binding.setIsLoading(true);
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);
         binding.rv.setAdapter(adapterDataPegawai);
-        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+
         builder.create();
         return binding.getRoot();
     }

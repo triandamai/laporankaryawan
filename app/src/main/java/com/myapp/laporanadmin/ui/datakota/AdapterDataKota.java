@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapp.R;
-import com.myapp.databinding.ItemKaryawanBinding;
 import com.myapp.databinding.ItemKotaBinding;
-import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 
@@ -22,13 +20,15 @@ import java.util.Objects;
 public class AdapterDataKota extends RecyclerView.Adapter<AdapterDataKota.MyViewHolder> {
     private AdapterItemClicked adapterItemClicked;
     private List<KotaObject> dalist = new ArrayList<>();
-    public AdapterDataKota(AdapterItemClicked adapterItemClicked){
+
+    public AdapterDataKota(AdapterItemClicked adapterItemClicked) {
         this.adapterItemClicked = adapterItemClicked;
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemKotaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_kota,parent,false);
+        ItemKotaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_kota, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -44,10 +44,11 @@ public class AdapterDataKota extends RecyclerView.Adapter<AdapterDataKota.MyView
     public int getItemCount() {
         return dalist == null ? 0 : dalist.size();
     }
-    public void setData(List<KotaObject> data){
-        if(this.dalist == null){
+
+    public void setData(List<KotaObject> data) {
+        if (this.dalist == null) {
             this.dalist.addAll(data);
-        }else {
+        } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
@@ -68,18 +69,21 @@ public class AdapterDataKota extends RecyclerView.Adapter<AdapterDataKota.MyView
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     KotaObject lama = data.get(oldItemPosition);
                     KotaObject baru = data.get(newItemPosition);
-                    return lama == baru && Objects.equals(lama,baru);
+                    return lama == baru && Objects.equals(lama, baru);
                 }
             });
             this.dalist = data;
             result.dispatchUpdatesTo(this);
         }
     }
-    public KotaObject getFromPosition(int position){
+
+    public KotaObject getFromPosition(int position) {
         return dalist.get(position);
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private ItemKotaBinding binding;
+
         public MyViewHolder(ItemKotaBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

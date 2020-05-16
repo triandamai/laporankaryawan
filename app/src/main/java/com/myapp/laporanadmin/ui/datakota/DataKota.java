@@ -23,7 +23,7 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import java.util.List;
 
 public class DataKota extends Fragment {
-
+    public static String TAG = "Data Kota";
     private DataKotaViewModel mViewModel;
     private DataKotaFragmentBinding binding;
     private AdapterDataKota adapterDataKota;

@@ -20,6 +20,8 @@ import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.laporanadmin.BaseFragment;
 
 import com.myapp.laporanadmin.callback.HomePageItemClicked;
+import com.myapp.laporanadmin.ui.datakota.DataKota;
+import com.myapp.laporanadmin.ui.dataoutlet.DataOutlet;
 import com.myapp.laporanadmin.ui.datapegawai.DataPegawai;
 import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
@@ -107,18 +109,18 @@ public class HomePage extends BaseFragment {
     }
     private HomePageItemClicked homePageItemClicked = new HomePageItemClicked() {
         @Override
-        public void tambahUser(View v) {
+        public void dataUser(View v) {
             replaceFragment(TambahUser.newInstance(),null);
         }
 
         @Override
-        public void tambahKota(View v) {
-            replaceFragment(TambahKota.newInstance(),null);
+        public void dataKota(View v) {
+            replaceFragment(DataKota.newInstance(),null);
         }
 
         @Override
-        public void tambahOutlet(View v) {
-            replaceFragment(TambahOutlet.newInstance(),null);
+        public void dataOutlet(View v) {
+            replaceFragment(DataOutlet.newInstance(),null);
         }
 
         @Override

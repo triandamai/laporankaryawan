@@ -380,13 +380,13 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
-                                android:onClick="@{(v)->click.tambahKota(v)}"
+                                android:onClick="@{(v)->click.dataKota(v)}"
                                 android:layout_weight="1">
 
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="@{(v)->click.tambahKota(v)}"
+                                    android:onClick="@{(v)->click.dataKota(v)}"
                                     android:background="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -420,13 +420,13 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
-                                android:onClick="@{(v)->click.tambahUser(v)}"
+                                android:onClick="@{(v)->click.dataUser(v)}"
                                 android:layout_weight="1">
 
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="@{(v)->click.tambahUser(v)}"
+                                    android:onClick="@{(v)->click.dataUser(v)}"
                                     android:background="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -469,13 +469,13 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
-                                android:onClick="@{(v)->click.tambahOutlet(v)}"
+                                android:onClick="@{(v)->click.dataOutlet(v)}"
                                 android:layout_weight="1">
 
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="@{(v)->click.tambahOutlet(v)}"
+                                    android:onClick="@{(v)->click.dataOutlet(v)}"
                                     android:background="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"

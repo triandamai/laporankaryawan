@@ -45,4 +45,13 @@ public class Root extends AppCompatActivity {
         startActivity(new Intent(Root.this,Login.class));
         finish();
     }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+
+    }
 }

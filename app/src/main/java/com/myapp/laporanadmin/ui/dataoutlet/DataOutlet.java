@@ -24,7 +24,7 @@ import com.myapp.laporanadmin.ui.datakota.DataKotaFactory;
 import java.util.List;
 
 public class DataOutlet extends Fragment {
-
+    public static String TAG = "Data Outlet";
     private DataOutletViewModel mViewModel;
     private DataOutletFragmentBinding binding;
     private AdapterDataOutlet adapterDataOutlet;

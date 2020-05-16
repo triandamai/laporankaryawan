@@ -9,9 +9,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
-import com.myapp.Root;
+import com.myapp.laporanadmin.Root;
 import com.myapp.databinding.ActivityLoginBinding;
 import com.myapp.laporanadmin.callback.SendDataListener;
+import com.myapp.laporankaryawan.ui.beranda.Main;
 
 public class Login extends AppCompatActivity {
     public static String TAG = "Login";
@@ -43,9 +44,7 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Root.class));
                 finish();
             } else {
-                Intent intent = new Intent();
-                intent.setClassName(Login.this, "");
-                startActivity(intent);
+                startActivity(new Intent(Login.this, Main.class));
                 finish();
             }
         }

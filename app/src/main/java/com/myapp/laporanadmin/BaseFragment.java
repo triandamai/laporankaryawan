@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.myapp.Root;
+import com.myapp.R;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ public class BaseFragment extends Fragment {
     private MaterialAlertDialogBuilder builder;
     protected void addFragment(Fragment f,String TAG){
         try {
-            ((Root) Objects.requireNonNull(getActivity())).addFragment(f, TAG);
+            ((Root) requireActivity()).addFragment(f, TAG);
         }catch (NullPointerException e){
             Log.e("add Fragment", Objects.requireNonNull(e.getMessage()));
         }
@@ -23,7 +23,7 @@ public class BaseFragment extends Fragment {
     protected void replaceFragment(Fragment f,String TAG){
         try {
 
-            ((Root) Objects.requireNonNull(getActivity())).replaceFragment(f, TAG);
+            ((Root) requireActivity()).replaceFragment(f, TAG);
         }catch (NullPointerException e){
             Log.e("replace Fragment", Objects.requireNonNull(e.getMessage()));
         }
@@ -37,7 +37,7 @@ public class BaseFragment extends Fragment {
     }
     protected void setActionBar(Toolbar toolbar, String title, String subtitle){
         try {
-            ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+            ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(title);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(subtitle);
         }catch (NullPointerException e){

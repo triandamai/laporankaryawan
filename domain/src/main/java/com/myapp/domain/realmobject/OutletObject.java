@@ -1,9 +1,12 @@
 package com.myapp.domain.realmobject;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class OutletModel extends RealmObject {
+public class OutletObject extends RealmObject {
     @PrimaryKey
     private String idOutlet;
 
@@ -15,6 +18,15 @@ public class OutletModel extends RealmObject {
 
     private String updatedAt;
 
+    private String namaKota;
+
+    public String getNamaKota() {
+        return namaKota;
+    }
+
+    public void setNamaKota(String namaKota) {
+        this.namaKota = namaKota;
+    }
 
     public String getIdOutlet() {
         return idOutlet;

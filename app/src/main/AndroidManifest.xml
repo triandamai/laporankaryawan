@@ -26,7 +26,7 @@
         <activity
             android:name="com.myapp.laporankaryawan.ui.beranda.Main"
             android:label="@string/title_activity_main"></activity>
-        <activity android:name="com.myapp.Root" />
+        <activity android:name="com.myapp.laporanadmin.Root" />
         <activity android:name="com.myapp.login.Login" />
         <activity android:name="com.myapp.SplashScreen">
             <intent-filter>

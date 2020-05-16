@@ -3,9 +3,6 @@ package com.myapp.data.repositroy;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.google.gson.Gson;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KaryawanModel;
@@ -13,22 +10,22 @@ import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianModel;
-import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
+import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.domain.realmobject.LaporanHarianObject;
+import com.myapp.domain.realmobject.OutletObject;
 import com.myapp.domain.response.ResponseGetKaryawan;
 import com.myapp.domain.response.ResponseGetKota;
 import com.myapp.domain.response.ResponseGetLaporanBulanan;
 import com.myapp.domain.response.ResponseGetLaporanHarian;
+import com.myapp.domain.response.ResponseGetOutlet;
 import com.myapp.domain.response.ResponseGetOverview;
 
 import org.json.JSONException;
-
-import java.util.List;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -38,7 +35,7 @@ import retrofit2.Response;
 import static com.myapp.data.service.ApiHandler.cek;
 import static com.myapp.data.service.RepoFactory.createService;
 
-public  class LaporanRepository {
+public class LaporanRepository {
     public static final String TAG = "LAPORAN :: ";
     private static ApiService service;
     private static LaporanRepository repository;
@@ -47,7 +44,7 @@ public  class LaporanRepository {
 
     private LaporanRepository(Context ctx) {
         realm = Realm.getDefaultInstance();
-        service = createService(ApiService.class,"laporanKaryawanMantap","laporanKaryawanMantap", ctx);
+        service = createService(ApiService.class, "laporanKaryawanMantap", "laporanKaryawanMantap", ctx);
         context = ctx;
     }
 
@@ -57,39 +54,41 @@ public  class LaporanRepository {
         }
         return repository;
     }
-    public static ApiService getService(Context context){
-        return createService(ApiService.class,"laporanKaryawanMantap","laporanKaryawanMantap", context);
+
+    public static ApiService getService(Context context) {
+        return createService(ApiService.class, "laporanKaryawanMantap", "laporanKaryawanMantap", context);
     }
-    public void getDataHomepgae(){
+
+    public void getDataHomepgae() {
 
         service.getOverview().enqueue(new Callback<ResponseGetOverview>() {
             @Override
             public void onResponse(Call<ResponseGetOverview> call, Response<ResponseGetOverview> response) {
                 try {
                     HomePageObject object = new HomePageObject();
-                    Log.e(TAG,response.body().toString());
-                if(cek(response.code(),context,"getData Home Page")){
+                    Log.e(TAG, response.body().toString());
+                    if (cek(response.code(), context, "getData Home Page")) {
 
 
-                       object.setId("1");
-                       object.setPegawai(response.body().getData().getPegawai());
-                       object.setLapBulanan(response.body().getData().getLapBulanan());
-                       object.setLapHarian(response.body().getData().getLapHarian());
-                       object.setLapMasukBulanan(response.body().getData().getLapMasukBulanan());
-                       object.setLapMasukHarian(response.body().getData().getLapMasukHarian());
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealmOrUpdate(object);
-                        }
-                    });
+                        object.setId("1");
+                        object.setPegawai(response.body().getData().getPegawai());
+                        object.setLapBulanan(response.body().getData().getLapBulanan());
+                        object.setLapHarian(response.body().getData().getLapHarian());
+                        object.setLapMasukBulanan(response.body().getData().getLapMasukBulanan());
+                        object.setLapMasukHarian(response.body().getData().getLapMasukHarian());
+                        realm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.copyToRealmOrUpdate(object);
+                            }
+                        });
 
-                }else {
+                    } else {
 
-                }
+                    }
 
-                }finally {
-                    if(realm != null){
+                } finally {
+                    if (realm != null) {
                         realm.close();
                     }
                 }
@@ -97,23 +96,24 @@ public  class LaporanRepository {
 
             @Override
             public void onFailure(Call<ResponseGetOverview> call, Throwable t) {
-                Log.e(TAG,t.getMessage());
+                Log.e(TAG, t.getMessage());
             }
         });
 
 
     }
+
     public void getLaporanHarian(LaporanHarianRequestData laporanHarianRequestData) throws JSONException {
         Gson gson = new Gson();
 
-        Log.e(TAG,gson.toJson(laporanHarianRequestData));
+        Log.e(TAG, gson.toJson(laporanHarianRequestData));
         service.getAllLaporanharian(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
             @Override
             public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
-                if(cek(response.code(),context,"getData lap harian")){
-                    Log.e(TAG,response.body().getData().toString());
-                  //  Log.e(TAG,response.toString());
-                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                if (cek(response.code(), context, "getData lap harian")) {
+                    Log.e(TAG, response.body().getData().toString());
+                    //  Log.e(TAG,response.toString());
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
 
@@ -150,8 +150,8 @@ public  class LaporanRepository {
 
                                 }
 
-                            }finally {
-                                if(realm != null){
+                            } finally {
+                                if (realm != null) {
                                     realm.close();
                                 }
                             }
@@ -163,7 +163,7 @@ public  class LaporanRepository {
 
             @Override
             public void onFailure(Call<ResponseGetLaporanHarian> call, Throwable t) {
-                Log.e(TAG,"gagal ambil laporanharian"+t.getMessage());
+                Log.e(TAG, "gagal ambil laporanharian" + t.getMessage());
             }
         });
     }
@@ -173,11 +173,11 @@ public  class LaporanRepository {
         service.getAllLaporanbulanan(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanBulanan>() {
             @Override
             public void onResponse(Call<ResponseGetLaporanBulanan> call, Response<ResponseGetLaporanBulanan> response) {
-                Log.e(TAG,response.toString());
-                if(cek(response.code(),context,"getData lap harian")){
-                    Log.e(TAG,response.body().toString());
-                    Log.e(TAG,response.toString());
-                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                Log.e(TAG, response.toString());
+                if (cek(response.code(), context, "getData lap harian")) {
+                    Log.e(TAG, response.body().toString());
+                    Log.e(TAG, response.toString());
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
 
@@ -207,8 +207,8 @@ public  class LaporanRepository {
 
                                 }
 
-                            }finally {
-                                if(realm != null){
+                            } finally {
+                                if (realm != null) {
                                     realm.close();
                                 }
                             }
@@ -220,20 +220,21 @@ public  class LaporanRepository {
 
             @Override
             public void onFailure(Call<ResponseGetLaporanBulanan> call, Throwable t) {
-                Log.e(TAG,"gagal ambil laporanharian"+t.getMessage());
+                Log.e(TAG, "gagal ambil laporanharian" + t.getMessage());
             }
         });
     }
-    public void getDataKaryawan(){
+
+    public void getDataKaryawan() {
         KaryawanModel loginModel = new KaryawanModel();
 
         service.getAllKaryawan(loginModel).enqueue(new Callback<ResponseGetKaryawan>() {
             @Override
             public void onResponse(Call<ResponseGetKaryawan> call, Response<ResponseGetKaryawan> response) {
-                if(cek(response.code(),context,"getData Home Page")){
+                if (cek(response.code(), context, "getData Home Page")) {
 //                    Log.e(TAG,response.body().getData().toString());
-                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")){
-                        if(response.body().getData().size() >= 1){
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        if (response.body().getData().size() >= 1) {
                             realm.executeTransaction(new Realm.Transaction() {
                                 @Override
                                 public void execute(Realm realm) {
@@ -241,7 +242,7 @@ public  class LaporanRepository {
                                 }
                             });
 
-                            for (KaryawanModel item : response.body().getData()){
+                            for (KaryawanModel item : response.body().getData()) {
                                 KaryawanObject karyawanObject = new KaryawanObject();
                                 karyawanObject.setIdUser(item.getIdUser());
                                 karyawanObject.setNamaUser(item.getNamaUser());
@@ -257,7 +258,7 @@ public  class LaporanRepository {
                                     realm.copyToRealmOrUpdate(karyawanObject);
                                 });
                             }
-                        realm.close();
+                            realm.close();
                         }
                     }
                 }
@@ -265,28 +266,29 @@ public  class LaporanRepository {
 
             @Override
             public void onFailure(Call<ResponseGetKaryawan> call, Throwable t) {
-                Log.e(TAG,"gagal ambil karyawan"+t.getMessage());
+                Log.e(TAG, "gagal ambil karyawan" + t.getMessage());
             }
         });
     }
-    public void getDataKota(){
+
+    public void getDataKota() {
         KotaModel kotaModel = new KotaModel();
 
 
         service.getAllKota(kotaModel).enqueue(new Callback<ResponseGetKota>() {
             @Override
             public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
-                if(cek(response.code(),context,"getData Home Page")){
+                if (cek(response.code(), context, "getData Home Page")) {
 //                    Log.e(TAG,response.body().getData().toString());
-                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")){
-                        if(response.body().getData().size() >= 1){
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        if (response.body().getData().size() >= 1) {
                             realm.executeTransaction(new Realm.Transaction() {
                                 @Override
                                 public void execute(Realm realm) {
                                     realm.delete(KotaObject.class);
                                 }
                             });
-                            for (KotaModel item : response.body().getData()){
+                            for (KotaModel item : response.body().getData()) {
                                 KotaObject kotaObject = new KotaObject();
                                 kotaObject.setIdKota(item.getIdKota());
                                 kotaObject.setCreatedAt(item.getCreatedAt());
@@ -307,21 +309,52 @@ public  class LaporanRepository {
 
             @Override
             public void onFailure(Call<ResponseGetKota> call, Throwable t) {
-
+                Log.e(TAG, "gagal ambil kotan" + t.getMessage());
             }
         });
     }
-    public void getDataOutlet(){
-        KotaModel kotaModel = new KotaModel();
 
-        service.getAllKota(kotaModel).enqueue(new Callback<ResponseGetKota>() {
+    public void getDataOutlet() {
+        OutletModel outletModel = new OutletModel();
+
+        service.getAllOutlet(outletModel).enqueue(new Callback<ResponseGetOutlet>() {
             @Override
-            public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
+            public void onResponse(Call<ResponseGetOutlet> call, Response<ResponseGetOutlet> response) {
+                if (cek(response.code(), context, "getData Home Page")) {
+//                    Log.e(TAG,response.body().getData().toString());
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        if (response.body().getData().size() >= 1) {
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    realm.delete(OutletObject.class);
+                                }
+                            });
+                            realm.commitTransaction();
+                            for (OutletModel item : response.body().getData()) {
+                                OutletObject outletObject = new OutletObject();
+                                outletObject.setIdOutlet(item.getIdOutlet());
+                                outletObject.setIdKota(item.getIdKota());
+                                outletObject.setNamaOutlet(item.getNamaOutlet());
+                                outletObject.setNamaKota(item.getKota().getNamaKota());
+                                outletObject.setCreatedAt(item.getCreatedAt());
+                                outletObject.setUpdatedAt(item.getUpdatedAt());
 
+                                realm.executeTransaction(new Realm.Transaction() {
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        realm.copyToRealmOrUpdate(outletObject);
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseGetKota> call, Throwable t) {
+            public void onFailure(Call<ResponseGetOutlet> call, Throwable t) {
 
             }
         });

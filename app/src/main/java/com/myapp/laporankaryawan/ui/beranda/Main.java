@@ -3,6 +3,7 @@ package com.myapp.laporankaryawan.ui.beranda;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.myapp.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

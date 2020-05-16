@@ -1,4 +1,4 @@
-package com.myapp;
+package com.myapp.laporanadmin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 
+import com.myapp.R;
 import com.myapp.databinding.ActivityRootBinding;
 import com.myapp.laporanadmin.ui.homepage.HomePage;
 import com.myapp.login.Login;
@@ -22,7 +23,6 @@ public class Root extends AppCompatActivity {
        binding = DataBindingUtil.setContentView(this, R.layout.activity_root);
        homePage = HomePage.newInstance();
        addFragment(homePage,null);
-       // LaporanRepository.getInstance(Root.this).getDataHomepgae();
     }
 
     public void replaceFragment(Fragment f,String TAG){

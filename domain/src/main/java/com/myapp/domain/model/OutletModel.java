@@ -19,9 +19,7 @@ public class OutletModel {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-//    @SerializedName("deleted_at")
-//    @Expose
-//    private Object deletedAt;
+
     @SerializedName("kota")
     @Expose
     private KotaModel kota;
@@ -66,13 +64,6 @@ public class OutletModel {
         this.updatedAt = updatedAt;
     }
 
-//    public Object getDeletedAt() {
-//        return deletedAt;
-//    }
-//
-//    public void setDeletedAt(Object deletedAt) {
-//        this.deletedAt = deletedAt;
-//    }
 
     public KotaModel getKota() {
         return kota;

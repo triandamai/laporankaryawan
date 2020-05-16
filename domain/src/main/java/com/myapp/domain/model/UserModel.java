@@ -107,7 +107,7 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "UserObject{" +
                 "idUser='" + idUser + '\'' +
                 ", nipUser='" + nipUser + '\'' +
                 ", usernameUser='" + usernameUser + '\'' +

@@ -16,6 +16,9 @@
         <variable
             name="kota"
             type="com.myapp.domain.model.KotaModel" />
+        <variable
+            name="tipe"
+            type="String" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -47,7 +50,7 @@
                     android:background="@null"
                     android:layout_marginTop="@dimen/sp_20"
                     android:layout_marginBottom="@dimen/dp_24"
-                    android:text="@={vm.namaoutlet}"
+                    android:text="@={vm.outletmodel.namaOutlet}"
                     android:hint="Masukkan Nama Outlet"/>
                 <EditText
                     android:id="@+id/et_namakota"
@@ -76,7 +79,7 @@
                     android:background="@drawable/ripple_primary"
                     android:clickable="true"
                     viewGone="@{!isLoading}"
-                    android:onClick="@{(v)->vm.simpan(v,kota)}"
+                    android:onClick="@{(v)->vm.simpan(v,kota,tipe)}"
                     android:text="Simpan"/>
                 <ProgressBar
                     android:layout_width="50dp"

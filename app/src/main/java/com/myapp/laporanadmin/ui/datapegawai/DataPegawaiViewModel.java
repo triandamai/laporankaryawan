@@ -20,11 +20,28 @@ public class DataPegawaiViewModel extends ViewModel {
     public DataPegawaiViewModel(Context context) {
         this.context = context;
         realm = Realm.getDefaultInstance();
+        fetchFromApi();
+
+    }
+
+    public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataKaryawan();
     }
+
     // TODO: Implement the ViewModel
     public void init(){
-        karyawanData = new RealmLiveResult(realm.where(KaryawanObject.class).findAllAsync());
+        try {
+//            if(realm == null){
+//                realm = Realm.getDefaultInstance();
+//            }
+
+            karyawanData = new RealmLiveResult(realm.where(KaryawanObject.class).findAllAsync());
+        }finally {
+            if(realm != null){
+             //   realm.close();
+            }
+        }
+
     }
 
     public LiveData<List<KaryawanObject>> getKaryawanData() {

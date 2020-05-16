@@ -26,7 +26,7 @@
             type="boolean" />
 
         <variable
-            name="litener"
+            name="listener"
             type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             setRefreshing="@{isLoading}"
-            setRefreshingListener="@{litener}"
+            setRefreshingListener="@{listener}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
@@ -286,7 +286,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingTop="@dimen/dp_8"
                                 android:paddingBottom="@dimen/dp_8"
-                                android:onClick="@{(v)->click.Notifikasi(v)}"
+                                android:onClick="@{(v)->click.notifikasiBulanan(v)}"
                                 android:background="@color/biru">
 
                                 <ImageView
@@ -330,7 +330,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingTop="@dimen/dp_8"
                                 android:paddingBottom="@dimen/dp_8"
-                                android:onClick="@{(v)->click.Notifikasi(v)}"
+                                android:onClick="@{(v)->click.notifikasiBulanan(v)}"
                                 android:background="@color/biru">
 
                                 <ImageView

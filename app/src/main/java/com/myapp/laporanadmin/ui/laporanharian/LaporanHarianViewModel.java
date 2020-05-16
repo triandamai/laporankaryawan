@@ -24,21 +24,45 @@ public class LaporanHarianViewModel extends ViewModel {
     public LaporanHarianViewModel(Context context, LaporanHarianRequestData laporanHarianRequestData) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
+        fetchFromApi(laporanHarianRequestData);
 
+    }
+
+    public void fetchFromApi(LaporanHarianRequestData laporanHarianRequestData) {
         try {
             LaporanRepository.getInstance(context).getLaporanHarian(laporanHarianRequestData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
     public void init(){
-        try {
-            listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).findAll());
-        }catch (NullPointerException e){
-            listLiveData = new MutableLiveData<>();
-        }
+       try {
+           if (realm == null) {
+               realm = Realm.getDefaultInstance();
+           }
+
+           listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).findAll());
+       }finally {
+           if(realm != null){
+               realm.close();
+           }
+       }
     }
 
+    public void initnotifikasi(){
+        try {
+//            if (realm == null) {
+//                realm = Realm.getDefaultInstance();
+//            }
+
+            listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).equalTo("statusLaporanharia", "1").findAll());
+        }finally {
+            if(realm != null){
+              //  realm.close();
+            }
+        }
+    }
     public LiveData<List<LaporanHarianObject>> getListLiveData() {
         if(listLiveData == null){
             listLiveData = new MutableLiveData<>();

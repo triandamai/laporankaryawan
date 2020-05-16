@@ -26,4 +26,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="AKSI_HAPUS">hapus</string>
+    <string name="AKSI_UBAH">ubah</string>
+    <string name="AKSI_TAMBAH">tambah</string>
 </resources>

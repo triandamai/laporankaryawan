@@ -7,27 +7,35 @@ public class UserModel {
     @SerializedName("id_user")
     @Expose
     private String idUser;
+
     @SerializedName("nip_user")
     @Expose
     private String nipUser;
+
     @SerializedName("username_user")
     @Expose
     private String usernameUser;
+
     @SerializedName("password_user")
     @Expose
     private String passwordUser;
+
     @SerializedName("nama_user")
     @Expose
     private String namaUser;
+
     @SerializedName("foto_user")
     @Expose
     private String fotoUser;
+
     @SerializedName("level_user")
     @Expose
     private String levelUser;
+
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
@@ -105,9 +113,10 @@ public class UserModel {
     }
 
 
+
     @Override
     public String toString() {
-        return "UserObject{" +
+        return "KaryawanModel{" +
                 "idUser='" + idUser + '\'' +
                 ", nipUser='" + nipUser + '\'' +
                 ", usernameUser='" + usernameUser + '\'' +
@@ -117,7 +126,6 @@ public class UserModel {
                 ", levelUser='" + levelUser + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +
-//                ", deletedAt=" + deletedAt +
                 '}';
     }
 }

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.R;
 import com.myapp.databinding.TambahUserFragmentBinding;
+import com.myapp.domain.model.UserModel;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
@@ -22,20 +23,33 @@ public class TambahUser extends BaseFragment {
     public static String TAG = "Tambah User Fragment";
     private TambahUserViewModel mViewModel;
     private TambahUserFragmentBinding binding;
-
+    private String tipe;
+    private UserModel userModel;
+    public TambahUser(){ }
+    public TambahUser(String tipe,UserModel userModel){
+        this.tipe = tipe;
+        this.userModel = userModel;
+    }
     public static TambahUser newInstance() {
         return new TambahUser();
+    }
+    public static TambahUser newInstance(String tipe,UserModel userModel) {
+        return new TambahUser(tipe,userModel);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_user_fragment, container, false);
+        if(tipe == null){
+            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
+        }
+        binding.setTipe(this.tipe);
         mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
                 .get(TambahUserViewModel.class);
 
         setHasOptionsMenu(true);
-        setActionBar(binding.toolbar,"Tambah Kota","");
+        setActionBar(binding.toolbar,"Tambah Karyawan","");
         binding.setVm(mViewModel);
         mViewModel.setOnSendData(sendDataListener);
         binding.setIsLoading(false);

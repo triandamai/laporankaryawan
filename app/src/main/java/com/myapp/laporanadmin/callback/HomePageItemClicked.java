@@ -10,6 +10,7 @@ public interface HomePageItemClicked {
     void Harian(View v);
     void Bulanan(View v);
     void LogOut(View v);
-    void Notifikasi(View v);
+    void notifikasiBulanan(View v);
+    void notifikasiHarian(View v);
     void RekapLaporan(View v);
 }

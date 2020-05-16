@@ -10,12 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.myapp.R;
 import com.myapp.databinding.DataPegawaiFragmentBinding;
+import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 
 import java.util.List;
@@ -34,6 +37,7 @@ public class DataPegawai extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.data_pegawai_fragment, container, false);
+        binding.setListener(refreshListener);
         setActionBar(binding.toolbar,"Data Pegawai","");
         binding.setIsLoading(true);
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);
@@ -57,11 +61,10 @@ public class DataPegawai extends BaseFragment {
     }
 
     private void observe(DataPegawaiViewModel mViewModel) {
-        mViewModel.getKaryawanData().observe(getViewLifecycleOwner(), new Observer<List<KaryawanObject>>() {
-            @Override
-            public void onChanged(List<KaryawanObject> karyawanObjects) {
-//                Log.e(TAG,karyawanObjects.toString());
-                binding.setIsLoading(false);
+        mViewModel.getKaryawanData().observe(getViewLifecycleOwner(), karyawanObjects -> {
+
+            binding.setIsLoading(false);
+            if(karyawanObjects != null) {
                 adapterDataPegawai.setData(karyawanObjects);
                 adapterDataPegawai.notifyDataSetChanged();
             }
@@ -71,11 +74,20 @@ public class DataPegawai extends BaseFragment {
         @Override
         public void onClick(int pos) {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
+            UserModel userModel = new UserModel();
+            String aksi = getContext().getString(R.string.AKSI_UBAH);
+            replaceFragment(TambahUser.newInstance(aksi,userModel),null);
         }
 
         @Override
         public void onDetail(int pos) {
 
+        }
+    };
+    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            mViewModel.fetchFromApi();
         }
     };
 }

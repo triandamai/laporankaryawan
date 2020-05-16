@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myapp.R;
 import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
+import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
@@ -28,15 +29,28 @@ public class TambahOutlet extends BaseFragment {
     private TambahOutletViewModel mViewModel;
     private TambahOutletFragmentBinding binding;
     private SheetKota sheetKota;
-
+    private String tipe ;
+    private OutletModel outletModel;
+    public TambahOutlet(){ }
+    public TambahOutlet(String tipe, OutletModel outletModel){
+        this.tipe = tipe;
+        this.outletModel = outletModel;
+    }
     public static TambahOutlet newInstance() {
         return new TambahOutlet();
+    }
+    public static TambahOutlet newInstance(String tipe,OutletModel outletModel) {
+        return new TambahOutlet(tipe,outletModel);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_outlet_fragment, container, false);
+        if(tipe == null){
+            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
+        }
+        binding.setTipe(this.tipe);
         mViewModel = new ViewModelProvider(requireActivity(),new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
         mViewModel.setOnListener(sendDataListener);
         binding.setEvent(sheetShow);

@@ -19,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.myapp.R;
 import com.myapp.databinding.FragmentSheetKaryawanBinding;
 import com.myapp.domain.model.KaryawanModel;
+import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
 
 
@@ -94,7 +95,7 @@ public class SheetKaryawan extends BottomSheetDialogFragment {
         @Override
         public void onClick(KaryawanObject karyawanObject) {
             Log.e("TAG",karyawanObject.toString());
-            KaryawanModel karyawanModel = new KaryawanModel();
+            UserModel karyawanModel = new UserModel();
             karyawanModel.setIdUser(karyawanModel.getIdUser());
             karyawanModel.setCreatedAt(karyawanObject.getCreatedAt());
             karyawanModel.setFotoUser(karyawanObject.getFotoUser());
@@ -135,7 +136,7 @@ public class SheetKaryawan extends BottomSheetDialogFragment {
     }
 
     public interface BottomSheetListener {
-        void onOptionClick(KaryawanModel kotaModel);
+        void onOptionClick(UserModel kotaModel);
     }
 
 

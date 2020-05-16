@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_export"
+        android:icon="@drawable/ic_print"
+        app:showAsAction="ifRoom"
+        android:title="Tutup" />
     <item android:id="@+id/menu_close"
         android:icon="@drawable/ic_close"
         app:showAsAction="ifRoom"
         android:title="Tutup" />
 
-    <item android:id="@+id/menu_export"
-        android:icon="@drawable/ic_print"
-        app:showAsAction="ifRoom"
-        android:title="Tutup" />
 </menu>

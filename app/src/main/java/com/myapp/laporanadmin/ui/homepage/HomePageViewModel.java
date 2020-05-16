@@ -21,9 +21,13 @@ public class HomePageViewModel extends ViewModel {
     public HomePageViewModel(Context context) {
         this.context = context;
         realm = Realm.getDefaultInstance();
+        fetchFromApi();
 
+
+    }
+
+    public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataHomepgae();
-
     }
 
     public void init(){

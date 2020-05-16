@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.myapp.R;
 import com.myapp.databinding.LaporanBulananFragmentBinding;
@@ -27,14 +28,26 @@ public class LaporanBulanan extends BaseFragment {
     private LaporanBulananViewModel mViewModel;
     private LaporanBulananFragmentBinding binding;
     private AdapterLaporanBulanan adapterLaporanBulanan;
+    private boolean isNotif = false;
+    public LaporanBulanan(){
+
+    }
+    public LaporanBulanan(boolean p){
+        this.isNotif = p;
+    }
     public static LaporanBulanan newInstance() {
         return new LaporanBulanan();
+    }
+    public static LaporanBulanan newInstance(boolean isNotif) {
+        return new LaporanBulanan(isNotif);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
          binding = DataBindingUtil.inflate(inflater, R.layout.laporan_bulanan_fragment, container, false);
+         binding.setListener(refreshListener);
+         setActionBar(binding.toolbar,"Laporan Bulanan","");
          binding.setIsLoading(true);
          adapterLaporanBulanan = new AdapterLaporanBulanan(adapterItemClicked);
          binding.rv.setAdapter(adapterLaporanBulanan);
@@ -56,19 +69,21 @@ public class LaporanBulanan extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.init();
+        if(isNotif){
+            mViewModel.initNotifikasi();
+        }else {
+            mViewModel.init();
+        }
         observe(mViewModel);
     }
 
     private void observe(LaporanBulananViewModel mViewModel) {
-        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), new Observer<List<LaporanBulananObject>>() {
-            @Override
-            public void onChanged(List<LaporanBulananObject> laporanBulananObjects) {
-                if (laporanBulananObjects.size() >= 1){
-                    binding.setIsLoading(false);
-                    adapterLaporanBulanan.setData(laporanBulananObjects);
-                    adapterLaporanBulanan.notifyDataSetChanged();
-                }
+        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), laporanBulananObjects -> {
+            binding.setIsLoading(false);
+            if (laporanBulananObjects.size() >= 1){
+
+                adapterLaporanBulanan.setData(laporanBulananObjects);
+                adapterLaporanBulanan.notifyDataSetChanged();
             }
         });
     }
@@ -81,6 +96,18 @@ public class LaporanBulanan extends BaseFragment {
         @Override
         public void onDetail(int pos) {
 
+        }
+    };
+    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            LaporanBulananRequestData l = new LaporanBulananRequestData();
+            l.setBulanLaporanbulanan(month+1);
+            l.setTahunLaporanbulanan(year);
+            mViewModel.fetchFromApi(l);
         }
     };
 }

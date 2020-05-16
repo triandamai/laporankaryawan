@@ -20,11 +20,27 @@ public class DataOutletViewModel extends ViewModel {
     public DataOutletViewModel(Context context) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
+        fetchFromApi();
+
+    }
+
+    public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataOutlet();
     }
 
     public void init(){
-       outletData = new RealmLiveResult(realm.where(OutletObject.class).findAll());
+        try {
+//            if(realm == null){
+//                realm = Realm.getDefaultInstance();
+//            }
+
+            outletData = new RealmLiveResult(realm.where(OutletObject.class).findAll());
+        }finally {
+            if(realm != null){
+              //  realm.close();
+            }
+        }
+
     }
     // TODO: Implement the ViewModel
 

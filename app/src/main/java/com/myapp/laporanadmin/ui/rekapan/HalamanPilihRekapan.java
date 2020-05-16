@@ -15,6 +15,7 @@ import com.myapp.databinding.HalamanPilihRekapanFragmentBinding;
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
+import com.myapp.domain.model.UserModel;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
@@ -96,7 +97,7 @@ public class HalamanPilihRekapan extends BaseFragment {
 
     private SheetKaryawan.BottomSheetListener listener = new SheetKaryawan.BottomSheetListener() {
         @Override
-        public void onOptionClick(KaryawanModel kotaModel) {
+        public void onOptionClick(UserModel kotaModel) {
             sheetKaryawan.dismiss();
             binding.setKaryawan(kotaModel);
             LaporanHarianRekapanRequestData l = new LaporanHarianRekapanRequestData();

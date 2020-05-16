@@ -10,6 +10,13 @@
         <variable
             name="vm"
             type="com.myapp.laporanadmin.ui.tambahkota.TambahKotaViewModel" />
+        <variable
+            name="kota"
+            type="com.myapp.domain.model.KotaModel"
+            />
+        <variable
+            name="tipe"
+            type="String" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -38,7 +45,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={vm.namakota}"
+                    android:text="@={vm.kotamodel.namaKota}"
                     android:background="@color/gray_muda_banget"
                     android:hint="@string/namakota"
                     android:inputType="text"
@@ -59,7 +66,7 @@
                     android:background="@drawable/ripple_primary"
                     android:clickable="true"
                     viewGone="@{!isLoading}"
-                    android:onClick="@{(v)->vm.simpan(v)}"
+                    android:onClick="@{(v)->vm.simpan(v,kota,tipe)}"
                     android:text="Simpan"/>
                 <ProgressBar
                     android:layout_width="50dp"

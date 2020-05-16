@@ -12,6 +12,7 @@ import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.domain.realmobject.KotaObject;
@@ -89,7 +90,7 @@ public class LaporanRepository {
 
                 } finally {
                     if (realm != null) {
-                        realm.close();
+                        //realm.close();
                     }
                 }
             }
@@ -152,7 +153,7 @@ public class LaporanRepository {
 
                             } finally {
                                 if (realm != null) {
-                                    realm.close();
+                                  //  realm.close();
                                 }
                             }
                         }
@@ -209,7 +210,7 @@ public class LaporanRepository {
 
                             } finally {
                                 if (realm != null) {
-                                    realm.close();
+                                 //   realm.close();
                                 }
                             }
                         }
@@ -226,42 +227,50 @@ public class LaporanRepository {
     }
 
     public void getDataKaryawan() {
-        KaryawanModel loginModel = new KaryawanModel();
+        UserModel loginModel = new UserModel();
 
         service.getAllKaryawan(loginModel).enqueue(new Callback<ResponseGetKaryawan>() {
             @Override
             public void onResponse(Call<ResponseGetKaryawan> call, Response<ResponseGetKaryawan> response) {
+
                 if (cek(response.code(), context, "getData Home Page")) {
 //                    Log.e(TAG,response.body().getData().toString());
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
-                            realm.executeTransaction(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    realm.delete(KaryawanObject.class);
-                                }
-                            });
-
-                            for (KaryawanModel item : response.body().getData()) {
-                                KaryawanObject karyawanObject = new KaryawanObject();
-                                karyawanObject.setIdUser(item.getIdUser());
-                                karyawanObject.setNamaUser(item.getNamaUser());
-                                karyawanObject.setNipUser(item.getNipUser());
-                                karyawanObject.setFotoUser(item.getFotoUser());
-                                karyawanObject.setLevelUser(item.getLevelUser());
-                                karyawanObject.setUsernameUser(item.getUsernameUser());
-                                karyawanObject.setPasswordUser(item.getPasswordUser());
-                                karyawanObject.setCreatedAt(item.getCreatedAt());
-
-                                karyawanObject.setUpdatedAt(item.getUpdatedAt());
-                                realm.executeTransaction(realm -> {
-                                    realm.copyToRealmOrUpdate(karyawanObject);
+                            try {
+                                realm.executeTransaction(new Realm.Transaction() {
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        realm.delete(KaryawanObject.class);
+                                    }
                                 });
+
+                                for (UserModel item : response.body().getData()) {
+                                    KaryawanObject karyawanObject = new KaryawanObject();
+                                    karyawanObject.setIdUser(item.getIdUser());
+                                    karyawanObject.setNamaUser(item.getNamaUser());
+                                    karyawanObject.setNipUser(item.getNipUser());
+                                    karyawanObject.setFotoUser(item.getFotoUser());
+                                    karyawanObject.setLevelUser(item.getLevelUser());
+                                    karyawanObject.setUsernameUser(item.getUsernameUser());
+                                    karyawanObject.setPasswordUser(item.getPasswordUser());
+                                    karyawanObject.setCreatedAt(item.getCreatedAt());
+
+                                    karyawanObject.setUpdatedAt(item.getUpdatedAt());
+                                    realm.executeTransaction(realm -> {
+                                        realm.copyToRealmOrUpdate(karyawanObject);
+                                    });
+                                }
+                            } finally {
+                                if (realm != null) {
+                                  //  realm.close();
+                                }
                             }
-                            realm.close();
+
                         }
                     }
                 }
+
             }
 
             @Override
@@ -282,24 +291,31 @@ public class LaporanRepository {
 //                    Log.e(TAG,response.body().getData().toString());
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
-                            realm.executeTransaction(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    realm.delete(KotaObject.class);
-                                }
-                            });
-                            for (KotaModel item : response.body().getData()) {
-                                KotaObject kotaObject = new KotaObject();
-                                kotaObject.setIdKota(item.getIdKota());
-                                kotaObject.setCreatedAt(item.getCreatedAt());
-                                kotaObject.setNamaKota(item.getNamaKota());
-                                kotaObject.setUpdatedAt(item.getUpdatedAt());
+                            try {
+
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
                                     public void execute(Realm realm) {
-                                        realm.copyToRealmOrUpdate(kotaObject);
+                                        realm.delete(KotaObject.class);
                                     }
                                 });
+                                for (KotaModel item : response.body().getData()) {
+                                    KotaObject kotaObject = new KotaObject();
+                                    kotaObject.setIdKota(item.getIdKota());
+                                    kotaObject.setCreatedAt(item.getCreatedAt());
+                                    kotaObject.setNamaKota(item.getNamaKota());
+                                    kotaObject.setUpdatedAt(item.getUpdatedAt());
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            realm.copyToRealmOrUpdate(kotaObject);
+                                        }
+                                    });
+                                }
+                            } finally {
+                                if (realm != null) {
+                                   // realm.close();
+                                }
                             }
 
                         }
@@ -324,29 +340,36 @@ public class LaporanRepository {
 //                    Log.e(TAG,response.body().getData().toString());
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
-                            realm.executeTransaction(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    realm.delete(OutletObject.class);
-                                }
-                            });
-                            realm.commitTransaction();
-                            for (OutletModel item : response.body().getData()) {
-                                OutletObject outletObject = new OutletObject();
-                                outletObject.setIdOutlet(item.getIdOutlet());
-                                outletObject.setIdKota(item.getIdKota());
-                                outletObject.setNamaOutlet(item.getNamaOutlet());
-                                outletObject.setNamaKota(item.getKota().getNamaKota());
-                                outletObject.setCreatedAt(item.getCreatedAt());
-                                outletObject.setUpdatedAt(item.getUpdatedAt());
+                            try {
 
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
                                     public void execute(Realm realm) {
-                                        realm.copyToRealmOrUpdate(outletObject);
+                                        realm.delete(OutletObject.class);
                                     }
                                 });
 
+                                for (OutletModel item : response.body().getData()) {
+                                    OutletObject outletObject = new OutletObject();
+                                    outletObject.setIdOutlet(item.getIdOutlet());
+                                    outletObject.setIdKota(item.getIdKota());
+                                    outletObject.setNamaOutlet(item.getNamaOutlet());
+                                    outletObject.setNamaKota(item.getKota().getNamaKota());
+                                    outletObject.setCreatedAt(item.getCreatedAt());
+                                    outletObject.setUpdatedAt(item.getUpdatedAt());
+
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            realm.copyToRealmOrUpdate(outletObject);
+                                        }
+                                    });
+
+                                }
+                            } finally {
+                                if (realm != null) {
+                                    //realm.close();
+                                }
                             }
                         }
                     }

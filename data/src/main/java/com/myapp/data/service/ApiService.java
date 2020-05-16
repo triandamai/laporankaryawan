@@ -1,5 +1,7 @@
 package com.myapp.data.service;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
@@ -10,6 +12,7 @@ import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.model.PostUserModel;
+import com.myapp.domain.model.UserModel;
 import com.myapp.domain.response.ResponseGetKaryawan;
 import com.myapp.domain.response.ResponseGetKota;
 import com.myapp.domain.response.ResponseGetLaporanBulanan;
@@ -52,19 +55,19 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/data")
-    Call<ResponseGetKaryawan> getAllKaryawan(@Body KaryawanModel karyawanModel);
+    Call<ResponseGetKaryawan> getAllKaryawan(@Body UserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/data")
-    Call<ResponseGetKaryawan> updateuser(@Body KaryawanModel karyawanModel);
+    Call<ResponsePost> updateuser(@Body PostUserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/update_password")
-    Call<ResponseGetKaryawan> ubahpassword(@Body KaryawanModel karyawanModel);
+    Call<ResponsePost> ubahpassword(@Body UserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("user/delete")
-    Call<ResponseGetKaryawan> hapususer(@Body KaryawanModel karyawanModel);
+    Call<ResponsePost> hapususer(@Body PostUserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/data")
@@ -72,15 +75,15 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/add")
-    Call<ResponseGetKaryawan> simpankota(@Body JSONObject kotaModel);
+    Call<ResponsePost> simpankota(@Body JSONObject kotaModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/update")
-    Call<ResponseGetKaryawan> ubahkota(@Body KotaModel kotaModel);
+    Call<ResponsePost> ubahkota(@Body KotaModel kotaModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("kota/update")
-    Call<ResponseGetKaryawan> hapusota(@Body KotaModel kotaModel);
+    Call<ResponsePost> hapuskota(@Body KotaModel kotaModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
@@ -102,11 +105,11 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/add")
-    Call<ResponseGetKaryawan> tambahlaporanharian(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> tambahlaporanharian(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/proses")
-    Call<ResponseGetKaryawan> proseslaporanharia(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> proseslaporanharia(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/data")
@@ -114,15 +117,15 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/add")
-    Call<ResponseGetKaryawan> tambahoutlet(@Body OutletModel outletModel);
+    Call<ResponsePost> tambahoutlet(@Body OutletModel outletModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/update")
-    Call<ResponseGetKaryawan> ubahoutlet(@Body OutletModel outletModel);
+    Call<ResponsePost> ubahoutlet(@Body MutableLiveData<OutletModel> outletModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/delete")
-    Call<ResponseGetKaryawan> hapusoutlet(@Body OutletModel outletModel);
+    Call<ResponsePost> hapusoutlet(@Body MutableLiveData<OutletModel> outletModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
@@ -130,11 +133,11 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/add")
-    Call<ResponseGetKaryawan> tambahlaporanbulanan(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> tambahlaporanbulanan(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/proses")
-    Call<ResponseGetKaryawan> laporanbulananproses(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> laporanbulananproses(@Body LaporanHarianModel laporanModel);
 
 
 

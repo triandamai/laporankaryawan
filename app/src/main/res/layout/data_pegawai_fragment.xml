@@ -7,6 +7,9 @@
         <variable
             name="isLoading"
             type="boolean" />
+        <variable
+            name="listener"
+            type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
@@ -20,10 +23,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </com.google.android.material.appbar.AppBarLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            setRefreshing="@{isLoading}"
+            setRefreshingListener="@{listener}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -39,5 +48,6 @@
                     app:shimmer_recycler_layout="@layout/item_shimmer_karyawan" />
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

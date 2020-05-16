@@ -25,19 +25,47 @@ public class LaporanBulananViewModel extends ViewModel {
         this.context = context;
         this.context = context;
         this.realm = Realm.getDefaultInstance();
+        fetchFromApi(laporanHarianRequestData);
 
+    }
+
+    public void fetchFromApi(LaporanBulananRequestData laporanHarianRequestData) {
         try {
             LaporanRepository.getInstance(context).getLaporanBulanan(laporanHarianRequestData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
     public void init(){
-        try {
-            listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).findAll());
-        }catch (NullPointerException e){
-            listLiveData = new MutableLiveData<>();
-        }
+            try {
+//                if(realm == null){
+//                    realm = Realm.getDefaultInstance();
+//                }
+
+                listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).findAll());
+            }finally {
+                if(realm != null){
+                 //   realm.close();
+                }
+            }
+
+
+    }
+    public void initNotifikasi(){
+      try {
+//          if(realm == null){
+//              realm = Realm.getDefaultInstance();
+//          }
+
+          listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).equalTo("statusLaporanbulanan","1").findAll());
+      }finally {
+          if(realm != null){
+             // realm.close();
+          }
+      }
+
+
     }
 
     public LiveData<List<LaporanBulananObject>> getListLiveData() {

@@ -47,7 +47,7 @@ public class HomePage extends BaseFragment {
       binding.setIsLoading(true);
       binding.setIsNotifikasiBulanan(false);
       binding.setIsNotifikasiBulanan(false);
-      binding.setLitener(refreshListener);
+      binding.setListener(refreshListener);
       binding.setClick(homePageItemClicked);
 
       return binding.getRoot();
@@ -70,24 +70,21 @@ public class HomePage extends BaseFragment {
     }
 
     private void observe(HomePageViewModel mViewModel) {
-        mViewModel.getHomePageModelLiveData().observe(getViewLifecycleOwner(), new Observer<HomePageObject>() {
-            @Override
-            public void onChanged(HomePageObject homePageObject) {
+        mViewModel.getHomePageModelLiveData().observe(getViewLifecycleOwner(), homePageObject -> {
 
-                    if(homePageObject != null) {
-                        binding.setIsLoading(false);
-                        int bulanan = Integer.parseInt(homePageObject.getLapMasukBulanan().toString());
-                        int harian = Integer.parseInt(homePageObject.getLapMasukHarian().toString());
-                        if (bulanan >= 1) {
-                            binding.setIsNotifikasiBulanan(true);
-                        }
-                        if (harian >= 1) {
-                            binding.setIsNotifikasiHarian(true);
-                        }
-
-                        binding.setOverview(homePageObject);
+                if(homePageObject != null) {
+                    binding.setIsLoading(false);
+                    int bulanan = Integer.parseInt(homePageObject.getLapMasukBulanan().toString());
+                    int harian = Integer.parseInt(homePageObject.getLapMasukHarian().toString());
+                    if (bulanan >= 1) {
+                        binding.setIsNotifikasiBulanan(true);
                     }
-            }
+                    if (harian >= 1) {
+                        binding.setIsNotifikasiHarian(true);
+                    }
+
+                    binding.setOverview(homePageObject);
+                }
         });
 
 
@@ -115,17 +112,17 @@ public class HomePage extends BaseFragment {
 
         @Override
         public void dataKota(View v) {
-            replaceFragment(DataKota.newInstance(),null);
+            replaceFragment(DataKota.newInstance(),DataOutlet.TAG);
         }
 
         @Override
         public void dataOutlet(View v) {
-            replaceFragment(DataOutlet.newInstance(),null);
+            replaceFragment(DataOutlet.newInstance(),DataOutlet.TAG);
         }
 
         @Override
         public void Pegawai(View v) {
-            replaceFragment(DataPegawai.newInstance(),null);
+            replaceFragment(DataPegawai.newInstance(),DataOutlet.TAG);
         }
 
         @Override
@@ -144,8 +141,13 @@ public class HomePage extends BaseFragment {
         }
 
         @Override
-        public void Notifikasi(View v) {
-            replaceFragment(LaporanHarian.newInstance(),null);
+        public void notifikasiBulanan(View v) {
+            replaceFragment(LaporanBulanan.newInstance(true),null);
+        }
+
+        @Override
+        public void notifikasiHarian(View v) {
+            replaceFragment(LaporanHarian.newInstance(true),null);
         }
 
         @Override
@@ -156,7 +158,7 @@ public class HomePage extends BaseFragment {
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-           observe(mViewModel);
+            mViewModel.fetchFromApi();
         }
     };
 }

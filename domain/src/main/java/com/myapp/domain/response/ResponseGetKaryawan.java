@@ -3,6 +3,7 @@ package com.myapp.domain.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.myapp.domain.model.KaryawanModel;
+import com.myapp.domain.model.UserModel;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ResponseGetKaryawan {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private List<KaryawanModel> data = null;
+    private List<UserModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -44,11 +45,11 @@ public class ResponseGetKaryawan {
         this.responseMessage = responseMessage;
     }
 
-    public List<KaryawanModel> getData() {
+    public List<UserModel> getData() {
         return data;
     }
 
-    public void setData(List<KaryawanModel> data) {
+    public void setData(List<UserModel> data) {
         this.data = data;
     }
 

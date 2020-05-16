@@ -1,5 +1,7 @@
 package com.myapp.domain.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,5 +27,9 @@ public class PostOutletModel {
 
     public void setNamaOutlet(String namaOutlet) {
         this.namaOutlet = namaOutlet;
+    }
+
+    public boolean isValid(){
+        return !TextUtils.isEmpty(namaOutlet) && idKota != null ;
     }
 }

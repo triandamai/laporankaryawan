@@ -10,7 +10,7 @@
             type="boolean" />
         <variable
             name="karyawan"
-            type="com.myapp.domain.model.KaryawanModel" />
+            type="com.myapp.domain.model.UserModel" />
         <variable
             name="tanggal"
             type="String" />

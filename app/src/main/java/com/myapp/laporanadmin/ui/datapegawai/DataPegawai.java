@@ -1,5 +1,6 @@
 package com.myapp.laporanadmin.ui.datapegawai;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.DataPegawaiFragmentBinding;
 import com.myapp.domain.model.UserModel;
@@ -28,6 +30,7 @@ public class DataPegawai extends BaseFragment {
     private DataPegawaiViewModel mViewModel;
     private DataPegawaiFragmentBinding binding;
     private AdapterDataPegawai adapterDataPegawai;
+    private MaterialAlertDialogBuilder builder;
 
     public static DataPegawai newInstance() {
         return new DataPegawai();
@@ -42,7 +45,8 @@ public class DataPegawai extends BaseFragment {
         binding.setIsLoading(true);
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);
         binding.rv.setAdapter(adapterDataPegawai);
-
+        builder = new MaterialAlertDialogBuilder(getContext(),R.style.dialog);
+        builder.create();
         return binding.getRoot();
     }
 
@@ -73,11 +77,29 @@ public class DataPegawai extends BaseFragment {
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
         @Override
         public void onClick(int pos) {
+
+        }
+
+        @Override
+        public void onEdit(int pos) {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
             UserModel userModel = UserModel.covertdariobjek(data);
+            builder.setTitle("Hi");
+            builder.setMessage("Mau Edit Karyawan "+userModel.getNamaUser()+"?");
+            builder.setPositiveButton("Edit", (dialog, which) -> {
+                dialog.dismiss();
+                String aksi = getContext().getString(R.string.AKSI_UBAH);
+                replaceFragment(TambahUser.newInstance(aksi,userModel),null);
+            });
+            builder.setNegativeButton("Batal", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            builder.show();
+        }
 
-            String aksi = getContext().getString(R.string.AKSI_UBAH);
-            replaceFragment(TambahUser.newInstance(aksi,userModel),null);
+        @Override
+        public void onDelete(int pos) {
+
         }
 
         @Override

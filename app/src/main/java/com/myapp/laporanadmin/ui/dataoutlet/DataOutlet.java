@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.DataOutletFragmentBinding;
 import com.myapp.domain.model.OutletModel;
@@ -28,6 +29,7 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.ui.datakota.DataKotaFactory;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
 import com.myapp.laporanadmin.ui.tambahoutlet.TambahOutlet;
+import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class DataOutlet extends BaseFragment {
     private DataOutletViewModel mViewModel;
     private DataOutletFragmentBinding binding;
     private AdapterDataOutlet adapterDataOutlet;
+    private MaterialAlertDialogBuilder builder;
 
     public static DataOutlet newInstance() {
         return new DataOutlet();
@@ -51,6 +54,7 @@ public class DataOutlet extends BaseFragment {
         binding.setIsLoading(true);
         adapterDataOutlet = new AdapterDataOutlet(adapterItemClicked);
         binding.rv.setAdapter(adapterDataOutlet);
+        builder = new MaterialAlertDialogBuilder(getContext(),R.style.dialog);
         return binding.getRoot();
     }
 
@@ -81,11 +85,33 @@ public class DataOutlet extends BaseFragment {
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
         @Override
         public void onClick(int pos) {
+
+        }
+
+        @Override
+        public void onEdit(int pos) {
             OutletObject outletObject = adapterDataOutlet.getFromPosition(pos);
-            OutletModel outletModel = new OutletModel();
-            outletModel.setIdKota(outletObject.getIdKota());
-            String aksi = getContext().getString(R.string.AKSI_UBAH);
-            replaceFragment(TambahOutlet.newInstance(aksi,outletModel),null);
+            OutletModel outletModel = OutletModel.convertdariobject(outletObject);
+
+
+
+            builder.setTitle("Hi");
+            builder.setMessage("Mau Edit Outlet "+outletModel.getNamaOutlet()+" ?");
+            builder.setPositiveButton("Edit", (dialog, which) -> {
+                dialog.dismiss();
+                String aksi = getContext().getString(R.string.AKSI_UBAH);
+                replaceFragment(TambahOutlet.newInstance(aksi,outletModel),null);
+            });
+            builder.setNegativeButton("Batal", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            builder.show();
+
+        }
+
+        @Override
+        public void onDelete(int pos) {
+
         }
 
         @Override

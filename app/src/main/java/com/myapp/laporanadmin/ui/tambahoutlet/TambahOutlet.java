@@ -47,14 +47,18 @@ public class TambahOutlet extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_outlet_fragment, container, false);
-        if(tipe == null){
-            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
-        }
+
         binding.setTipe(this.tipe);
         mViewModel = new ViewModelProvider(requireActivity(),new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
         mViewModel.setOnListener(sendDataListener);
         binding.setEvent(sheetShow);
         binding.setVm(mViewModel);
+        if(tipe == null){
+            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
+        }
+        if(outletModel != null){
+            mViewModel.outletmodel.setValue(outletModel);
+        }
         sheetKota = new SheetKota();
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Outlet","");

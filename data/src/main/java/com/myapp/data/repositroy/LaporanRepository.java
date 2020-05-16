@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.myapp.data.service.ApiService;
-import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanBulananRequestData;

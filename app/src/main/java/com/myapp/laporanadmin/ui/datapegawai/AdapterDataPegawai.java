@@ -35,6 +35,7 @@ public class AdapterDataPegawai extends RecyclerView.Adapter<AdapterDataPegawai.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setPosition(position);
         holder.binding.setData(dalist.get(position));
+        holder.binding.setEvent(adapterItemClicked);
 
     }
 

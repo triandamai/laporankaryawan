@@ -74,7 +74,8 @@ public class DataPegawai extends BaseFragment {
         @Override
         public void onClick(int pos) {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
-            UserModel userModel = new UserModel();
+            UserModel userModel = UserModel.covertdariobjek(data);
+
             String aksi = getContext().getString(R.string.AKSI_UBAH);
             replaceFragment(TambahUser.newInstance(aksi,userModel),null);
         }

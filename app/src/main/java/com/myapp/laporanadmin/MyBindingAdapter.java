@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -44,6 +45,7 @@ public class MyBindingAdapter {
                 .placeholder(R.drawable.logo)
                 .into(v);
     }
+
     @BindingAdapter("setStatus")
     public static void setStatus(TextView v,String s){
         if(s.equalsIgnoreCase("1")){

@@ -2,6 +2,7 @@ package com.myapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myapp.domain.realmobject.KotaObject;
 
 public class KotaModel {
     @SerializedName("id_kota")
@@ -50,11 +51,12 @@ public class KotaModel {
         this.updatedAt = updatedAt;
     }
 
-//    public Object getDeletedAt() {
-//        return deletedAt;
-//    }
-//
-//    public void setDeletedAt(Object deletedAt) {
-//        this.deletedAt = deletedAt;
-//    }
+    public static KotaModel convertdariobject(KotaObject object){
+        KotaModel kotaModel = new KotaModel();
+        kotaModel.setIdKota(object.getIdKota());
+        kotaModel.setNamaKota(object.getNamaKota());
+        kotaModel.setUpdatedAt(object.getUpdatedAt());
+        kotaModel.setCreatedAt(object.getCreatedAt());
+        return kotaModel;
+    }
 }

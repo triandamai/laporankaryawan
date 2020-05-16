@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.R;
 import com.myapp.databinding.HalamanPilihRekapanFragmentBinding;
-import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.UserModel;

@@ -2,6 +2,7 @@ package com.myapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myapp.domain.realmobject.OutletObject;
 
 public class OutletModel {
     @SerializedName("id_outlet")
@@ -71,5 +72,21 @@ public class OutletModel {
 
     public void setKota(KotaModel kota) {
         this.kota = kota;
+    }
+    public static OutletModel convertdariobject(OutletObject obj){
+
+        KotaModel k = new KotaModel();
+        k.setCreatedAt(obj.getCreatedAt());
+        k.setUpdatedAt(obj.getUpdatedAt());
+        k.setNamaKota(obj.getNamaKota());
+        k.setIdKota(obj.getIdKota());
+        OutletModel t = new OutletModel();
+        t.setIdKota(obj.getIdKota());
+        t.setCreatedAt(obj.getCreatedAt());
+        t.setNamaOutlet(obj.getNamaOutlet());
+        t.setIdOutlet(obj.getIdOutlet());
+        t.setKota(k);
+        t.setUpdatedAt(obj.getUpdatedAt());
+        return t;
     }
 }

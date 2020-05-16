@@ -2,7 +2,6 @@ package com.myapp.data.service;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianModel;

@@ -2,6 +2,7 @@ package com.myapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myapp.domain.realmobject.KaryawanObject;
 
 public class UserModel {
     @SerializedName("id_user")
@@ -113,7 +114,20 @@ public class UserModel {
     }
 
 
+    public static UserModel covertdariobjek(KaryawanObject karyawanObject){
+        UserModel userModel = new UserModel();
+        userModel.setIdUser(karyawanObject.getIdUser());
+        userModel.setNamaUser(karyawanObject.getNamaUser());
+        userModel.setFotoUser(karyawanObject.getFotoUser());
+        userModel.setUsernameUser(karyawanObject.getUsernameUser());
+        userModel.setPasswordUser(karyawanObject.getPasswordUser());
+        userModel.setLevelUser(karyawanObject.getLevelUser());
+        userModel.setNipUser(karyawanObject.getNipUser());
+        userModel.setUpdatedAt(karyawanObject.getUpdatedAt());
+        userModel.setCreatedAt(karyawanObject.getCreatedAt());
+        return  userModel;
 
+    }
     @Override
     public String toString() {
         return "KaryawanModel{" +

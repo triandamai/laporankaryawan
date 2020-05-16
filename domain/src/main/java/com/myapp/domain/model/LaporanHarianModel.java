@@ -2,6 +2,7 @@ package com.myapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 
 public class LaporanHarianModel {
     @SerializedName("id_laporanharian")
@@ -37,9 +38,7 @@ public class LaporanHarianModel {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-//    @SerializedName("deleted_at")
-//    @Expose
-//    private Object deletedAt;
+
     @SerializedName("user")
     @Expose
     private UserModel user;
@@ -135,14 +134,6 @@ public class LaporanHarianModel {
         this.updatedAt = updatedAt;
     }
 
-//    public Object getDeletedAt() {
-//        return deletedAt;
-//    }
-//
-//    public void setDeletedAt(Object deletedAt) {
-//        this.deletedAt = deletedAt;
-//    }
-
     public UserModel getUser() {
         return user;
     }
@@ -157,5 +148,51 @@ public class LaporanHarianModel {
 
     public void setOutlet(OutletModel outlet) {
         this.outlet = outlet;
+    }
+    public static LaporanHarianModel covertdariobject(LaporanHarianObject o){
+        LaporanHarianModel l = new LaporanHarianModel();
+        UserModel u = new UserModel();
+        u.setCreatedAt(o.getCreatedAt());
+        u.setUpdatedAt(o.getUpdatedAt());
+        u.setNipUser(o.getNipUser());
+        u.setLevelUser(o.getLevelUser());
+        u.setPasswordUser("tidak ditampilkan");
+        u.setUsernameUser("tidak ditampilkan");
+        u.setFotoUser(o.getFotoUser());
+        u.setNamaUser(o.getNamaUser());
+        u.setIdUser(o.getIdUser());
+
+        KotaModel k = new KotaModel();
+        k.setCreatedAt(o.getCreatedAt());
+        k.setUpdatedAt(o.getUpdatedAt());
+        k.setNamaKota(o.getNamaKota());
+        k.setIdKota(o.getIdKota());
+
+        OutletModel t = new OutletModel();
+        t.setIdKota(o.getIdKota());
+        t.setCreatedAt(o.getCreatedAt());
+        t.setNamaOutlet(o.getNamaOutlet());
+        t.setIdOutlet(o.getIdOutlet());
+        t.setKota(k);
+        t.setUpdatedAt(o.getUpdatedAt());
+
+
+
+
+        l.setAlamatLaporanharian(o.getAlamatLaporanharian());
+        l.setBuktiLaporanharian(o.getBuktiLaporanharian());
+        l.setCreatedAt(o.getCreatedAt());
+        l.setIdLaporanharian(o.getIdLaporanharian());
+        l.setIdOutlet(o.getIdOutlet());
+        l.setIdUser(o.getIdUser());
+        l.setKeteranganLaporanharian(o.getKeteranganLaporanharian());
+        l.setLatitudeLaporanharian(o.getLatitudeLaporanharian());
+        l.setLongitudeLaporanharian(o.getLongitudeLaporanharian());
+        l.setOutlet(t);
+        l.setStatusLaporanharian(o.getStatusLaporanharian());
+        l.setUpdatedAt(o.getUpdatedAt());
+        l.setUser(u);
+        return l;
+
     }
 }

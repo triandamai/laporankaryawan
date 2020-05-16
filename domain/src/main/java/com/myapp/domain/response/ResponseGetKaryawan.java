@@ -2,7 +2,6 @@ package com.myapp.domain.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.UserModel;
 
 import java.util.List;

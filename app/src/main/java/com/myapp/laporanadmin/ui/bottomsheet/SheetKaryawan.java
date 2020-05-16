@@ -18,7 +18,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.myapp.R;
 import com.myapp.databinding.FragmentSheetKaryawanBinding;
-import com.myapp.domain.model.KaryawanModel;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
 

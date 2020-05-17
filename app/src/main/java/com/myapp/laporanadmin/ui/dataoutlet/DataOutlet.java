@@ -27,6 +27,7 @@ import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.realmobject.OutletObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.datakota.DataKotaFactory;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
 import com.myapp.laporanadmin.ui.tambahoutlet.TambahOutlet;
@@ -63,6 +64,7 @@ public class DataOutlet extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(),new DataOutletFactory(getContext())).get(DataOutletViewModel.class);
+        mViewModel.setSendDataListener(sendDataListener);
         mViewModel.init();
         // TODO: Use the ViewModel
     }
@@ -108,7 +110,8 @@ public class DataOutlet extends BaseFragment {
                 }
             });
             builder.setNegativeButton("Hapus", (dialog, which) -> {
-                dialog.dismiss();
+                mViewModel.hapus(outletModel);
+
             });
             builder.show();
 
@@ -122,6 +125,31 @@ public class DataOutlet extends BaseFragment {
         @Override
         public void onDetail(int pos) {
 
+        }
+    };
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+            showProgress("Menghapus...");
+        }
+
+        @Override
+        public void onSuccess(String message) {
+            dismissProgress();
+            dialogBerhasil(message);
+            mViewModel.fetchFromApi();
+        }
+
+        @Override
+        public void onFailed(String message) {
+            dismissProgress();
+            dialogGagal(message);
+        }
+
+        @Override
+        public void onError(String message) {
+            dismissProgress();
+            dialogGagal(message);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

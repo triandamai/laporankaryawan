@@ -22,7 +22,9 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:popupTheme="@style/Theme.AppCompat.Light"/>
         </com.google.android.material.appbar.AppBarLayout>
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -31,11 +33,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#4CAF50"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_5"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:textColor="@color/putih"
+                    setStatus="@{data.statusLaporanharian}"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:text="@{data.namaOutlet}"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -48,15 +64,20 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sp_20"
+                    android:textSize="@dimen/sp_16"
                     android:text="@{data.keteranganLaporanharian}"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="italic"
                     android:text="@{data.alamatLaporanharian}"/>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dp_300"
+                    android:scaleType="fitXY"
                     setImageUrl="@{data.buktiLaporanharian}"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,6 +124,26 @@
                                 android:text="@{data.nipUser}" />
                         </LinearLayout>
                     </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tolak"
+                        android:textColor="@color/putih"
+                        android:layout_margin="2.5dp"
+                        android:background="@drawable/bg_btn_danger"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Terima"
+                        android:textColor="@color/putih"
+                        android:layout_margin="2.5dp"
+                        android:background="@drawable/bg_btn_primary"
+                        android:src="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

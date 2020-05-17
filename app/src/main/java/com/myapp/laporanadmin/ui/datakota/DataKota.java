@@ -22,6 +22,7 @@ import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
@@ -53,6 +54,7 @@ public class DataKota extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(), new DataKotaFactory(getContext())).get(DataKotaViewModel.class);
+        mViewModel.setSendDataListener(sendDataListener);
         mViewModel.init();
     }
 
@@ -73,7 +75,6 @@ public class DataKota extends BaseFragment {
     }
 
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
-
 
         @Override
         public void onClick(int pos) {
@@ -99,7 +100,7 @@ public class DataKota extends BaseFragment {
                 }
             });
             builder.setNegativeButton("Hapus", (dialog, which) -> {
-                dialog.dismiss();
+                mViewModel.hapus(kotaModel);
             });
             builder.show();
         }
@@ -112,6 +113,31 @@ public class DataKota extends BaseFragment {
         @Override
         public void onDetail(int pos) {
 
+        }
+    };
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+            showProgress("Menghapus...");
+        }
+
+        @Override
+        public void onSuccess(String message) {
+            dismissProgress();
+            dialogBerhasil(message);
+            mViewModel.fetchFromApi();
+        }
+
+        @Override
+        public void onFailed(String message) {
+            dismissProgress();
+            dialogGagal(message);
+        }
+
+        @Override
+        public void onError(String message) {
+            dismissProgress();
+            dialogGagal(message);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

@@ -30,7 +30,7 @@ public class DetailBulananViewModel extends ViewModel {
     public void getObject() {
         laporanBulananObjectLiveData = new RealmLiveObject(realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan",obj.getIdLaporanbulanan()).findFirst());
     }
-
+//    public void aksi
     public LiveData<LaporanBulananObject> getLaporanBulananObjectLiveData() {
         return laporanBulananObjectLiveData;
     }

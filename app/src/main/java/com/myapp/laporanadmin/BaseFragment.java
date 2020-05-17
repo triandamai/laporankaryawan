@@ -1,5 +1,6 @@
 package com.myapp.laporanadmin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,6 +36,19 @@ import java.util.Objects;
 public class BaseFragment extends Fragment {
     protected MaterialAlertDialogBuilder builder;
     public static final int REQUEST_IMAGE = 100;
+    private ProgressDialog progressDialog;
+
+
+    public void showProgress(String pesan) {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle(pesan);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void dismissProgress() {
+        progressDialog.dismiss();
+    }
 
     protected LaporanHarianRequestData getRequestHarian(){
         Calendar c = Calendar.getInstance();

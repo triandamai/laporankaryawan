@@ -65,6 +65,7 @@ public class TambahOutlet extends BaseFragment {
             PostOutletModel outlet = new PostOutletModel();
             outlet.setIdKota(Integer.parseInt(outletModel.getIdKota()));
             outlet.setNamaOutlet(outletModel.getNamaOutlet());
+            outlet.setIdOutlet(outletModel.getIdOutlet());
             mViewModel.outletmodel.set(outlet);
         }
         sheetKota = new SheetKota();

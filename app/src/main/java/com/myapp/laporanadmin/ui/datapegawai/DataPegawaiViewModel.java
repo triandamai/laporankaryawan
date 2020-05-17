@@ -7,38 +7,67 @@ import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveResult;
 import com.myapp.data.repositroy.LaporanRepository;
+import com.myapp.data.service.ApiService;
+import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
+import com.myapp.domain.response.ResponsePost;
+import com.myapp.laporanadmin.callback.SendDataListener;
 
 import java.util.List;
 
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.myapp.data.service.ApiHandler.cek;
 
 public class DataPegawaiViewModel extends ViewModel {
     private Context context;
     private Realm realm;
     private LiveData<List<KaryawanObject>> karyawanData ;
+    private ApiService apiService;
+    private SendDataListener listener;
     public DataPegawaiViewModel(Context context) {
         this.context = context;
-        realm = Realm.getDefaultInstance();
+        this.realm = Realm.getDefaultInstance();
+        this.apiService = LaporanRepository.getService(context);
         fetchFromApi();
 
     }
+    public void setSendDataListener(SendDataListener listener){
+        this.listener = listener;
 
+    }
     public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataKaryawan();
     }
+    public void hapus(UserModel model){
+        listener.onStart();
+        apiService.hapususer(model).enqueue(new Callback<ResponsePost>() {
+            @Override
+            public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                if(cek(response.code(),context,"Hapus Karyawan")){
+                    listener.onSuccess(response.body().getResponseMessage());
+                }else {
+                    listener.onFailed(response.message());
+                }
+            }
 
-    // TODO: Implement the ViewModel
+            @Override
+            public void onFailure(Call<ResponsePost> call, Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
+
+    }
     public void init(){
         try {
-//            if(realm == null){
-//                realm = Realm.getDefaultInstance();
-//            }
 
             karyawanData = new RealmLiveResult(realm.where(KaryawanObject.class).findAllAsync());
         }finally {
             if(realm != null){
-             //   realm.close();
+
             }
         }
 

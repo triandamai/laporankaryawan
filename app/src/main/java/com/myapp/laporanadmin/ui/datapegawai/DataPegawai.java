@@ -22,6 +22,7 @@ import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 public class DataPegawai extends BaseFragment {
@@ -53,6 +54,7 @@ public class DataPegawai extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(), new DataPegawaiFactory(getContext())).get(DataPegawaiViewModel.class);
+        mViewModel.setSendDataListener(sendDataListener);
         mViewModel.init();
         // TODO: Use the ViewModel
     }
@@ -95,7 +97,7 @@ public class DataPegawai extends BaseFragment {
             });
             builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton("Hapus", (dialog, which) -> {
-                dialog.dismiss();
+                mViewModel.hapus(userModel);
             });
             builder.show();
         }
@@ -110,7 +112,31 @@ public class DataPegawai extends BaseFragment {
 
         }
     };
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+            showProgress("Menghapus...");
+        }
 
+        @Override
+        public void onSuccess(String message) {
+            dismissProgress();
+            dialogBerhasil(message);
+            mViewModel.fetchFromApi();
+        }
+
+        @Override
+        public void onFailed(String message) {
+            dismissProgress();
+            dialogGagal(message);
+        }
+
+        @Override
+        public void onError(String message) {
+            dismissProgress();
+            dialogGagal(message);
+        }
+    };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {

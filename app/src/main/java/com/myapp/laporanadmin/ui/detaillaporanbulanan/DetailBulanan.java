@@ -40,6 +40,7 @@ public class DetailBulanan extends BaseFragment {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.detail_bulanan_fragment, container, false);
         setActionBar(binding.toolbar,"Laporan Bulanan "+laporanBulananObject.getNamaUser(),"");
+        binding.setData(laporanBulananObject);
         setHasOptionsMenu(true);
         mViewModel = new ViewModelProvider(getActivity(),new DetailBulananFactory(getContext(),laporanBulananObject)).get(DetailBulananViewModel.class);
         binding.setIsLoading(true);

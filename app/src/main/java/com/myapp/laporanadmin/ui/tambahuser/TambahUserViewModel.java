@@ -99,8 +99,14 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
     @Override
     public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
         if (cek(response.code(), context, "Tambah")) {
-            listener.onSuccess("Sukes");
+
             MyUser.getInstance(context).setTipeFormUser(null);
+            if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                listener.onSuccess(response.body().getResponseMessage());
+            }else {
+                listener.onFailed(response.body().getResponseMessage());
+            }
+
         } else {
             listener.onFailed("Gagal " + response.body().getResponseMessage());
         }

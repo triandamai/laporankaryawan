@@ -69,7 +69,6 @@ public class DataKota extends BaseFragment {
             binding.setIsLoading(false);
             if (kotaObjects != null) {
                 adapterDataKota.setData(kotaObjects);
-                adapterDataKota.notifyDataSetChanged();
             }
         });
     }

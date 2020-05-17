@@ -38,28 +38,21 @@ public class LaporanHarianViewModel extends ViewModel {
 
     public void init(){
        try {
-           if (realm == null) {
-               realm = Realm.getDefaultInstance();
-           }
 
            listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).findAll());
        }finally {
            if(realm != null){
-               realm.close();
+
            }
        }
     }
 
     public void initnotifikasi(){
         try {
-//            if (realm == null) {
-//                realm = Realm.getDefaultInstance();
-//            }
-
             listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).equalTo("statusLaporanharia", "1").findAll());
         }finally {
             if(realm != null){
-              //  realm.close();
+
             }
         }
     }

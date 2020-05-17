@@ -48,7 +48,12 @@ public class DataPegawaiViewModel extends ViewModel {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if(cek(response.code(),context,"Hapus Karyawan")){
-                    listener.onSuccess(response.body().getResponseMessage());
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                        listener.onSuccess(response.body().getResponseMessage());
+                    }else {
+                        listener.onFailed(response.body().getResponseMessage());
+                    }
+
                 }else {
                     listener.onFailed(response.message());
                 }

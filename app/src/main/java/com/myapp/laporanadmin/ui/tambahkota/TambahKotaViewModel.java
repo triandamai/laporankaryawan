@@ -80,7 +80,13 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     @Override
     public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
         if(cek(response.code(),context,"Simpan Kpta")){
-            listener.onSuccess("Berhasil Menambahkan");
+            if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                MyUser.getInstance(context).setTipeFormKota(null);
+                listener.onSuccess(response.body().getResponseMessage());
+            }else {
+                listener.onFailed(response.body().getResponseMessage());
+            }
+
 
         }else {
             listener.onFailed(response.message());

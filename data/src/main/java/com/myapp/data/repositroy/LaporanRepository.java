@@ -56,7 +56,10 @@ public class LaporanRepository {
     }
 
     public static ApiService getService(Context context) {
-        return createService(ApiService.class, "laporanKaryawanMantap", "laporanKaryawanMantap", context);
+        if (service == null) {
+            service = createService(ApiService.class, "laporanKaryawanMantap", "laporanKaryawanMantap", context);
+        }
+        return service;
     }
 
     public void getDataHomepgae() {
@@ -106,13 +109,13 @@ public class LaporanRepository {
     public void getLaporanHarian(LaporanHarianRequestData laporanHarianRequestData) throws JSONException {
         Gson gson = new Gson();
 
-        Log.e(TAG, gson.toJson(laporanHarianRequestData));
+
         service.getAllLaporanharian(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
             @Override
             public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
                 if (cek(response.code(), context, "getData lap harian")) {
                     Log.e(TAG, response.body().getData().toString());
-                    //  Log.e(TAG,response.toString());
+
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
@@ -152,7 +155,7 @@ public class LaporanRepository {
 
                             } finally {
                                 if (realm != null) {
-                                  //  realm.close();
+
                                 }
                             }
                         }
@@ -209,7 +212,7 @@ public class LaporanRepository {
 
                             } finally {
                                 if (realm != null) {
-                                 //   realm.close();
+
                                 }
                             }
                         }
@@ -233,7 +236,7 @@ public class LaporanRepository {
             public void onResponse(Call<ResponseGetKaryawan> call, Response<ResponseGetKaryawan> response) {
 
                 if (cek(response.code(), context, "getData Home Page")) {
-//                    Log.e(TAG,response.body().getData().toString());
+
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
@@ -262,7 +265,7 @@ public class LaporanRepository {
                                 }
                             } finally {
                                 if (realm != null) {
-                                  //  realm.close();
+
                                 }
                             }
 
@@ -285,7 +288,7 @@ public class LaporanRepository {
             @Override
             public void onResponse(Call<ResponseGetKota> call, Response<ResponseGetKota> response) {
                 if (cek(response.code(), context, "getData Home Page")) {
-//                    Log.e(TAG,response.body().getData().toString());
+
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
@@ -300,7 +303,7 @@ public class LaporanRepository {
                                 }
                             } finally {
                                 if (realm != null) {
-                                   // realm.close();
+
                                 }
                             }
 
@@ -323,7 +326,7 @@ public class LaporanRepository {
             @Override
             public void onResponse(Call<ResponseGetOutlet> call, Response<ResponseGetOutlet> response) {
                 if (cek(response.code(), context, "getData Home Page")) {
-//                    Log.e(TAG,response.body().getData().toString());
+
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
@@ -354,7 +357,7 @@ public class LaporanRepository {
                                 }
                             } finally {
                                 if (realm != null) {
-                                    //realm.close();
+
                                 }
                             }
                         }

@@ -74,6 +74,7 @@ public class AdapterDataKota extends RecyclerView.Adapter<AdapterDataKota.MyView
             });
             this.dalist = data;
             result.dispatchUpdatesTo(this);
+            notifyDataSetChanged();
         }
     }
 

@@ -8,6 +8,8 @@ import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.PostOutletModel;
+import com.myapp.domain.model.PostProsesLaporanBulanan;
+import com.myapp.domain.model.PostProsesLaporanHarian;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.response.ResponseGetKaryawan;
 import com.myapp.domain.response.ResponseGetKota;
@@ -105,7 +107,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/proses")
-    Call<ResponsePost> proseslaporanharia(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> proseslaporanharian(@Body PostProsesLaporanHarian laporanModel);
 
     @Headers({accept_json,content_type,api_key})
     @POST("outlet/data")
@@ -133,7 +135,7 @@ public interface ApiService {
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/proses")
-    Call<ResponsePost> laporanbulananproses(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> laporanbulananproses(@Body PostProsesLaporanBulanan laporanModel);
 
 
 

@@ -72,6 +72,7 @@ public class AdapterDataPegawai extends RecyclerView.Adapter<AdapterDataPegawai.
             });
             this.dalist = data;
             result.dispatchUpdatesTo(this);
+            notifyDataSetChanged();
         }
     }
     public KaryawanObject getFromPosition(int position){

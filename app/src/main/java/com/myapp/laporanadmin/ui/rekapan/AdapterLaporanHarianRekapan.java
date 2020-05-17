@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLaporanHarianRekapan.MyViewHolder> {
-    private AdapterItemClicked adapterItemClicked;
+
     private List<LaporanHarianModel> dalist = new ArrayList<>();
-    public AdapterLaporanHarianRekapan(AdapterItemClicked adapterItemClicked){
-        this.adapterItemClicked = adapterItemClicked;
+    public AdapterLaporanHarianRekapan(){
     }
     @NonNull
     @Override

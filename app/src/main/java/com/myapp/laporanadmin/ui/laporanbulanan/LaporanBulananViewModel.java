@@ -39,14 +39,11 @@ public class LaporanBulananViewModel extends ViewModel {
 
     public void init(){
             try {
-//                if(realm == null){
-//                    realm = Realm.getDefaultInstance();
-//                }
 
                 listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).findAll());
             }finally {
                 if(realm != null){
-                 //   realm.close();
+
                 }
             }
 
@@ -54,14 +51,11 @@ public class LaporanBulananViewModel extends ViewModel {
     }
     public void initNotifikasi(){
       try {
-//          if(realm == null){
-//              realm = Realm.getDefaultInstance();
-//          }
 
           listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).equalTo("statusLaporanbulanan","1").findAll());
       }finally {
           if(realm != null){
-             // realm.close();
+
           }
       }
 

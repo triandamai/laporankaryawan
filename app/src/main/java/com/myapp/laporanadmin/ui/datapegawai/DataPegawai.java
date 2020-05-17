@@ -71,7 +71,6 @@ public class DataPegawai extends BaseFragment {
             binding.setIsLoading(false);
             if (karyawanObjects != null) {
                 adapterDataPegawai.setData(karyawanObjects);
-                adapterDataPegawai.notifyDataSetChanged();
             }
         });
     }

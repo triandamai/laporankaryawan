@@ -73,6 +73,7 @@ public class AdapterDataOutlet extends RecyclerView.Adapter<AdapterDataOutlet.My
             });
             this.dalist = data;
             result.dispatchUpdatesTo(this);
+            notifyDataSetChanged();
         }
     }
     public OutletObject getFromPosition(int position){

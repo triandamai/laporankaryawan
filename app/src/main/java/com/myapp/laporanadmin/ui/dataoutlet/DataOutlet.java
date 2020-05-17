@@ -81,7 +81,6 @@ public class DataOutlet extends BaseFragment {
             if(outletObjects != null){
 
                 adapterDataOutlet.setData(outletObjects);
-                adapterDataOutlet.notifyDataSetChanged();
             }
         });
     }

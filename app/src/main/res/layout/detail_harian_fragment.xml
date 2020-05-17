@@ -6,11 +6,14 @@
     tools:context="com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian">
     <data>
         <variable
-            name="isLoading"
+            name="iSrejected"
             type="boolean" />
         <variable
             name="data"
             type="com.myapp.domain.realmobject.LaporanHarianObject" />
+        <variable
+            name="vm"
+            type="com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -38,9 +41,21 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:orientation="vertical">
                 <TextView
+                    viewGone="@{iSrejected}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#4CAF50"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_5"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:textColor="@color/putih"
+                    setStatus="@{data.statusLaporanharian}"/>
+                <TextView
+                    viewGone="@{!iSrejected}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F44336"
                     android:paddingStart="@dimen/dp_10"
                     android:paddingTop="@dimen/dp_5"
                     android:paddingBottom="@dimen/dp_5"
@@ -132,16 +147,20 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        disbleButton="@{iSrejected}"
                         android:text="Tolak"
                         android:textColor="@color/putih"
                         android:layout_margin="2.5dp"
+                        android:onClick="@{()->vm.aksi(3,data.idLaporanharian)}"
                         android:background="@drawable/bg_btn_danger"/>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        disbleButton="@{!iSrejected}"
                         android:text="Terima"
                         android:textColor="@color/putih"
                         android:layout_margin="2.5dp"
+                        android:onClick="@{()->vm.aksi(2,data.idLaporanharian)}"
                         android:background="@drawable/bg_btn_primary"
                         android:src="@drawable/ic_check"/>
                 </LinearLayout>

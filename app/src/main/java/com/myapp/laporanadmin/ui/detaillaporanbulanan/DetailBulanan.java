@@ -1,24 +1,21 @@
 package com.myapp.laporanadmin.ui.detaillaporanbulanan;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.R;
 import com.myapp.databinding.DetailBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.callback.SendDataListener;
 
 public class DetailBulanan extends BaseFragment {
 
@@ -38,15 +35,18 @@ public class DetailBulanan extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.detail_bulanan_fragment, container, false);
-        setActionBar(binding.toolbar,"Laporan Bulanan "+laporanBulananObject.getNamaUser(),"");
-        binding.setData(laporanBulananObject);
+        binding = DataBindingUtil.inflate(inflater, R.layout.detail_bulanan_fragment, container, false);
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(getActivity(),new DetailBulananFactory(getContext(),laporanBulananObject)).get(DetailBulananViewModel.class);
-        binding.setIsLoading(true);
+        setActionBar(binding.toolbar, "Laporan Bulanan " + laporanBulananObject.getNamaUser(), "");
+
+
+        mViewModel = new ViewModelProvider(getActivity(), new DetailBulananFactory(getContext(), laporanBulananObject)).get(DetailBulananViewModel.class);
+        mViewModel.setSendDataListener(sendDataListener);
+        binding.setVm(mViewModel);
+        binding.setData(laporanBulananObject);
+
         return binding.getRoot();
     }
-
 
 
     @Override
@@ -59,10 +59,42 @@ public class DetailBulanan extends BaseFragment {
         mViewModel.getLaporanBulananObjectLiveData().observe(getViewLifecycleOwner(), new Observer<LaporanBulananObject>() {
             @Override
             public void onChanged(LaporanBulananObject laporanBulananObject) {
-                if(laporanBulananObject != null){
-
+                if (laporanBulananObject != null) {
+                    binding.setData(laporanBulananObject);
+                    if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("1")){
+                        binding.setISrejected(false);
+                    }else if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("2")){
+                        binding.setISrejected(true);
+                    }else if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("3")){
+                        binding.setISrejected(false);
+                    }
                 }
             }
         });
     }
+
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+            showProgress("Memproses...");
+        }
+
+        @Override
+        public void onSuccess(String message) {
+            dismissProgress();
+            dialogBerhasil(message);
+        }
+
+        @Override
+        public void onFailed(String message) {
+            dismissProgress();
+            dialogGagal(message);
+        }
+
+        @Override
+        public void onError(String message) {
+            dismissProgress();
+            dialogGagal(message);
+        }
+    };
 }

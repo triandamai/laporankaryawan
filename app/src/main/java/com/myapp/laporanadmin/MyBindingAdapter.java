@@ -37,7 +37,7 @@ public class MyBindingAdapter {
     }
     @BindingAdapter("disbleButton")
     public static void disabledbtn(Button v,boolean disabled){
-        v.setVisibility(disabled ? View.GONE : View.VISIBLE);
+      v.setEnabled(disabled);
     }
     @BindingAdapter("setImageUrl")
     public static void setImageUrl(ImageView v,String url){

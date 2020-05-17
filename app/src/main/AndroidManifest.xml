@@ -26,8 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="UnusedAttribute">
-        <activity android:name=".ImagePickerActivity"></activity>
+        tools:ignore="UnusedAttribute"
+        android:requestLegacyExternalStorage="true">
+        <activity android:name=".ImagePickerActivity" />
         <activity
             android:name=".laporankaryawan.ui.beranda.Main"
             android:label="@string/title_activity_main" />

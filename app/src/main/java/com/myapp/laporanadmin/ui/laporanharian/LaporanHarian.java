@@ -8,20 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.myapp.R;
 import com.myapp.databinding.LaporanHarianFragmentBinding;
-import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;;
+import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;
 
-import java.util.Calendar;
-import java.util.List;
+;
 
 public class LaporanHarian extends BaseFragment {
     public static String TAG = "LaporanHarianObject";
@@ -33,6 +30,7 @@ public class LaporanHarian extends BaseFragment {
     public LaporanHarian() {
 
     }
+
     public LaporanHarian(boolean p) {
         super();
         this.isNotif = p;
@@ -41,6 +39,7 @@ public class LaporanHarian extends BaseFragment {
     public static LaporanHarian newInstance() {
         return new LaporanHarian();
     }
+
     public static LaporanHarian newInstance(boolean isNotif) {
         return new LaporanHarian(isNotif);
     }
@@ -48,42 +47,42 @@ public class LaporanHarian extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-         binding = DataBindingUtil.inflate(inflater, R.layout.laporan_harian_fragment, container, false);
-         binding.setListener(refreshListener);
-         setActionBar(binding.toolbar,"Laporan Harian","");
-         binding.setIsLoading(true);
-         adapterLaporanHarian = new AdapterLaporanHarian(adapterItemClicked);
-         binding.rv.setAdapter(adapterLaporanHarian);
+        binding = DataBindingUtil.inflate(inflater, R.layout.laporan_harian_fragment, container, false);
+        binding.setListener(refreshListener);
+        setActionBar(binding.toolbar, "Laporan Harian", "");
+        binding.setIsLoading(true);
+        adapterLaporanHarian = new AdapterLaporanHarian(adapterItemClicked);
+        binding.rv.setAdapter(adapterLaporanHarian);
 
-         return binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel = new ViewModelProvider(requireActivity(),new LaporanHarianFactory(getContext(),getRequestHarian())).get(LaporanHarianViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = new ViewModelProvider(requireActivity(), new LaporanHarianFactory(getContext(), getRequestHarian())).get(LaporanHarianViewModel.class);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(isNotif){
+        mViewModel.fetchFromApi(getRequestHarian());
+        if (isNotif) {
             mViewModel.initnotifikasi();
-        }else {
+        } else {
             mViewModel.init();
         }
-
         observe(mViewModel);
+
     }
 
     private void observe(LaporanHarianViewModel mViewModel) {
         mViewModel.getListLiveData().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
             binding.setIsLoading(false);
-            if (laporanHarianObjects.size() >= 1){
+            if (laporanHarianObjects.size() >= 1) {
                 adapterLaporanHarian.setData(laporanHarianObjects);
-                adapterLaporanHarian.notifyDataSetChanged();
             }
         });
     }
@@ -107,7 +106,7 @@ public class LaporanHarian extends BaseFragment {
         @Override
         public void onDetail(int pos) {
             LaporanHarianObject obj = adapterLaporanHarian.getFromPosition(pos);
-            replaceFragment(DetailHarian.newInstance(obj),null);
+            replaceFragment(DetailHarian.newInstance(obj), null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

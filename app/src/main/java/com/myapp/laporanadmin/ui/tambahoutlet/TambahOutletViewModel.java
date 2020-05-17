@@ -76,9 +76,13 @@ public class TambahOutletViewModel extends ViewModel implements Callback<Respons
     @Override
     public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
         if (cek(response.code(), context, "Simpan Outlet")) {
-            Log.e("Message", response.body().getResponseMessage());
             MyUser.getInstance(context).setTipeFormOutlet(null);
-            listener.onSuccess(response.body().getResponseMessage());
+            if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                listener.onSuccess(response.body().getResponseMessage());
+            }else {
+                listener.onFailed(response.body().getResponseMessage());
+            }
+
         } else {
             listener.onFailed("Gagal Menyimpan ");
         }

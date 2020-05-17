@@ -1,5 +1,6 @@
 package com.myapp.laporanadmin.ui.datakota;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -72,6 +73,8 @@ public class DataKota extends BaseFragment {
     }
 
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
+
+
         @Override
         public void onClick(int pos) {
 
@@ -89,7 +92,13 @@ public class DataKota extends BaseFragment {
                 String aksi = getContext().getString(R.string.AKSI_UBAH);
                 replaceFragment(TambahKota.newInstance(aksi, kotaModel), null);
             });
-            builder.setNegativeButton("Batal", (dialog, which) -> {
+            builder.setNeutralButton("Batal", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Hapus", (dialog, which) -> {
                 dialog.dismiss();
             });
             builder.show();

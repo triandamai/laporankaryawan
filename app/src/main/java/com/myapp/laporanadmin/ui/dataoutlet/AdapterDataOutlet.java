@@ -36,6 +36,7 @@ public class AdapterDataOutlet extends RecyclerView.Adapter<AdapterDataOutlet.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setPosition(position);
         holder.binding.setData(dalist.get(position));
+        holder.binding.setCallback(adapterItemClicked);
 
     }
 

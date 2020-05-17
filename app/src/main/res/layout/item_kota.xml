@@ -20,11 +20,9 @@
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"
         android:layout_marginBottom="5dp"
-        android:onClick="@{()->callback.onEdit(data)}"
-        android:orientation="vertical">
-        android:background="?attr/selectableItemBackground"
-        android:onClick="@{()->callback.onClick(data)}"
+        android:onClick="@{()->callback.onEdit(position)}"
         android:orientation="vertical"
+        android:background="?attr/selectableItemBackground"
         android:padding="@dimen/dp_16">
 
         <TextView

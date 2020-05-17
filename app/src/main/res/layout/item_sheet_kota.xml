@@ -21,14 +21,16 @@
         android:paddingBottom="@dimen/dp_10"
         android:layout_marginBottom="5dp"
         android:onClick="@{()->callback.onClick(data)}"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/selectableItemBackground"
+        android:padding="@dimen/dp_16">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_16"
             android:textStyle="bold"
-            android:layout_marginBottom="@dimen/dp_10"
+            android:textColor="@color/black_tua_hehe"
             android:text="@{data.namaKota}" />
 
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.myapp.laporanadmin.ui.datapegawai;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,7 +46,6 @@ public class DataPegawai extends BaseFragment {
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);
         binding.rv.setAdapter(adapterDataPegawai);
 
-        builder.create();
         return binding.getRoot();
     }
 
@@ -84,6 +84,8 @@ public class DataPegawai extends BaseFragment {
         public void onEdit(int pos) {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
             UserModel userModel = UserModel.covertdariobjek(data);
+            builder = new MaterialAlertDialogBuilder(getActivity(),R.style.dialog);
+            builder.create();
             builder.setTitle("Hi");
             builder.setMessage("Mau Edit Karyawan " + userModel.getNamaUser() + "?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
@@ -91,7 +93,8 @@ public class DataPegawai extends BaseFragment {
                 String aksi = getContext().getString(R.string.AKSI_UBAH);
                 replaceFragment(TambahUser.newInstance(aksi, userModel), null);
             });
-            builder.setNegativeButton("Batal", (dialog, which) -> {
+            builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
+            builder.setNegativeButton("Hapus", (dialog, which) -> {
                 dialog.dismiss();
             });
             builder.show();

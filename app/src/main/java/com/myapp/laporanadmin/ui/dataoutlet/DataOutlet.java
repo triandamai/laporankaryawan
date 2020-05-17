@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -93,8 +94,6 @@ public class DataOutlet extends BaseFragment {
             OutletObject outletObject = adapterDataOutlet.getFromPosition(pos);
             OutletModel outletModel = OutletModel.convertdariobject(outletObject);
 
-
-
             builder.setTitle("Hi");
             builder.setMessage("Mau Edit Outlet "+outletModel.getNamaOutlet()+" ?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
@@ -102,7 +101,13 @@ public class DataOutlet extends BaseFragment {
                 String aksi = getContext().getString(R.string.AKSI_UBAH);
                 replaceFragment(TambahOutlet.newInstance(aksi,outletModel),null);
             });
-            builder.setNegativeButton("Batal", (dialog, which) -> {
+            builder.setNeutralButton("Batal", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Hapus", (dialog, which) -> {
                 dialog.dismiss();
             });
             builder.show();

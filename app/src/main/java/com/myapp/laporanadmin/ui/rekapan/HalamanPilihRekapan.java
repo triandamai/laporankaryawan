@@ -1,9 +1,15 @@
 package com.myapp.laporanadmin.ui.rekapan;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +26,7 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
 import com.myapp.laporanadmin.ui.bottomsheet.SheetKaryawan;
-import com.myapp.laporanadmin.ui.datepicker.DatePickerMax;
+import com.myapp.laporanadmin.ui.datepicker.DatePickerMonthAndYear;
 
 import org.joda.time.DateTime;
 
@@ -32,11 +38,12 @@ public class HalamanPilihRekapan extends BaseFragment {
     private HalamanPilihRekapanViewModel mViewModel;
     private HalamanPilihRekapanFragmentBinding binding;
     private SheetKaryawan sheetKaryawan;
-    private DatePickerMax datePickerMax;
+    private DatePickerMonthAndYear datePickerMonthAndYear;
     private int bulan = 0;
     private int tahun = 0;
     private String id_user = "";
     private AdapterLaporanHarianRekapan adapterLaporanHarianRekapan;
+    private boolean AdaData = false;
 
     public static HalamanPilihRekapan newInstance() {
         return new HalamanPilihRekapan();
@@ -46,7 +53,7 @@ public class HalamanPilihRekapan extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.halaman_pilih_rekapan_fragment, container, false);
-        setActionBar(binding.toolbar,"Data Rekapan","");
+        setActionBar(binding.toolbar, "Data Rekapan", "");
         adapterLaporanHarianRekapan = new AdapterLaporanHarianRekapan(adapterItemClicked);
         binding.rv.setAdapter(adapterLaporanHarianRekapan);
         setHasOptionsMenu(true);
@@ -54,8 +61,16 @@ public class HalamanPilihRekapan extends BaseFragment {
         mViewModel = new ViewModelProvider(requireActivity(), new HalamanPilihRekapanFactory(getContext())).get(HalamanPilihRekapanViewModel.class);
         mViewModel.setRekapanListener(prosesrekap);
         sheetKaryawan = new SheetKaryawan();
-        datePickerMax = new DatePickerMax();
-        datePickerMax.setDateListener(dateListener);
+        datePickerMonthAndYear = new DatePickerMonthAndYear();
+
+        datePickerMonthAndYear.setListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                bulan = month;
+                String monthName = DateTime.now().withMonthOfYear(month).toString("MMM");
+                binding.tvTanggal.setText(monthName + " " + year);
+            }
+        });
         sheetKaryawan.setOnSheetListener(listener);
 
         binding.setEvent(halamanRekapanCallback);
@@ -66,7 +81,7 @@ public class HalamanPilihRekapan extends BaseFragment {
 
     private void setDefault() {
         Calendar calendar = Calendar.getInstance();
-        bulan = calendar.get(Calendar.MONTH)+1;
+        bulan = calendar.get(Calendar.MONTH) + 1;
         tahun = calendar.get(Calendar.YEAR);
 
 
@@ -77,21 +92,27 @@ public class HalamanPilihRekapan extends BaseFragment {
         @Override
         public void onSelectKaryawan(View v) {
             sheetKaryawan.show(getActivity().getSupportFragmentManager(), "Pilih Karyawan");
-            binding.setIsLoading(true);
+
 
         }
 
         @Override
         public void onSelectBulan(View v) {
-            datePickerMax.show(getActivity().getSupportFragmentManager(), "ambil tanggal");
+            datePickerMonthAndYear.show(getActivity().getSupportFragmentManager(), "ambil tanggal");
         }
 
         @Override
-        public void onSelectTahun(View v) {
-
+        public void onSync(View v) {
+            binding.setIsLoading(true);
+            LaporanHarianRekapanRequestData l = new LaporanHarianRekapanRequestData();
+            l.setIdUser(id_user);
+            l.setBulanLaporanharian(bulan);
+            l.setTahunLaporanharian(tahun);
+            mViewModel.setharianrekap(l);
         }
-    };
 
+
+    };
 
 
     private SheetKaryawan.BottomSheetListener listener = new SheetKaryawan.BottomSheetListener() {
@@ -99,31 +120,10 @@ public class HalamanPilihRekapan extends BaseFragment {
         public void onOptionClick(UserModel kotaModel) {
             sheetKaryawan.dismiss();
             binding.setKaryawan(kotaModel);
-            LaporanHarianRekapanRequestData l = new LaporanHarianRekapanRequestData();
-            l.setIdUser(kotaModel.getIdUser());
-            l.setBulanLaporanharian(bulan);
-            l.setTahunLaporanharian(tahun);
-            String monthName = DateTime.now().withMonthOfYear(bulan).toString("MMM");
-            binding.setTanggal(monthName + " " + tahun);
-            mViewModel.setharianrekap(l);
-        }
-    };
-    private DatePickerMax.DateListener dateListener = new DatePickerMax.DateListener() {
-        @Override
-        public void onDatePandaSet(int tahun, int bulan, int hari) {
-            datePickerMax.dismiss();
-            String monthName = DateTime.now().withMonthOfYear(bulan).toString("MMM");
-            binding.setTanggal(monthName + " " + tahun);
-            HalamanPilihRekapan.this.bulan = bulan;
-            HalamanPilihRekapan.this.tahun = tahun;
 
-            LaporanHarianRekapanRequestData l = new LaporanHarianRekapanRequestData();
-            l.setIdUser(id_user);
-            l.setBulanLaporanharian(bulan);
-            l.setTahunLaporanharian(tahun);
-            mViewModel.setharianrekap(l);
         }
     };
+
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
         @Override
         public void onClick(int pos) {
@@ -156,6 +156,7 @@ public class HalamanPilihRekapan extends BaseFragment {
             binding.setIsLoading(false);
             adapterLaporanHarianRekapan.setData(laporanHarianModels);
             adapterLaporanHarianRekapan.notifyDataSetChanged();
+            HalamanPilihRekapan.this.AdaData = true;
         }
 
         @Override
@@ -168,4 +169,29 @@ public class HalamanPilihRekapan extends BaseFragment {
             binding.setIsLoading(false);
         }
     };
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menurekap, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_export:
+                if(AdaData){
+
+                }else {
+                    Toast.makeText(getContext(),"Setidaknya Pilih Karyawan",Toast.LENGTH_LONG).show();
+                }
+                return true;
+            case R.id.menu_close:
+                back();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

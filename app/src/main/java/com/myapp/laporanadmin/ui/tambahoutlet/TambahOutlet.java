@@ -50,8 +50,10 @@ public class TambahOutlet extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_outlet_fragment, container, false);
 
-        binding.setTipe(this.tipe);
+
         mViewModel = new ViewModelProvider(requireActivity(),new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
+        setHasOptionsMenu(true);
+        setActionBar(binding.toolbar,"Tambah Outlet","");
         mViewModel.setOnListener(sendDataListener);
         binding.setEvent(sheetShow);
         binding.setVm(mViewModel);
@@ -66,8 +68,7 @@ public class TambahOutlet extends BaseFragment {
             mViewModel.outletmodel.set(outlet);
         }
         sheetKota = new SheetKota();
-        setHasOptionsMenu(true);
-        setActionBar(binding.toolbar,"Tambah Outlet","");
+
         sheetKota = new SheetKota();
         return binding.getRoot();
     }

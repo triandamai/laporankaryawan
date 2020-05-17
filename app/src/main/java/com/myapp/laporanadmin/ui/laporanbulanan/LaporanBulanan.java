@@ -18,6 +18,7 @@ import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
 
 
 import java.util.Calendar;
@@ -57,13 +58,7 @@ public class LaporanBulanan extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        LaporanBulananRequestData l = new LaporanBulananRequestData();
-        l.setBulanLaporanbulanan(month+1);
-        l.setTahunLaporanbulanan(year);
-        mViewModel = new ViewModelProvider(requireActivity(),new LaporanBulananFactory(getContext(),l)).get(LaporanBulananViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(),new LaporanBulananFactory(getContext(),getRequestBulanan())).get(LaporanBulananViewModel.class);
         // TODO: Use the ViewModel
     }
     @Override
@@ -105,19 +100,15 @@ public class LaporanBulanan extends BaseFragment {
 
         @Override
         public void onDetail(int pos) {
-
+            LaporanBulananObject obj = adapterLaporanBulanan.getFromPosition(pos);
+            replaceFragment(DetailBulanan.newInstance(obj),null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            LaporanBulananRequestData l = new LaporanBulananRequestData();
-            l.setBulanLaporanbulanan(month+1);
-            l.setTahunLaporanbulanan(year);
-            mViewModel.fetchFromApi(l);
+
+            mViewModel.fetchFromApi(getRequestBulanan());
         }
     };
 }

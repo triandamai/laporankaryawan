@@ -52,7 +52,7 @@ public class HalamanPilihRekapanViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseGetLaporanHarian> call, Throwable t) {
-                Log.e("HEHE","gagal ambil laporanharian"+t.getMessage());
+                Log.e("HEHE","gagal ambil laporanharian"+t.toString());
                 listener.onError(t.getMessage());
 
             }

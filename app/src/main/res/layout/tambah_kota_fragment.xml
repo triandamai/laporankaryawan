@@ -13,14 +13,6 @@
         <variable
             name="vm"
             type="com.myapp.laporanadmin.ui.tambahkota.TambahKotaViewModel" />
-
-        <variable
-            name="kota"
-            type="com.myapp.domain.model.KotaModel" />
-
-        <variable
-            name="tipe"
-            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -79,7 +71,7 @@
                     android:background="@drawable/ripple_primary"
                     android:clickable="true"
                     viewGone="@{!isLoading}"
-                    android:onClick="@{(v)->vm.simpan(v,kota,tipe)}"
+                    android:onClick="@{(v)->vm.simpan(v)}"
                     android:text="Simpan" />
 
                 <ProgressBar

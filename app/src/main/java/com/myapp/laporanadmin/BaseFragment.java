@@ -22,18 +22,38 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.ImagePickerActivity;
 import com.myapp.R;
+import com.myapp.domain.model.LaporanBulananRequestData;
+import com.myapp.domain.model.LaporanHarianRequestData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class BaseFragment extends Fragment {
     protected MaterialAlertDialogBuilder builder;
     public static final int REQUEST_IMAGE = 100;
 
-
+    protected LaporanHarianRequestData getRequestHarian(){
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        LaporanHarianRequestData l = new LaporanHarianRequestData();
+        l.setBulanLaporanharian(month+1);
+        l.setTahunLaporanharian(year);
+        return l;
+    }
+    protected LaporanBulananRequestData getRequestBulanan(){
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        LaporanBulananRequestData l = new LaporanBulananRequestData();
+        l.setBulanLaporanbulanan(month+1);
+        l.setTahunLaporanbulanan(year);
+        return l;
+    }
     protected void addFragment(Fragment f, String TAG){
         try {
             ((Root) requireActivity()).addFragment(f, TAG);

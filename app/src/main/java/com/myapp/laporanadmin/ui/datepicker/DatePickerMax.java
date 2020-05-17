@@ -3,12 +3,14 @@ package com.myapp.laporanadmin.ui.datepicker;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 public class DatePickerMax extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -26,6 +28,8 @@ public class DatePickerMax extends DialogFragment implements DatePickerDialog.On
         int hari = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, tahun, bulan, hari);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+
         return datePickerDialog;
     }
 

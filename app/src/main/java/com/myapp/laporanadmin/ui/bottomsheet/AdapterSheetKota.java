@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapp.R;
 import com.myapp.databinding.ItemKotaBinding;
+import com.myapp.databinding.ItemSheetKotaBinding;
 import com.myapp.domain.realmobject.KotaObject;
 
 
@@ -29,7 +30,7 @@ public class AdapterSheetKota extends RecyclerView.Adapter<AdapterSheetKota.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemKotaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_sheet_kota, parent, false);
+        ItemSheetKotaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_sheet_kota, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -79,9 +80,9 @@ public class AdapterSheetKota extends RecyclerView.Adapter<AdapterSheetKota.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private ItemKotaBinding binding;
+        private ItemSheetKotaBinding binding;
 
-        public MyViewHolder(ItemKotaBinding binding) {
+        public MyViewHolder(ItemSheetKotaBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

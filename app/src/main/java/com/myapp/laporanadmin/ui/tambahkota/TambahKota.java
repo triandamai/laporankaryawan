@@ -48,16 +48,20 @@ public class TambahKota extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_kota_fragment, container, false);
+        mViewModel = new ViewModelProvider(requireActivity(), new TambahKotaFactory(getContext())).get(TambahKotaViewModel.class);
+        setHasOptionsMenu(true);
+        setActionBar(binding.toolbar, "Tambah Kota", "");
+        binding.setVm(mViewModel);
+        mViewModel.setOnSendData(sendDataListener);
         if (tipe == null) {
             this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
         }
         MyUser.getInstance(getContext()).setTipeFormKota(tipe);
-        binding.setTipe(this.tipe);
-        setHasOptionsMenu(true);
-        setActionBar(binding.toolbar, "Tambah Kota", "");
-        mViewModel = new ViewModelProvider(requireActivity(), new TambahKotaFactory(getContext())).get(TambahKotaViewModel.class);
-        binding.setVm(mViewModel);
-        mViewModel.setOnSendData(sendDataListener);
+        if(kotaModel != null){
+            mViewModel.kotamodel.set(kotaModel);
+        }
+
+
         return binding.getRoot();
     }
 

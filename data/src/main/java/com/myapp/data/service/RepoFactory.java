@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Cache;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
@@ -17,13 +19,16 @@ public class RepoFactory {
     private static Gson gson = new GsonBuilder()
             .setLenient()
             .create();
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(ApiService.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addConverterFactory(ScalarsConverterFactory.create());
 
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+
     private static Retrofit retrofit = builder.build();
 
     public static <S> S createService(Class<S> serviceClass, Context context) {
@@ -52,7 +57,9 @@ public class RepoFactory {
             if (!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);
 
-                builder.client(httpClient.cache(cache).build());
+                builder.client(httpClient
+                        .connectTimeout(100, TimeUnit.SECONDS)
+                        .readTimeout(100, TimeUnit.SECONDS).cache(cache).build());
                 retrofit = builder.build();
             }
         }

@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.R;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KotaModel;
@@ -16,6 +17,8 @@ import com.myapp.laporanadmin.callback.SendDataListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +35,7 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     public TambahKotaViewModel(Context context) {
         this.context = context;
         apiService = LaporanRepository.getService(context);
+
         try {
             kotamodel.get().getIdKota();
             kotamodel.get().getNamaKota();
@@ -49,17 +53,21 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     public void setOnSendData(SendDataListener listener){
         this.listener = listener;
     }
-    public void simpan(View v,KotaModel kotaModel,String tipe){
+    public void simpan(View v){
         listener.onStart();
-        JSONObject jsonObject = new JSONObject();
-
         KotaModel kota = new KotaModel();
-        kota.setIdKota(kotamodel.get().getIdKota());
-        kota.setNamaKota(kotamodel.get().getNamaKota());
-        kota.setCreatedAt(kotamodel.get().getCreatedAt());
-        kota.setUpdatedAt(kotamodel.get().getUpdatedAt());
+        try {
+            kota.setIdKota(Objects.requireNonNull(kotamodel.get()).getIdKota());
+        }catch (NullPointerException e){
+            kota.setIdKota(" ");
+        }
 
 
+        kota.setNamaKota(Objects.requireNonNull(kotamodel.get()).getNamaKota());
+        kota.setCreatedAt(Objects.requireNonNull(kotamodel.get()).getCreatedAt());
+        kota.setUpdatedAt(Objects.requireNonNull(kotamodel.get()).getUpdatedAt());
+
+        String tipe = MyUser.getInstance(context).getTipeFormOutlet();
         if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
             apiService.simpankota(kota).enqueue(this);
         }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){

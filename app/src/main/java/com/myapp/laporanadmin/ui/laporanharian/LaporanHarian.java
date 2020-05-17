@@ -17,7 +17,8 @@ import com.myapp.databinding.LaporanHarianFragmentBinding;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.BaseFragment;
-import com.myapp.laporanadmin.callback.AdapterItemClicked;;
+import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;;
 
 import java.util.Calendar;
 import java.util.List;
@@ -60,14 +61,8 @@ public class LaporanHarian extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        LaporanHarianRequestData l = new LaporanHarianRequestData();
-        l.setBulanLaporanharian(month+1);
-        l.setTahunLaporanharian(year);
 
-        mViewModel = new ViewModelProvider(requireActivity(),new LaporanHarianFactory(getContext(),l)).get(LaporanHarianViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(),new LaporanHarianFactory(getContext(),getRequestHarian())).get(LaporanHarianViewModel.class);
         // TODO: Use the ViewModel
     }
 
@@ -111,19 +106,14 @@ public class LaporanHarian extends BaseFragment {
 
         @Override
         public void onDetail(int pos) {
-
+            LaporanHarianObject obj = adapterLaporanHarian.getFromPosition(pos);
+            replaceFragment(DetailHarian.newInstance(obj),null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            LaporanHarianRequestData l = new LaporanHarianRequestData();
-            l.setBulanLaporanharian(month+1);
-            l.setTahunLaporanharian(year);
-            mViewModel.fetchFromApi(l);
+            mViewModel.fetchFromApi(getRequestHarian());
         }
     };
 

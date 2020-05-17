@@ -407,7 +407,7 @@
                                         android:layout_marginBottom="2dp"
                                         android:textStyle="bold"
                                         android:textColor="@color/black_tua_hehe"
-                                        android:text="@string/tambah_nkota" />
+                                        android:text="@string/data_kota" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
 
@@ -493,7 +493,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/dp_4"
                                         android:layout_marginBottom="2dp"
-                                        android:text="@string/tambah_noutlet"
+                                        android:text="@string/data_outlet"
                                         android:textAlignment="center"
                                         android:textColor="@color/black_tua_hehe"
                                         android:textStyle="bold" />

@@ -31,4 +31,6 @@
     <string name="AKSI_TAMBAH">tambah</string>
     <string name="karyawan">Karyawan</string>
     <string name="nama_karyawan">Nama Karyawan</string>
+    <string name="data_kota">Data\nKota</string>
+    <string name="data_outlet">Data\nOutlet</string>
 </resources>

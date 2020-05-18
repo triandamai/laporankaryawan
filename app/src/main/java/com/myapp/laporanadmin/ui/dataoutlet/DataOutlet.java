@@ -16,9 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.DataOutletFragmentBinding;
 import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.realmobject.OutletObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
@@ -42,6 +44,8 @@ public class DataOutlet extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.data_outlet_fragment,
                 container, false);
         binding.setListener(refreshListener);
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         setActionBar(binding.toolbar, "Data Outlet", "");
         setHasOptionsMenu(true);
         binding.setIsLoading(true);
@@ -63,6 +67,7 @@ public class DataOutlet extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.fetchFromApi();
         observe(mViewModel);
     }
 
@@ -91,15 +96,19 @@ public class DataOutlet extends BaseFragment {
             builder.setMessage("Mau Edit Outlet " + outletModel.getNamaOutlet() + " ?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
                 dialog.dismiss();
-                String aksi = getContext().getString(R.string.AKSI_UBAH);
-                replaceFragment(TambahOutlet.newInstance(aksi, outletModel), null);
+                TambahOutlet tambahOutlet = new TambahOutlet();
+                Bundle bundle = new Bundle();
+                Gson gson = new Gson();
+                PostOutletModel postOutletModel = new PostOutletModel();
+                postOutletModel.setIdKota(Integer.parseInt(outletModel.getIdKota()));
+                postOutletModel.setNamaOutlet(outletModel.getNamaOutlet());
+                postOutletModel.setIdOutlet(outletModel.getIdOutlet());
+                postOutletModel.setNamaKota(outletModel.getKota().getNamaKota());
+                bundle.putString("outlet",gson.toJson(postOutletModel));
+                tambahOutlet.setArguments(bundle);
+                replaceFragment(tambahOutlet, null);
             });
-            builder.setNeutralButton("Batal", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+            builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton("Hapus", (dialog, which) -> {
                 mViewModel.hapus(outletModel);
 

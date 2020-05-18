@@ -28,20 +28,31 @@ public class TambahOutletViewModel extends ViewModel implements Callback<Respons
     private Context context;
     private ApiService apiService;
     private SendDataListener listener;
-    public ObservableField<PostOutletModel> outletmodel = new ObservableField<>();
+    public MutableLiveData<PostOutletModel> outletmodel = new MutableLiveData<>();
+    public MutableLiveData<KotaModel> kotamodel = new MutableLiveData<>();
+   public MutableLiveData<String> tipe = new MutableLiveData<>();
 
     public TambahOutletViewModel(Context context) {
         this.context = context;
         apiService = LaporanRepository.getService(context);
 
         try {
-            outletmodel.get().getNamaOutlet();
-            outletmodel.get().getIdKota();
+            outletmodel.getValue().getNamaOutlet();
+            outletmodel.getValue().getIdKota();
+            outletmodel.getValue().getNamaKota();
+            outletmodel.getValue().getIdOutlet();
         }catch (NullPointerException e){
             PostOutletModel outletModel = new PostOutletModel();
             outletModel.setNamaOutlet("");
             outletModel.setIdKota(0);
-            outletmodel.set(outletModel);
+            outletModel.setNamaOutlet("");
+            outletModel.setIdOutlet("");
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setCreatedAt("");
+            kotaModel.setUpdatedAt("");
+            kotaModel.setNamaKota("");
+            kotaModel.setIdKota("");
+            outletmodel.setValue(outletModel);
         }
     }
 
@@ -50,27 +61,40 @@ public class TambahOutletViewModel extends ViewModel implements Callback<Respons
     public void setOnListener(SendDataListener l){
         this.listener = l;
     }
-    public void simpan(View v,KotaModel kotaModel){
+    public void simpan(View v){
         listener.onStart();
         PostOutletModel outletModel = new PostOutletModel();
-        if (kotaModel == null){
-            outletModel.setIdKota(outletmodel.get().getIdKota());
-        }else {
-            outletModel.setIdKota(Integer.parseInt(kotaModel.getIdKota()));
-        }
-        outletModel.setNamaOutlet(outletmodel.get().getNamaOutlet());
-        String  tipe = MyUser.getInstance(context).getTipeFormOutlet();
-        if(outletModel.isValid()) {
-            if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
-                apiService.simpanoutlet(outletModel).enqueue(this);
-            }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){
-                apiService.ubahoutlet(outletModel).enqueue(this);
-            }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))){
-                apiService.hapusoutlet(outletModel).enqueue(this);
+
+
+
+            if(tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+                outletModel.setIdOutlet("");
+                outletModel.setNamaOutlet(outletmodel.getValue().getNamaOutlet());
+                outletModel.setIdKota(Integer.parseInt(kotamodel.getValue().getIdKota()));
+                if(outletModel.isValid()) {
+                 apiService.simpanoutlet(outletModel).enqueue(this);
+                }else {
+                    listener.onFailed("Mohon Isi Semua Data!");
+                }
+            }else if(tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){
+                outletModel.setIdOutlet(outletmodel.getValue().getIdOutlet());
+                outletModel.setNamaOutlet(outletmodel.getValue().getNamaOutlet());
+                outletModel.setIdKota(Integer.parseInt(kotamodel.getValue().getIdKota()));
+                if(outletModel.isValid()) {
+                    apiService.ubahoutlet(outletModel).enqueue(this);
+                }else {
+                    listener.onFailed("Mohon Isi Semua Data!");
+                }
+
+            }else if(tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))){
+                if(outletModel.isValid()) {
+                    apiService.hapusoutlet(outletModel).enqueue(this);
+                }else {
+                    listener.onFailed("Mohon Isi Semua Data!");
+                }
+
             }
-        }else {
-            listener.onFailed("Mohon Isi Semua Data!");
-        }
+
     }
 
     @Override

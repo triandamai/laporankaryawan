@@ -27,8 +27,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiService {
-    String BASE_URL = "http://192.168.1.3/laporan-karyawan-api/v1/";
-//    String BASE_URL = "http://192.168.100.5/laporan-karyawan-api/v1/";
+   // String BASE_URL = "http://192.168.1.3/laporan-karyawan-api/v1/";
+   String BASE_URL = "http://192.168.100.5/laporan-karyawan-api/v1/";
 
     String accept_urlencoded = "Content-Type: application/x-www-form-urlencoded";
     String accept_json = "Accept: application/json;charset=utf-8";
@@ -56,7 +56,7 @@ public interface ApiService {
     Call<ResponseGetKaryawan> getAllKaryawan(@Body UserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
-    @POST("user/data")
+    @POST("user/update_data")
     Call<ResponsePost> updateuser(@Body UserModel karyawanModel);
 
     @Headers({accept_json,content_type,api_key})
@@ -80,7 +80,7 @@ public interface ApiService {
     Call<ResponsePost> ubahkota(@Body KotaModel kotaModel);
 
     @Headers({accept_json,content_type,api_key})
-    @POST("kota/update")
+    @POST("kota/delete")
     Call<ResponsePost> hapuskota(@Body KotaModel kotaModel);
 
     @Headers({accept_json,content_type,api_key})

@@ -59,4 +59,14 @@ public class KotaModel {
         kotaModel.setCreatedAt(object.getCreatedAt());
         return kotaModel;
     }
+
+    @Override
+    public String toString() {
+        return "KotaModel{" +
+                "idKota='" + idKota + '\'' +
+                ", namaKota='" + namaKota + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
+    }
 }

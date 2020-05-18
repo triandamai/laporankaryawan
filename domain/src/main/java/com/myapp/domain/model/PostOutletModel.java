@@ -15,6 +15,9 @@ public class PostOutletModel {
     @SerializedName("nama_outlet")
     @Expose
     private String namaOutlet;
+    @SerializedName("nama_kota")
+    @Expose
+    private String namaKota;
 
     public String getIdOutlet() {
         return idOutlet;
@@ -38,6 +41,24 @@ public class PostOutletModel {
 
     public void setNamaOutlet(String namaOutlet) {
         this.namaOutlet = namaOutlet;
+    }
+
+    public String getNamaKota() {
+        return namaKota;
+    }
+
+    public void setNamaKota(String namaKota) {
+        this.namaKota = namaKota;
+    }
+
+    @Override
+    public String toString() {
+        return "PostOutletModel{" +
+                "idOutlet='" + idOutlet + '\'' +
+                ", idKota=" + idKota +
+                ", namaOutlet='" + namaOutlet + '\'' +
+                ", namaKota='" + namaKota + '\'' +
+                '}';
     }
 
     public boolean isValid(){

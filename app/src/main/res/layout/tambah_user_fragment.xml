@@ -5,7 +5,10 @@
     tools:context=".ui.tambahuser.TambahUser">
     <data>
         <variable
-            name="isLoading"
+        name="isLoading"
+        type="boolean" />
+        <variable
+            name="isEdit"
             type="boolean" />
         <variable
             name="vm"
@@ -100,6 +103,7 @@
                     android:gravity="top"
                     android:textSize="@dimen/sp_14"
                     android:singleLine="false"
+                    android:focusable="@{isEdit}"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={vm.usermodel.passwordUser}"

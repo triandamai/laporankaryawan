@@ -1,6 +1,9 @@
 package com.myapp.laporanadmin.ui.tambahuser;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -8,6 +11,7 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
@@ -27,70 +31,109 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
     private Context context;
     private SendDataListener listener;
     private ApiService apiService;
-    public MutableLiveData<String> ulangpassword = new MutableLiveData<>();
-    public ObservableField<UserModel> usermodel = new ObservableField<>();
-    public MutableLiveData<String> foto = new MutableLiveData<>();
 
-    public TambahUserViewModel(Context context) {
+    public MutableLiveData<UserModel> usermodel = new MutableLiveData<>();
+    public MutableLiveData<String> foto = new MutableLiveData<>();
+    public MutableLiveData<String> tipe = new MutableLiveData<>();
+
+    public TambahUserViewModel(Context context, SendDataListener sendDataListener) {
         this.context = context;
         this.apiService = LaporanRepository.getService(context);
-
+        this.listener = sendDataListener;
         try {
-            usermodel.get().getUsernameUser();
-            usermodel.get().getUpdatedAt();
-            usermodel.get().getCreatedAt();
-            usermodel.get().getPasswordUser();
-            usermodel.get().getNipUser();
-            usermodel.get().getFotoUser();
-            usermodel.get().getLevelUser();
-            usermodel.get().getNamaUser();
-            usermodel.get().getIdUser();
+            usermodel.getValue().getIdUser();
+            usermodel.getValue().getIdUser();
+            usermodel.getValue().getFotoUser();
+            usermodel.getValue().getNamaUser();
+            usermodel.getValue().getPasswordUser();
+            usermodel.getValue().getLevelUser();
+            usermodel.getValue().getCreatedAt();
+            usermodel.getValue().getUpdatedAt();
+            usermodel.getValue().getNipUser();
+            usermodel.getValue().getUsernameUser();
         }catch (NullPointerException e){
-            UserModel u = new UserModel();
-            u.setNipUser("");
-            u.setUpdatedAt("");
-            u.setCreatedAt("");
-            u.setLevelUser("");
-            u.setPasswordUser("");
-            u.setNamaUser("");
-            u.setFotoUser("");
-            u.setIdUser("");
-            usermodel.set(u);
+            UserModel userModel = new UserModel();
+            userModel.setIdUser("");
+            userModel.setFotoUser("");
+            userModel.setNamaUser("");
+            userModel.setPasswordUser("");
+            userModel.setLevelUser("");
+            userModel.setCreatedAt("");
+            userModel.setUpdatedAt("");
+            userModel.setNipUser("");
+            userModel.setUsernameUser("");
+            usermodel.setValue(userModel);
         }
     }
 
-    public void setOnSendData(SendDataListener listener) {
-        this.listener = listener;
+    public void setUsermodel(UserModel usermodel) {
+        this.usermodel.setValue(usermodel);
     }
 
     public void simpan(View v) {
-        Log.e("simpan user", "tes");
+
         listener.onStart();
         UserModel userModel = new UserModel();
 
+                if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+                    try {
+                        userModel.setIdUser(null);
+                        userModel.setNamaUser(usermodel.getValue().getNamaUser());
+                        userModel.setUsernameUser(null);
+                        userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+                        userModel.setFotoUser(foto.getValue());
+                        userModel.setNipUser(usermodel.getValue().getNipUser());
+                        userModel.setCreatedAt("");
+                        userModel.setUpdatedAt("");
+                        userModel.setLevelUser("1");
+                        if (userModel.validData() || !TextUtils.isEmpty(usermodel.getValue().getFotoUser())) {
+                            apiService.simpanuser(userModel).enqueue(this);
+                        } else {
+                            listener.onFailed("Isi semua data");
+                        }
+                    }catch (NullPointerException e){
+                        listener.onFailed(e.getMessage());
+                    }
 
-            userModel.setIdUser(usermodel.get().getIdUser());
-            userModel.setNamaUser(usermodel.get().getNamaUser());
-            userModel.setUsernameUser(usermodel.get().getUsernameUser());
-            userModel.setPasswordUser(usermodel.get().getPasswordUser());
-            userModel.setFotoUser( foto.getValue());
-            userModel.setNipUser(usermodel.get().getNipUser());
-            userModel.setCreatedAt("");
-            userModel.setUpdatedAt("");
-            userModel.setLevelUser("1");
-            String tipe = MyUser.getInstance(context).getTipeFormUser();
-            if (userModel.validData()) {
-                if (tipe.equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
-                    apiService.simpanuser(userModel).enqueue(this);
-                } else if (tipe.equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
-                    apiService.updateuser(userModel).enqueue(this);
-                } else if (tipe.equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))) {
-                    apiService.hapususer(userModel).enqueue(this);
+
+
+                } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
+
+                    userModel.setIdUser(usermodel.getValue().getIdUser());
+                    userModel.setNamaUser(usermodel.getValue().getNamaUser());
+                    userModel.setUsernameUser(null);
+                    userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+                    userModel.setFotoUser(foto.getValue());
+                    userModel.setNipUser(usermodel.getValue().getNipUser());
+                    userModel.setCreatedAt("");
+                    userModel.setUpdatedAt("");
+                    userModel.setLevelUser("1");
+                    Log.e("Ubah","Proses"+userModel.toString());
+                    if (userModel.validData()) {
+                        apiService.updateuser(userModel).enqueue(this);
+                    } else {
+                        listener.onFailed("Isi semua data");
+                    }
+
+                } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))) {
+                    userModel.setIdUser(usermodel.getValue().getIdUser());
+                    userModel.setNamaUser(usermodel.getValue().getNamaUser());
+                    userModel.setUsernameUser(usermodel.getValue().getUsernameUser());
+                    userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+                    userModel.setFotoUser(foto.getValue());
+                    userModel.setNipUser(usermodel.getValue().getNipUser());
+                    userModel.setCreatedAt("");
+                    userModel.setUpdatedAt("");
+                    userModel.setLevelUser("1");
+                    if (userModel.validData()) {
+                        apiService.hapususer(userModel).enqueue(this);
+                    } else {
+                        listener.onFailed("Isi semua data");
+                    }
+
                 }
 
-            } else {
-                listener.onFailed("Isi semua data");
-            }
+
 
 
 
@@ -99,8 +142,7 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
     @Override
     public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
         if (cek(response.code(), context, "Tambah")) {
-
-            MyUser.getInstance(context).setTipeFormUser(null);
+            Log.e("Hasil",response.body().toString());
             if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
                 listener.onSuccess(response.body().getResponseMessage());
             }else {

@@ -25,9 +25,10 @@ import static com.myapp.data.service.ApiHandler.cek;
 public class DataPegawaiViewModel extends ViewModel {
     private Context context;
     private Realm realm;
-    private LiveData<List<KaryawanObject>> karyawanData ;
+    private LiveData<List<KaryawanObject>> karyawanData;
     private ApiService apiService;
     private SendDataListener listener;
+
     public DataPegawaiViewModel(Context context) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
@@ -35,26 +36,29 @@ public class DataPegawaiViewModel extends ViewModel {
         fetchFromApi();
 
     }
-    public void setSendDataListener(SendDataListener listener){
+
+    public void setSendDataListener(SendDataListener listener) {
         this.listener = listener;
 
     }
+
     public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataKaryawan();
     }
-    public void hapus(UserModel model){
+
+    public void hapus(UserModel model) {
         listener.onStart();
         apiService.hapususer(model).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                if(cek(response.code(),context,"Hapus Karyawan")){
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                if (cek(response.code(), context, "Hapus Karyawan")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         listener.onSuccess(response.body().getResponseMessage());
-                    }else {
+                    } else {
                         listener.onFailed(response.body().getResponseMessage());
                     }
 
-                }else {
+                } else {
                     listener.onFailed(response.message());
                 }
             }
@@ -66,12 +70,13 @@ public class DataPegawaiViewModel extends ViewModel {
         });
 
     }
-    public void init(){
+
+    public void init() {
         try {
 
             karyawanData = new RealmLiveResult(realm.where(KaryawanObject.class).findAllAsync());
-        }finally {
-            if(realm != null){
+        } finally {
+            if (realm != null) {
 
             }
         }

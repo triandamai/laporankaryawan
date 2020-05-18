@@ -27,8 +27,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiService {
-    //String BASE_URL = "http://192.168.1.19/laporan-karyawan-api/v1/";
-    String BASE_URL = "http://192.168.100.5/laporan-karyawan-api/v1/";
+    String BASE_URL = "http://192.168.1.3/laporan-karyawan-api/v1/";
+//    String BASE_URL = "http://192.168.100.5/laporan-karyawan-api/v1/";
 
     String accept_urlencoded = "Content-Type: application/x-www-form-urlencoded";
     String accept_json = "Accept: application/json;charset=utf-8";

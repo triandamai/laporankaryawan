@@ -33,4 +33,11 @@
     <string name="nama_karyawan">Nama Karyawan</string>
     <string name="data_kota">Data\nKota</string>
     <string name="data_outlet">Data\nOutlet</string>
+    <string name="nama_outlet">Nama Outlet</string>
+    <string name="alamat_laporan">Alamat Laporan</string>
+    <string name="keterangan">Keterangan</string>
+    <string name="tanggal_laporan">Tanggal Laporan</string>
+    <string name="waktu_laporan">Waktu Laporan</string>
+    <string name="tolak">Tolak</string>
+    <string name="terima">Terima</string>
 </resources>

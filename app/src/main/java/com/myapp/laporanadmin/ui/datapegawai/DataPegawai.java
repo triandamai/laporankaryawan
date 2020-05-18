@@ -1,6 +1,5 @@
 package com.myapp.laporanadmin.ui.datapegawai;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,7 +40,7 @@ public class DataPegawai extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.data_pegawai_fragment, container, false);
         binding.setListener(refreshListener);
-        setActionBar(binding.toolbar, "Data Pegawai", "");
+        setActionBar(binding.toolbar, "Data Karyawan", "");
         setHasOptionsMenu(true);
         binding.setIsLoading(true);
         adapterDataPegawai = new AdapterDataPegawai(adapterItemClicked);
@@ -85,7 +84,7 @@ public class DataPegawai extends BaseFragment {
         public void onEdit(int pos) {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
             UserModel userModel = UserModel.covertdariobjek(data);
-            builder = new MaterialAlertDialogBuilder(getActivity(),R.style.dialog);
+            builder = new MaterialAlertDialogBuilder(getActivity(), R.style.dialog);
             builder.create();
             builder.setTitle("Hi");
             builder.setMessage("Mau Edit Karyawan " + userModel.getNamaUser() + "?");

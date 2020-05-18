@@ -1,8 +1,16 @@
 package com.myapp.laporanadmin.ui.rekapan;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,29 +18,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.myapp.R;
-import com.myapp.databinding.HalamanPilihRekapanFragmentBinding;
+import com.myapp.databinding.HalamanPilihRekapanBulananFragmentBinding;
+import com.myapp.databinding.HalamanPilihRekapanHarianFragmentBinding;
+import com.myapp.domain.model.LaporanBulananModel;
+import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianModel;
-import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.UserModel;
+import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
 import com.myapp.laporanadmin.ui.bottomsheet.SheetKaryawan;
 import com.myapp.laporanadmin.ui.datepicker.DatePickerMonthAndYear;
+import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
+import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 
 import org.joda.time.DateTime;
 
@@ -40,37 +50,37 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class HalamanPilihRekapan extends BaseFragment {
+public class HalamanPilihRekapanBulanan extends BaseFragment {
 
-    private HalamanPilihRekapanViewModel mViewModel;
-    private HalamanPilihRekapanFragmentBinding binding;
+    private HalamanPilihRekapanBulananViewModel mViewModel;
+    private HalamanPilihRekapanBulananFragmentBinding binding;
     private SheetKaryawan sheetKaryawan;
     private DatePickerMonthAndYear datePickerMonthAndYear;
     private int bulan = 0;
     private int tahun = 0;
     private UserModel userModel;
-    private AdapterLaporanHarianRekapan adapterLaporanHarianRekapan;
+    private AdapterLaporanBulananRekapan adapterLaporanBulananRekapan;
     private boolean AdaData = false;
-    private List<LaporanHarianModel> laporanHarianModels = new ArrayList<>();
+    private List<LaporanBulananModel> laporanHarianModels = new ArrayList<>();
 
-    public static HalamanPilihRekapan newInstance() {
-        return new HalamanPilihRekapan();
+    public static HalamanPilihRekapanBulanan newInstance() {
+        return new HalamanPilihRekapanBulanan();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.halaman_pilih_rekapan_fragment, container, false);
-        setActionBar(binding.toolbar, "Data Rekapan", "");
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.halaman_pilih_rekapan_bulanan_fragment, container, false);
+        setActionBar(binding.toolbar, "Rekap Data Bulanan", "");
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(requireActivity(), new HalamanPilihRekapanFactory(getContext())).get(HalamanPilihRekapanViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), new HalamanPilihRekapanFactory(getContext())).get(HalamanPilihRekapanBulananViewModel.class);
         mViewModel.setRekapanListener(prosesrekap);
         mViewModel.setExportListener(exportListener);
         binding.setIsLoading(false);
         binding.setEvent(halamanRekapanCallback);
-        adapterLaporanHarianRekapan = new AdapterLaporanHarianRekapan();
-        binding.rv.setAdapter(adapterLaporanHarianRekapan);
-
+        adapterLaporanBulananRekapan = new AdapterLaporanBulananRekapan(adapterItemClicked);
+        binding.rv.setAdapter(adapterLaporanBulananRekapan);
         setDefault();
 
         sheetKaryawan = new SheetKaryawan();
@@ -102,25 +112,60 @@ public class HalamanPilihRekapan extends BaseFragment {
 
         @Override
         public void onSync(View v) {
-            binding.setIsLoading(true);
-            LaporanHarianRekapanRequestData l = new LaporanHarianRekapanRequestData();
-            l.setIdUser(userModel.getIdUser());
-            l.setBulanLaporanharian(bulan);
-            l.setTahunLaporanharian(tahun);
-            mViewModel.setharianrekap(l);
+
+            LaporanBulananRequestData l = new LaporanBulananRequestData();
+            try {
+                l.setIdUser(userModel.getIdUser());
+                l.setBulanLaporanbulanan(bulan);
+                l.setTahunLaporanbulanan(tahun);
+                Log.e("sync",userModel.toString());
+                binding.setIsLoading(true);
+                mViewModel.setharianrekap(l);
+
+            }catch (NullPointerException e){
+                Snackbar.make(binding.rv,"Tentukan Data Rekapan !", BaseTransientBottomBar.LENGTH_LONG).show();
+            }
+
         }
 
 
     };
 
+    private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
+        @Override
+        public void onClick(int pos) {
 
+        }
+
+        @Override
+        public void onEdit(int pos) {
+
+        }
+
+        @Override
+        public void onDelete(int pos) {
+
+        }
+
+        @Override
+        public void onDetail(int pos) {
+            LaporanBulananModel obj = adapterLaporanBulananRekapan.getFromPosition(pos);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("idlaporanbulanan",obj.getIdLaporanbulanan());
+            bundle.putString("statuslaporanbulanan",obj.getStatusLaporanbulanan());
+            DetailBulanan bulanan = new DetailBulanan();
+            bulanan.setArguments(bundle);
+            replaceFragment(bulanan, null);
+        }
+    };
     private SheetKaryawan.BottomSheetListener listener = new SheetKaryawan.BottomSheetListener() {
         @Override
         public void onOptionClick(UserModel kotaModel) {
             sheetKaryawan.dismiss();
             binding.setKaryawan(kotaModel);
-            HalamanPilihRekapan.this.userModel = kotaModel;
-
+            userModel = kotaModel;
+            Log.e("",userModel.toString());
         }
     };
 
@@ -149,21 +194,30 @@ public class HalamanPilihRekapan extends BaseFragment {
         }
 
         @Override
-        public void onSuccess(List<LaporanHarianModel> laporanHarianModels) {
+        public void onSuccessHarian(List<LaporanHarianModel> laporanHarianModels) {
+
+        }
+
+        @Override
+        public void onSuccessBulanan(List<LaporanBulananModel> laporanHarianModels) {
             binding.setIsLoading(false);
-            adapterLaporanHarianRekapan.setData(laporanHarianModels);
-            HalamanPilihRekapan.this.laporanHarianModels = laporanHarianModels;
-            HalamanPilihRekapan.this.AdaData = true;
+            adapterLaporanBulananRekapan.setData(laporanHarianModels);
+            HalamanPilihRekapanBulanan.this.laporanHarianModels = laporanHarianModels;
+            HalamanPilihRekapanBulanan.this.AdaData = true;
         }
 
         @Override
         public void onFailed(String message) {
             binding.setIsLoading(false);
+            HalamanPilihRekapanBulanan.this.AdaData = false;
+            adapterLaporanBulananRekapan.clearData();
         }
 
         @Override
         public void onError(String message) {
             binding.setIsLoading(false);
+            HalamanPilihRekapanBulanan.this.AdaData = false;
+            adapterLaporanBulananRekapan.clearData();
         }
     };
 
@@ -188,9 +242,10 @@ public class HalamanPilihRekapan extends BaseFragment {
         switch (item.getItemId()) {
             case R.id.menu_export:
                 if (AdaData) {
+                    showProgress("Memproses..");
                     cekPermission();
                 } else {
-                    Toast.makeText(getContext(), "Setidaknya Pilih Karyawan", Toast.LENGTH_LONG).show();
+                    Snackbar.make(binding.rv,"Tidak Ada Data!",Snackbar.LENGTH_LONG).show();
                 }
                 return true;
             case R.id.menu_close:
@@ -207,8 +262,9 @@ public class HalamanPilihRekapan extends BaseFragment {
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        dismissProgress();
                         if (report.areAllPermissionsGranted()) {
-                            mViewModel.ExportHarian(laporanHarianModels, userModel.getNamaUser());
+                            mViewModel.ExportBulanan(laporanHarianModels, userModel.getNamaUser());
                         }
 
                         if (report.isAnyPermissionPermanentlyDenied()) {
@@ -219,6 +275,7 @@ public class HalamanPilihRekapan extends BaseFragment {
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        dismissProgress();
                         token.continuePermissionRequest();
                     }
                 }).check();

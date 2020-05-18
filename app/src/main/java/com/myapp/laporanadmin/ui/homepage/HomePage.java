@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -16,7 +15,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.HomePageFragmentBinding;
-import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.laporanadmin.BaseFragment;
 
 import com.myapp.laporanadmin.callback.HomePageItemClicked;
@@ -25,9 +23,8 @@ import com.myapp.laporanadmin.ui.dataoutlet.DataOutlet;
 import com.myapp.laporanadmin.ui.datapegawai.DataPegawai;
 import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
-import com.myapp.laporanadmin.ui.rekapan.HalamanPilihRekapan;
-import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
-import com.myapp.laporanadmin.ui.tambahoutlet.TambahOutlet;
+import com.myapp.laporanadmin.ui.rekapan.HalamanPilihRekapanHarian;
+import com.myapp.laporanadmin.ui.rekapan.ListRekapan;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 public class HomePage extends BaseFragment {
@@ -157,7 +154,7 @@ public class HomePage extends BaseFragment {
 
         @Override
         public void RekapLaporan(View v) {
-            replaceFragment(HalamanPilihRekapan.newInstance(),null);
+            replaceFragment(ListRekapan.newInstance(),null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

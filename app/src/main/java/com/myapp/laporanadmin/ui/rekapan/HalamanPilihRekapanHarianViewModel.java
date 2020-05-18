@@ -34,13 +34,13 @@ import retrofit2.Response;
 
 import static com.myapp.data.service.ApiHandler.cek;
 
-public class HalamanPilihRekapanViewModel extends ViewModel {
+public class HalamanPilihRekapanHarianViewModel extends ViewModel {
     private Context context;
     private ApiService service;
     private RekapanListener listener;
     private ExportListener exportListener;
 
-    public HalamanPilihRekapanViewModel(Context context) {
+    public HalamanPilihRekapanHarianViewModel(Context context) {
         this.context = context;
         this.service = LaporanRepository.getService(context);
 
@@ -55,6 +55,7 @@ public class HalamanPilihRekapanViewModel extends ViewModel {
     }
 
     public void setharianrekap(LaporanHarianRekapanRequestData data) {
+        listener.onStart();
         service.getAllLaporanharianRekapan(data).enqueue(new Callback<ResponseGetLaporanHarian>() {
             @Override
             public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
@@ -64,7 +65,7 @@ public class HalamanPilihRekapanViewModel extends ViewModel {
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData() != null) {
 
-                            listener.onSuccess(response.body().getData());
+                            listener.onSuccessHarian(response.body().getData());
                         } else {
                             listener.onFailed("Tidak Ada Data");
                         }

@@ -90,16 +90,14 @@ public interface ApiService {
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/data")
     Call<ResponseGetLaporanHarian> getAllLaporanharianRekapan(@Body LaporanHarianRekapanRequestData laporanHarianRequestData);
-    @Headers({accept_json,content_type,api_key})
-    @POST("laporanharian/data")
-    Call<ResponseGetLaporanHarian> getAllLaporanharianRekap(@Body LaporanHarianRequestData laporanHarianRequestData);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
     Call<ResponseGetLaporanBulanan> getAllLaporanbulanan(@Body LaporanBulananRequestData laporanHarianRequestData);
+
     @Headers({accept_json,content_type,api_key})
     @POST("laporanbulanan/data")
-    Call<ResponseGetLaporanBulanan> getAllLaporanbulananRekap(@Body LaporanHarianRequestData laporanHarianRequestData);
+    Call<ResponseGetLaporanBulanan> getAllLaporanbulananRekap(@Body LaporanBulananRequestData laporanHarianRequestData);
 
     @Headers({accept_json,content_type,api_key})
     @POST("laporanharian/add")

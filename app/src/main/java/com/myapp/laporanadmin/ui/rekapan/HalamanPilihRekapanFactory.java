@@ -17,9 +17,11 @@ public class HalamanPilihRekapanFactory implements ViewModelProvider.Factory {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(HalamanPilihRekapanViewModel.class)) {
-            return (T) new HalamanPilihRekapanViewModel(context);
-        } else {
+        if (modelClass.isAssignableFrom(HalamanPilihRekapanHarianViewModel.class)) {
+            return (T) new HalamanPilihRekapanHarianViewModel(context);
+        } else if (modelClass.isAssignableFrom(HalamanPilihRekapanBulananViewModel.class)) {
+            return (T) new HalamanPilihRekapanBulananViewModel(context);
+        }else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
 

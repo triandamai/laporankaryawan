@@ -38,4 +38,12 @@ public class LaporanHarianRekapanRequestData {
         this.tahunLaporanharian = tahunLaporanharian;
     }
 
+    @Override
+    public String toString() {
+        return "LaporanHarianRekapanRequestData{" +
+                "idUser='" + idUser + '\'' +
+                ", bulanLaporanharian=" + bulanLaporanharian +
+                ", tahunLaporanharian=" + tahunLaporanharian +
+                '}';
+    }
 }

@@ -9,27 +9,30 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapp.R;
+import com.myapp.databinding.ItemBulananRekapBinding;
 import com.myapp.databinding.ItemHarianRekapBinding;
+import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
+import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLaporanHarianRekapan.MyViewHolder> {
+public class AdapterLaporanBulananRekapan extends RecyclerView.Adapter<AdapterLaporanBulananRekapan.MyViewHolder> {
 
-    private List<LaporanHarianModel> dalist = new ArrayList<>();
+    private List<LaporanBulananModel> dalist = new ArrayList<>();
     private AdapterItemClicked adapterItemClicked;
 
-    public AdapterLaporanHarianRekapan(AdapterItemClicked adapterItemClicked) {
+    public AdapterLaporanBulananRekapan(AdapterItemClicked adapterItemClicked) {
         this.adapterItemClicked = adapterItemClicked;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemHarianRekapBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_harian_rekap, parent, false);
+        ItemBulananRekapBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_bulanan_rekap, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -46,14 +49,14 @@ public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLap
         return dalist == null ? 0 : dalist.size();
     }
 
-    public void setData(List<LaporanHarianModel> data) {
+    public void setData(List<LaporanBulananModel> data) {
         if (this.dalist == null) {
             this.dalist.addAll(data);
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
-                    return AdapterLaporanHarianRekapan.this.dalist.size();
+                    return AdapterLaporanBulananRekapan.this.dalist.size();
                 }
 
                 @Override
@@ -63,13 +66,13 @@ public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLap
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterLaporanHarianRekapan.this.dalist.get(oldItemPosition).getIdUser() == data.get(newItemPosition).getIdUser();
+                    return AdapterLaporanBulananRekapan.this.dalist.get(oldItemPosition).getIdUser() == data.get(newItemPosition).getIdUser();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    LaporanHarianModel lama = data.get(oldItemPosition);
-                    LaporanHarianModel baru = data.get(newItemPosition);
+                    LaporanBulananModel lama = data.get(oldItemPosition);
+                    LaporanBulananModel baru = data.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });
@@ -78,7 +81,7 @@ public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLap
         }
     }
 
-    public LaporanHarianModel getFromPosition(int position) {
+    public LaporanBulananModel getFromPosition(int position) {
         return dalist.get(position);
     }
 
@@ -87,9 +90,9 @@ public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private ItemHarianRekapBinding binding;
+        private ItemBulananRekapBinding binding;
 
-        public MyViewHolder(ItemHarianRekapBinding binding) {
+        public MyViewHolder(ItemBulananRekapBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

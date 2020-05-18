@@ -105,7 +105,7 @@ public class LaporanBulanan extends BaseFragment {
 
         @Override
         public void onDetail(int pos) {
-            Gson gson = new Gson();
+
             LaporanBulananObject obj = adapterLaporanBulanan.getFromPosition(pos);
 
             Bundle bundle = new Bundle();

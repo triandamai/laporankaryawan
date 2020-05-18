@@ -86,8 +86,6 @@ public class HalamanPilihRekapan extends BaseFragment {
         Calendar calendar = Calendar.getInstance();
         bulan = calendar.get(Calendar.MONTH) + 1;
         tahun = calendar.get(Calendar.YEAR);
-
-
     }
 
 
@@ -95,7 +93,6 @@ public class HalamanPilihRekapan extends BaseFragment {
         @Override
         public void onSelectKaryawan(View v) {
             sheetKaryawan.show(getActivity().getSupportFragmentManager(), "Pilih Karyawan");
-
         }
 
         @Override
@@ -130,7 +127,7 @@ public class HalamanPilihRekapan extends BaseFragment {
     private ExportListener exportListener = new ExportListener() {
         @Override
         public void onStart() {
-            showProgress("Meng-Export Rekapan "+userModel.getNamaUser());
+            showProgress("Meng-Export Rekapan " + userModel.getNamaUser());
         }
 
         @Override
@@ -203,14 +200,15 @@ public class HalamanPilihRekapan extends BaseFragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void cekPermission(){
+
+    private void cekPermission() {
         Dexter.withActivity(getActivity())
-                .withPermissions( Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
-                            mViewModel.ExportHarian(laporanHarianModels,userModel.getNamaUser());
+                            mViewModel.ExportHarian(laporanHarianModels, userModel.getNamaUser());
                         }
 
                         if (report.isAnyPermissionPermanentlyDenied()) {

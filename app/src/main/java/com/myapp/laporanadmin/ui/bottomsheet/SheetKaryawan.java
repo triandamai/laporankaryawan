@@ -21,7 +21,6 @@ import com.myapp.databinding.FragmentSheetKaryawanBinding;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
 
-
 import java.util.List;
 
 
@@ -31,7 +30,6 @@ public class SheetKaryawan extends BottomSheetDialogFragment {
     private BottomSheetBehavior behavior;
     private AdapterSheetKaryawan adapterSheetKaryawan;
     private BottomSheetListener listener;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +43,11 @@ public class SheetKaryawan extends BottomSheetDialogFragment {
 
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_sheet_karyawan, null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),
+                R.layout.fragment_sheet_karyawan, null, false);
         binding.setIsLoading(true);
         adapterSheetKaryawan = new AdapterSheetKaryawan(itemClicked);
         binding.shimmerRecyclerDesa.setAdapter(adapterSheetKaryawan);
-
-
         dialog.setContentView(binding.getRoot());
         behavior = BottomSheetBehavior.from((View) binding.getRoot().getParent());
 

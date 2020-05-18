@@ -33,4 +33,18 @@
     <string name="nama_karyawan">Nama Karyawan</string>
     <string name="data_kota">Data\nKota</string>
     <string name="data_outlet">Data\nOutlet</string>
+    <string name="nama_outlet">Nama Outlet</string>
+    <string name="alamat_laporan">Alamat Laporan</string>
+    <string name="keterangan">Keterangan</string>
+    <string name="tanggal_laporan">Tanggal Laporan</string>
+    <string name="waktu_laporan">Waktu Laporan</string>
+    <string name="tolak">Tolak</string>
+    <string name="terima">Terima</string>
+    <string name="isi_laporan">Isi Laporan</string>
+    <string name="masukan_nama_outlet">Masukan Nama Outlet</string>
+    <string name="pilih_kota">Pilih Kota</string>
+    <string name="simpan">Simpan</string>
+    <string name="daftar_karyawan">Daftar Karyawan</string>
+    <string name="info_rekap">Pilih data yang akan di lihat rekapan laporanya</string>
+    <string name="cari_data_rekapan">Cari Data Rekapan</string>
 </resources>

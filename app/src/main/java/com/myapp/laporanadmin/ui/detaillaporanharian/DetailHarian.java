@@ -35,13 +35,11 @@ public class DetailHarian extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_harian_fragment, container, false);
-        setActionBar(binding.toolbar, "Laporan Bulanan " + laporanHarianObject.getNamaUser(), "");
+        setActionBar(binding.toolbar, "Laporan Harian " + laporanHarianObject.getNamaUser(), "");
         setHasOptionsMenu(true);
         mViewModel = new ViewModelProvider(getActivity(), new DetailHarianFactory(getContext(), laporanHarianObject)).get(DetailHarianViewModel.class);
         mViewModel.setSendDataListener(sendDataListener);
         binding.setVm(mViewModel);
-
-
         return binding.getRoot();
     }
 
@@ -58,11 +56,11 @@ public class DetailHarian extends BaseFragment {
             public void onChanged(LaporanHarianObject laporanHarianObject) {
                 if (laporanHarianObject != null) {
                     binding.setData(laporanHarianObject);
-                    if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("1")){
+                    if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("1")) {
                         binding.setISrejected(false);
-                    }else if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("2")){
+                    } else if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("2")) {
                         binding.setISrejected(true);
-                    }else if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("3")){
+                    } else if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("3")) {
                         binding.setISrejected(false);
                     }
                 }

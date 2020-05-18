@@ -27,6 +27,7 @@ public class DetailHarianViewModel extends ViewModel {
     private Realm realm;
     private SendDataListener sendDataListener;
     public LiveData<LaporanHarianObject> laporanHarianObjectLiveData;
+
     public DetailHarianViewModel(Context context, LaporanHarianObject obj) {
         this.context = context;
         this.obj = obj;
@@ -39,7 +40,7 @@ public class DetailHarianViewModel extends ViewModel {
         this.sendDataListener = sendDataListener;
     }
 
-    public void aksi(int s,String idl){
+    public void aksi(int s, String idl) {
         sendDataListener.onStart();
         PostProsesLaporanHarian post = new PostProsesLaporanHarian();
         post.setIdLaporanharian(idl);
@@ -47,23 +48,23 @@ public class DetailHarianViewModel extends ViewModel {
         apiService.proseslaporanharian(post).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                if(cek(response.code(),context,"Proses Laporan Harian")){
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                if (cek(response.code(), context, "Proses Laporan Harian")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         sendDataListener.onSuccess(response.body().getResponseMessage());
                         realm.executeTransactionAsync(new Realm.Transaction() {
                             @Override
                             public void execute(Realm realm) {
-                                LaporanHarianObject obj = realm.where(LaporanHarianObject.class).equalTo("idLaporanharian",idl).findFirst();
-                                if(obj != null){
+                                LaporanHarianObject obj = realm.where(LaporanHarianObject.class).equalTo("idLaporanharian", idl).findFirst();
+                                if (obj != null) {
                                     obj.setStatusLaporanharian(String.valueOf(s));
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         sendDataListener.onFailed(response.body().getResponseMessage());
                     }
 
-                }else {
+                } else {
                     sendDataListener.onFailed(response.message());
                 }
             }
@@ -74,8 +75,10 @@ public class DetailHarianViewModel extends ViewModel {
             }
         });
     }
+
     private void getObject() {
-     laporanHarianObjectLiveData = new RealmLiveObject(realm.where(LaporanHarianObject.class).equalTo("idLaporanharian",obj.getIdLaporanharian()).findFirst());
+        laporanHarianObjectLiveData = new RealmLiveObject(realm.where(LaporanHarianObject.class)
+                .equalTo("idLaporanharian", obj.getIdLaporanharian()).findFirst());
     }
 
     public LiveData<LaporanHarianObject> getLaporanHarianObjectLiveData() {

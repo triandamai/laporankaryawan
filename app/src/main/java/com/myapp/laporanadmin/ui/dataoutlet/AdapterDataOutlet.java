@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapp.R;
-import com.myapp.databinding.ItemKaryawanBinding;
 import com.myapp.databinding.ItemOutletBinding;
-import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.domain.realmobject.OutletObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 
@@ -22,13 +20,16 @@ import java.util.Objects;
 public class AdapterDataOutlet extends RecyclerView.Adapter<AdapterDataOutlet.MyViewHolder> {
     private AdapterItemClicked adapterItemClicked;
     private List<OutletObject> dalist = new ArrayList<>();
-    public AdapterDataOutlet(AdapterItemClicked adapterItemClicked){
+
+    public AdapterDataOutlet(AdapterItemClicked adapterItemClicked) {
         this.adapterItemClicked = adapterItemClicked;
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemOutletBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_outlet,parent,false);
+        ItemOutletBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_outlet, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -44,10 +45,11 @@ public class AdapterDataOutlet extends RecyclerView.Adapter<AdapterDataOutlet.My
     public int getItemCount() {
         return dalist == null ? 0 : dalist.size();
     }
-    public void setData(List<OutletObject> data){
-        if(this.dalist == null){
+
+    public void setData(List<OutletObject> data) {
+        if (this.dalist == null) {
             this.dalist.addAll(data);
-        }else {
+        } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
@@ -68,7 +70,7 @@ public class AdapterDataOutlet extends RecyclerView.Adapter<AdapterDataOutlet.My
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     OutletObject lama = data.get(oldItemPosition);
                     OutletObject baru = data.get(newItemPosition);
-                    return lama == baru && Objects.equals(lama,baru);
+                    return lama == baru && Objects.equals(lama, baru);
                 }
             });
             this.dalist = data;
@@ -76,11 +78,14 @@ public class AdapterDataOutlet extends RecyclerView.Adapter<AdapterDataOutlet.My
             notifyDataSetChanged();
         }
     }
-    public OutletObject getFromPosition(int position){
+
+    public OutletObject getFromPosition(int position) {
         return dalist.get(position);
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private ItemOutletBinding binding;
+
         public MyViewHolder(ItemOutletBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

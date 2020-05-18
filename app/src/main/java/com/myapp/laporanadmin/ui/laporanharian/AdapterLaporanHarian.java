@@ -13,7 +13,6 @@ import com.myapp.databinding.ItemHarianBinding;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,13 +20,16 @@ import java.util.Objects;
 public class AdapterLaporanHarian extends RecyclerView.Adapter<AdapterLaporanHarian.MyViewHolder> {
     private AdapterItemClicked adapterItemClicked;
     private List<LaporanHarianObject> dalist = new ArrayList<>();
-    public AdapterLaporanHarian(AdapterItemClicked adapterItemClicked){
+
+    public AdapterLaporanHarian(AdapterItemClicked adapterItemClicked) {
         this.adapterItemClicked = adapterItemClicked;
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemHarianBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_harian,parent,false);
+        ItemHarianBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_harian, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -43,10 +45,11 @@ public class AdapterLaporanHarian extends RecyclerView.Adapter<AdapterLaporanHar
     public int getItemCount() {
         return dalist == null ? 0 : dalist.size();
     }
-    public void setData(List<LaporanHarianObject> data){
-        if(this.dalist == null){
+
+    public void setData(List<LaporanHarianObject> data) {
+        if (this.dalist == null) {
             this.dalist.addAll(data);
-        }else {
+        } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
@@ -67,18 +70,21 @@ public class AdapterLaporanHarian extends RecyclerView.Adapter<AdapterLaporanHar
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     LaporanHarianObject lama = data.get(oldItemPosition);
                     LaporanHarianObject baru = data.get(newItemPosition);
-                    return lama == baru && Objects.equals(lama,baru);
+                    return lama == baru && Objects.equals(lama, baru);
                 }
             });
             this.dalist = data;
             result.dispatchUpdatesTo(this);
         }
     }
-    public LaporanHarianObject getFromPosition(int position){
+
+    public LaporanHarianObject getFromPosition(int position) {
         return dalist.get(position);
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private ItemHarianBinding binding;
+
         public MyViewHolder(ItemHarianBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

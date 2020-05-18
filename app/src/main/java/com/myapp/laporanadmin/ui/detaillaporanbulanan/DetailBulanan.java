@@ -61,11 +61,11 @@ public class DetailBulanan extends BaseFragment {
             public void onChanged(LaporanBulananObject laporanBulananObject) {
                 if (laporanBulananObject != null) {
                     binding.setData(laporanBulananObject);
-                    if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("1")){
+                    if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("1")) {
                         binding.setISrejected(false);
-                    }else if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("2")){
+                    } else if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("2")) {
                         binding.setISrejected(true);
-                    }else if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("3")){
+                    } else if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("3")) {
                         binding.setISrejected(false);
                     }
                 }

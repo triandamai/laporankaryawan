@@ -426,7 +426,7 @@
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="@{(v)->click.dataUser(v)}"
+                                    android:onClick="@{(v)->click.Pegawai(v)}"
                                     android:background="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -447,7 +447,7 @@
                                         android:layout_marginBottom="2dp"
                                         android:textStyle="bold"
                                         android:textColor="@color/black_tua_hehe"
-                                        android:text="@string/tambah_nuser" />
+                                        android:text="Data\nKaryawan" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
 

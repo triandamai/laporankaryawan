@@ -44,4 +44,7 @@
     <string name="masukan_nama_outlet">Masukan Nama Outlet</string>
     <string name="pilih_kota">Pilih Kota</string>
     <string name="simpan">Simpan</string>
+    <string name="daftar_karyawan">Daftar Karyawan</string>
+    <string name="info_rekap">Pilih data yang akan di lihat rekapan laporanya</string>
+    <string name="cari_data_rekapan">Cari Data Rekapan</string>
 </resources>

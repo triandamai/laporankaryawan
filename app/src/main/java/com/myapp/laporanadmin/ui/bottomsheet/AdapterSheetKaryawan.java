@@ -13,7 +13,6 @@ import com.myapp.R;
 import com.myapp.databinding.ItemSheetKaryawanBinding;
 import com.myapp.domain.realmobject.KaryawanObject;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +28,8 @@ public class AdapterSheetKaryawan extends RecyclerView.Adapter<AdapterSheetKarya
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemSheetKaryawanBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_sheet_karyawan, parent, false);
+        ItemSheetKaryawanBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_sheet_karyawan, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -86,7 +86,8 @@ public class AdapterSheetKaryawan extends RecyclerView.Adapter<AdapterSheetKarya
             this.binding = binding;
         }
     }
-    public interface ItemClicked{
+
+    public interface ItemClicked {
         void onClick(KaryawanObject kotaModel);
     }
 }

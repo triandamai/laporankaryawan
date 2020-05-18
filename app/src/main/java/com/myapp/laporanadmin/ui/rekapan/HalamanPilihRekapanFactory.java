@@ -6,11 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public  class HalamanPilihRekapanFactory implements ViewModelProvider.Factory {
+public class HalamanPilihRekapanFactory implements ViewModelProvider.Factory {
     private Context context;
 
-    public HalamanPilihRekapanFactory(Context context){
-
+    public HalamanPilihRekapanFactory(Context context) {
         this.context = context;
     }
 

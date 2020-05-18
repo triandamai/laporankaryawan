@@ -13,11 +13,9 @@ import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.response.ResponseGetLaporanHarian;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.RekapanListener;
-import com.myapp.laporanadmin.callback.SendDataListener;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
@@ -96,7 +94,7 @@ public class HalamanPilihRekapanViewModel extends ViewModel {
             "TANGGAL"
     };
 
-    public void ExportHarian(List<LaporanHarianModel> list,String nama) {
+    public void ExportHarian(List<LaporanHarianModel> list, String nama) {
         exportListener.onStart();
         Workbook workbook = new XSSFWorkbook();
 
@@ -127,7 +125,7 @@ public class HalamanPilihRekapanViewModel extends ViewModel {
             row.createCell(2).setCellValue(item.getUser().getNamaUser());
             row.createCell(3).setCellValue(item.getKeteranganLaporanharian());
             row.createCell(4).setCellValue(item.getStatusLaporanharian());
-            row.createCell(5).setCellValue(item.getCreatedAt().substring(0,10));
+            row.createCell(5).setCellValue(item.getCreatedAt().substring(0, 10));
             rownum++;
         }
 
@@ -137,12 +135,12 @@ public class HalamanPilihRekapanViewModel extends ViewModel {
         try {
             fileOutputStream = new FileOutputStream(
                     new File(Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_DOWNLOADS), "Laporan_Harian_"+nama+".xlsx"));
+                            Environment.DIRECTORY_DOWNLOADS), "Laporan_Harian_" + nama + ".xlsx"));
             workbook.write(fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
             workbook.close();
-            exportListener.onSucces("File Tersimpan di Downloads/Laporan_Harian_"+nama+".xlsx");
+            exportListener.onSucces("File Tersimpan di Downloads/Laporan_Harian_" + nama + ".xlsx");
         } catch (IOException e) {
             e.printStackTrace();
             exportListener.onError(e.getMessage());

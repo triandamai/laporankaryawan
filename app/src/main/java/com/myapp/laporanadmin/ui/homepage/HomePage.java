@@ -65,6 +65,7 @@ public class HomePage extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.fetchFromApi();
         mViewModel.init();
         observe(mViewModel);
     }

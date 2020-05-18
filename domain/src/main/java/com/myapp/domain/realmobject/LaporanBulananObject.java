@@ -1,5 +1,10 @@
 package com.myapp.domain.realmobject;
 
+import com.myapp.domain.model.LaporanBulananModel;
+import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.UserModel;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -106,5 +111,7 @@ public class LaporanBulananObject extends RealmObject {
     public void setLevelUser(String levelUser) {
         this.levelUser = levelUser;
     }
+
+
 }
 

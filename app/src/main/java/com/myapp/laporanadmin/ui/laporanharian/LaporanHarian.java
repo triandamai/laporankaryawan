@@ -106,7 +106,12 @@ public class LaporanHarian extends BaseFragment {
         @Override
         public void onDetail(int pos) {
             LaporanHarianObject obj = adapterLaporanHarian.getFromPosition(pos);
-            replaceFragment(DetailHarian.newInstance(obj), null);
+            Bundle bundle = new Bundle();
+            bundle.putString("idlaporanharian",obj.getIdLaporanharian());
+            bundle.putString("statuslaporanharian",obj.getStatusLaporanharian());
+            DetailHarian detailHarian = new DetailHarian();
+            detailHarian.setArguments(bundle);
+            replaceFragment(detailHarian, null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

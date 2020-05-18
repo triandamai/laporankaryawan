@@ -12,8 +12,8 @@ import com.myapp.laporanadmin.ui.homepage.HomePageViewModel;
 public  class DetailBulananFactory implements ViewModelProvider.Factory {
     private Context context;
     private LaporanBulananObject obj;
-    public DetailBulananFactory(Context context, LaporanBulananObject laporanBulananObject){
-        this.obj = laporanBulananObject;
+    public DetailBulananFactory(Context context){
+
         this.context = context;
     }
 
@@ -22,7 +22,7 @@ public  class DetailBulananFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(DetailBulananViewModel.class)) {
-            return (T) new DetailBulananViewModel(context,obj);
+            return (T) new DetailBulananViewModel(context);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

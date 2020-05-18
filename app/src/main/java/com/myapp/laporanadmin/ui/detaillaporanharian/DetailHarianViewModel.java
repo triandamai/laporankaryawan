@@ -3,6 +3,7 @@ package com.myapp.laporanadmin.ui.detaillaporanharian;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveObject;
@@ -28,12 +29,11 @@ public class DetailHarianViewModel extends ViewModel {
     private SendDataListener sendDataListener;
     public LiveData<LaporanHarianObject> laporanHarianObjectLiveData;
 
-    public DetailHarianViewModel(Context context, LaporanHarianObject obj) {
+    public DetailHarianViewModel(Context context) {
         this.context = context;
-        this.obj = obj;
         this.realm = Realm.getDefaultInstance();
         this.apiService = LaporanRepository.getService(context);
-        getObject();
+
     }
 
     public void setSendDataListener(SendDataListener sendDataListener) {
@@ -76,12 +76,15 @@ public class DetailHarianViewModel extends ViewModel {
         });
     }
 
-    private void getObject() {
+    public void getObject(String id) {
         laporanHarianObjectLiveData = new RealmLiveObject(realm.where(LaporanHarianObject.class)
-                .equalTo("idLaporanharian", obj.getIdLaporanharian()).findFirst());
+                .equalTo("idLaporanharian", id).findFirst());
     }
 
     public LiveData<LaporanHarianObject> getLaporanHarianObjectLiveData() {
+        if(laporanHarianObjectLiveData == null){
+            laporanHarianObjectLiveData = new MutableLiveData<>();
+        }
         return laporanHarianObjectLiveData;
     }
     // TODO: Implement the ViewModel

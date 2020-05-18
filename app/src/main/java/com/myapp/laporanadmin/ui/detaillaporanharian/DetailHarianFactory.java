@@ -10,10 +10,10 @@ import com.myapp.domain.realmobject.LaporanHarianObject;
 
 public class DetailHarianFactory implements ViewModelProvider.Factory {
     private Context context;
-    private LaporanHarianObject obj;
 
-    public DetailHarianFactory(Context context, LaporanHarianObject laporanHarianObject) {
-        this.obj = laporanHarianObject;
+
+    public DetailHarianFactory(Context context) {
+
         this.context = context;
     }
 
@@ -22,7 +22,7 @@ public class DetailHarianFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(DetailHarianViewModel.class)) {
-            return (T) new DetailHarianViewModel(context, obj);
+            return (T) new DetailHarianViewModel(context);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

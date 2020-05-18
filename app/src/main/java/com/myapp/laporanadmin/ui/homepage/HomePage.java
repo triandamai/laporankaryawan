@@ -14,7 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
-import com.myapp.databinding.HomePageFragmentBinding;
+import com.myapp.databinding.HomePageAdminFragmentBinding;
 import com.myapp.laporanadmin.BaseFragment;
 
 import com.myapp.laporanadmin.callback.HomePageItemClicked;
@@ -23,7 +23,6 @@ import com.myapp.laporanadmin.ui.dataoutlet.DataOutlet;
 import com.myapp.laporanadmin.ui.datapegawai.DataPegawai;
 import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
-import com.myapp.laporanadmin.ui.rekapan.HalamanPilihRekapanHarian;
 import com.myapp.laporanadmin.ui.rekapan.ListRekapan;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
@@ -31,7 +30,7 @@ public class HomePage extends BaseFragment {
     public static String TAG = "Home Page Fragment";
 
     private HomePageViewModel mViewModel;
-    private HomePageFragmentBinding binding;
+    private HomePageAdminFragmentBinding binding;
     private MaterialAlertDialogBuilder builder;
     public static HomePage newInstance() {
         return new HomePage();
@@ -40,7 +39,7 @@ public class HomePage extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-      binding = DataBindingUtil.inflate(inflater, R.layout.home_page_fragment, container, false);
+      binding = DataBindingUtil.inflate(inflater, R.layout.home_page_admin_fragment, container, false);
       binding.setIsLoading(true);
       binding.setIsNotifikasiBulanan(false);
       binding.setIsNotifikasiBulanan(false);

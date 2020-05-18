@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.myapp.R;
-import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.OutletModel;

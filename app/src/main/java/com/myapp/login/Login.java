@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.ActivityLoginBinding;
-import com.myapp.laporanadmin.Root;
+import com.myapp.laporanadmin.RootAdmin;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 public class Login extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         public void onSuccess(String level) {
             binding.setIsLoading(false);
             if (level.equalsIgnoreCase("2")) {
-                startActivity(new Intent(Login.this, Root.class));
+                startActivity(new Intent(Login.this, RootAdmin.class));
                 finish();
             } else {
                 //startActivity(new Intent(Login.this, Main.class));

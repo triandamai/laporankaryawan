@@ -30,7 +30,6 @@ import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.UserModel;
-import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;

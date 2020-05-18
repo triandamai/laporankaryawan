@@ -1,4 +1,4 @@
-package com.myapp.laporanadmin;
+package com.myapp.laporankaryawan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.myapp.ImagePickerActivity;
 import com.myapp.R;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
+import com.myapp.laporanadmin.RootAdmin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -27,7 +28,7 @@ import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class BaseFragment extends Fragment {
+public class BaseKaryawanFragment extends Fragment {
     protected MaterialAlertDialogBuilder builder;
     public static final int REQUEST_IMAGE = 100;
     private ProgressDialog progressDialog;
@@ -64,7 +65,7 @@ public class BaseFragment extends Fragment {
     }
     protected void addFragment(Fragment f, String TAG){
         try {
-            ((RootAdmin) requireActivity()).addFragment(f, TAG);
+            ((RootKaryawan) requireActivity()).addFragment(f, TAG);
         }catch (NullPointerException e){
             Log.e("add Fragment", Objects.requireNonNull(e.getMessage()));
         }
@@ -72,14 +73,14 @@ public class BaseFragment extends Fragment {
     protected void replaceFragment(Fragment f,String TAG){
         try {
 
-            ((RootAdmin) requireActivity()).replaceFragment(f, TAG);
+            ((RootKaryawan) requireActivity()).replaceFragment(f, TAG);
         }catch (NullPointerException e){
             Log.e("replace Fragment", Objects.requireNonNull(e.getMessage()));
         }
     }
     protected void back(){
         try {
-        ((RootAdmin) getActivity()).onBack();
+        ((RootKaryawan) getActivity()).onBack();
         }catch (NullPointerException e){
             Log.e("onBack Fragment", Objects.requireNonNull(e.getMessage()));
         }

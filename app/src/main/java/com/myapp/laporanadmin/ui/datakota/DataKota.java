@@ -1,6 +1,5 @@
 package com.myapp.laporanadmin.ui.datakota;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,7 +24,6 @@ import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
-import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 public class DataKota extends BaseFragment {
     public static String TAG = "Data Kota";

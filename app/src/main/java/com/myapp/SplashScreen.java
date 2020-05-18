@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.domain.model.UserModel;
-import com.myapp.laporanadmin.Root;
+import com.myapp.laporanadmin.RootAdmin;
 import com.myapp.login.Login;
 
 public class SplashScreen extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
             } else {
                 if (userModel.getLevelUser().equalsIgnoreCase("2")) {
-                    startActivity(new Intent(SplashScreen.this, Root.class));
+                    startActivity(new Intent(SplashScreen.this, RootAdmin.class));
                     finish();
                 } else {
                     //startActivity(new Intent(SplashScreen.this, Main.class));

@@ -28,12 +28,10 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.myapp.R;
 import com.myapp.databinding.HalamanPilihRekapanBulananFragmentBinding;
-import com.myapp.databinding.HalamanPilihRekapanHarianFragmentBinding;
 import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.UserModel;
-import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;
@@ -42,7 +40,6 @@ import com.myapp.laporanadmin.callback.RekapanListener;
 import com.myapp.laporanadmin.ui.bottomsheet.SheetKaryawan;
 import com.myapp.laporanadmin.ui.datepicker.DatePickerMonthAndYear;
 import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
-import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 
 import org.joda.time.DateTime;
 

@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.LaporanBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;

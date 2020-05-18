@@ -11,14 +11,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.DetailBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
-import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 
 public class DetailBulanan extends BaseFragment {
 

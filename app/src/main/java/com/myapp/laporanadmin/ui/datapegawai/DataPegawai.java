@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.DataPegawaiFragmentBinding;
 import com.myapp.domain.model.UserModel;
@@ -91,8 +92,11 @@ public class DataPegawai extends BaseFragment {
             builder.setMessage("Mau Edit Karyawan " + userModel.getNamaUser() + "?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
                 dialog.dismiss();
-                String aksi = getContext().getString(R.string.AKSI_UBAH);
-                replaceFragment(TambahUser.newInstance(aksi, userModel), null);
+                Gson gson = new Gson();
+                Bundle bundle = new Bundle();
+                bundle.putString("user",gson.toJson(userModel));
+                TambahUser tambahUser = new TambahUser();
+                replaceFragment(, null);
             });
             builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton("Hapus", (dialog, which) -> {

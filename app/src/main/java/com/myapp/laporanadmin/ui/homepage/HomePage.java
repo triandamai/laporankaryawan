@@ -76,10 +76,14 @@ public class HomePage extends BaseFragment {
                     binding.setIsLoading(false);
                     int bulanan = Integer.parseInt(homePageObject.getLapMasukBulanan().toString());
                     int harian = Integer.parseInt(homePageObject.getLapMasukHarian().toString());
-                    if (bulanan >= 1) {
+                    if(bulanan == 0 ||  homePageObject.getLapMasukBulanan() == null){
+                        binding.setIsNotifikasiBulanan(false);
+                    }else {
                         binding.setIsNotifikasiBulanan(true);
                     }
-                    if (harian >= 1) {
+                    if(harian == 0 || homePageObject.getLapMasukHarian() == null){
+                        binding.setIsNotifikasiHarian(false);
+                    }else {
                         binding.setIsNotifikasiHarian(true);
                     }
 

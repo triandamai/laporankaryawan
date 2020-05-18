@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -49,16 +50,11 @@ public class TambahUser extends BaseFragment {
     private UserModel userModel;
 
     public TambahUser(){ }
-    public TambahUser(String tipe,UserModel userModel){
-        this.tipe = tipe;
-        this.userModel = userModel;
-    }
+
     public static TambahUser newInstance() {
         return new TambahUser();
     }
-    public static TambahUser newInstance(String tipe,UserModel userModel) {
-        return new TambahUser(tipe,userModel);
-    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -66,19 +62,19 @@ public class TambahUser extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_user_fragment, container, false);
         binding.setPick(pickImage);
 
-
         mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
                 .get(TambahUserViewModel.class);
-        if(tipe == null){
-            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
-        }
-        MyUser.getInstance(getContext()).setTipeFormUser(tipe);
-        if(userModel != null){
-            mViewModel.usermodel.set(userModel);
-            binding.setImage(userModel.getFotoUser());
-        }
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar,"Tambah Karyawan","");
+
+        Bundle bundle = getArguments();
+        if (bundle.getString("user") != null){
+            Gson gson = new Gson();
+            UserModel userModel = gson.fromJson(bundle.getString("user"),UserModel.class);
+            mViewModel.usermodel.set(userModel);
+        }
+
+
         binding.setVm(mViewModel);
         mViewModel.setOnSendData(sendDataListener);
         binding.setIsLoading(false);

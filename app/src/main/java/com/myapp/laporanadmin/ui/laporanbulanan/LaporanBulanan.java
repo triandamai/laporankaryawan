@@ -50,7 +50,6 @@ public class LaporanBulanan extends BaseFragment {
         binding.setIsLoading(true);
         adapterLaporanBulanan = new AdapterLaporanBulanan(adapterItemClicked);
         binding.rv.setAdapter(adapterLaporanBulanan);
-
         return binding.getRoot();
     }
 

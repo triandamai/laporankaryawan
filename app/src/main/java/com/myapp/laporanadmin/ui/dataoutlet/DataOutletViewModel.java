@@ -29,6 +29,7 @@ public class DataOutletViewModel extends ViewModel {
     private Realm realm;
     private ApiService apiService;
     private SendDataListener listener;
+
     public DataOutletViewModel(Context context) {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
@@ -36,14 +37,17 @@ public class DataOutletViewModel extends ViewModel {
         fetchFromApi();
 
     }
-    public void setSendDataListener(SendDataListener listener){
+
+    public void setSendDataListener(SendDataListener listener) {
         this.listener = listener;
 
     }
+
     public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataOutlet();
     }
-    public void hapus(OutletModel model){
+
+    public void hapus(OutletModel model) {
         listener.onStart();
         PostOutletModel outletModel = new PostOutletModel();
         outletModel.setIdKota(Integer.parseInt(model.getIdKota()));
@@ -52,14 +56,14 @@ public class DataOutletViewModel extends ViewModel {
         apiService.hapusoutlet(outletModel).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                if(cek(response.code(),context,"Hapus Outlet")){
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                if (cek(response.code(), context, "Hapus Outlet")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         listener.onSuccess(response.body().getResponseMessage());
-                    }else {
+                    } else {
                         listener.onFailed(response.body().getResponseMessage());
                     }
 
-                }else {
+                } else {
                     listener.onFailed(response.message());
                 }
             }
@@ -70,18 +74,20 @@ public class DataOutletViewModel extends ViewModel {
             }
         });
     }
-    public void init(){
+
+    public void init() {
         try {
 
 
             outletData = new RealmLiveResult(realm.where(OutletObject.class).findAll());
-        }finally {
-            if(realm != null){
+        } finally {
+            if (realm != null) {
 
             }
         }
 
     }
+
     public LiveData<List<OutletObject>> getOutletData() {
         return outletData;
     }

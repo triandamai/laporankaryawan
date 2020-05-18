@@ -40,4 +40,8 @@
     <string name="waktu_laporan">Waktu Laporan</string>
     <string name="tolak">Tolak</string>
     <string name="terima">Terima</string>
+    <string name="isi_laporan">Isi Laporan</string>
+    <string name="masukan_nama_outlet">Masukan Nama Outlet</string>
+    <string name="pilih_kota">Pilih Kota</string>
+    <string name="simpan">Simpan</string>
 </resources>

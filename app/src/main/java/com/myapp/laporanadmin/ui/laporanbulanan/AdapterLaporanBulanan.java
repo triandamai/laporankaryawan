@@ -13,7 +13,6 @@ import com.myapp.databinding.ItemBulananBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +26,8 @@ public class AdapterLaporanBulanan extends RecyclerView.Adapter<AdapterLaporanBu
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemBulananBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_bulanan,parent,false);
+        ItemBulananBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_bulanan,parent,false);
         return new MyViewHolder(binding);
     }
 

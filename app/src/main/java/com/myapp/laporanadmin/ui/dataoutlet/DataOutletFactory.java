@@ -6,11 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.myapp.laporanadmin.ui.datapegawai.DataPegawaiViewModel;
-
-public  class DataOutletFactory implements ViewModelProvider.Factory {
+public class DataOutletFactory implements ViewModelProvider.Factory {
     private Context context;
-    public DataOutletFactory(Context context){
+
+    public DataOutletFactory(Context context) {
 
         this.context = context;
     }

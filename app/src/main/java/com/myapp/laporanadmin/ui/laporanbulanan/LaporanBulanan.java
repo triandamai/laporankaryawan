@@ -30,17 +30,10 @@ public class LaporanBulanan extends BaseFragment {
 
     }
 
-    public LaporanBulanan(boolean p) {
-        this.isNotif = p;
-    }
-
     public static LaporanBulanan newInstance() {
         return new LaporanBulanan();
     }
 
-    public static LaporanBulanan newInstance(boolean isNotif) {
-        return new LaporanBulanan(isNotif);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,6 +44,10 @@ public class LaporanBulanan extends BaseFragment {
         binding.setIsLoading(true);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            isNotif = bundle.getBoolean("isNotif");
+        }
         adapterLaporanBulanan = new AdapterLaporanBulanan(adapterItemClicked);
         binding.rv.setAdapter(adapterLaporanBulanan);
         return binding.getRoot();
@@ -66,24 +63,36 @@ public class LaporanBulanan extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.fetchFromApi(getRequestBulanan());
+
         if (isNotif) {
-            mViewModel.initNotifikasi();
+            mViewModel.fetchFromApi(getRequestBulananAll());
         } else {
-            mViewModel.init();
+            mViewModel.fetchFromApi(getRequestBulanan());
         }
         observe(mViewModel);
     }
 
     private void observe(LaporanBulananViewModel mViewModel) {
-        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), laporanBulananObjects -> {
-            binding.setIsLoading(false);
-            if (laporanBulananObjects.size() >= 1) {
+        if (isNotif) {
+            mViewModel.initNotifikasi().observe(getViewLifecycleOwner(), laporanBulananObjects -> {
+                binding.setIsLoading(false);
+                if (laporanBulananObjects.size() >= 1) {
 
-                adapterLaporanBulanan.setData(laporanBulananObjects);
-                adapterLaporanBulanan.notifyDataSetChanged();
-            }
-        });
+                    adapterLaporanBulanan.setData(laporanBulananObjects);
+                    adapterLaporanBulanan.notifyDataSetChanged();
+                }
+            });
+        } else {
+            mViewModel.init().observe(getViewLifecycleOwner(), laporanBulananObjects -> {
+                binding.setIsLoading(false);
+                if (laporanBulananObjects.size() >= 1) {
+
+                    adapterLaporanBulanan.setData(laporanBulananObjects);
+                    adapterLaporanBulanan.notifyDataSetChanged();
+                }
+            });
+        }
+
     }
 
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
@@ -108,8 +117,8 @@ public class LaporanBulanan extends BaseFragment {
             LaporanBulananObject obj = adapterLaporanBulanan.getFromPosition(pos);
 
             Bundle bundle = new Bundle();
-            bundle.putString("idlaporanbulanan",obj.getIdLaporanbulanan());
-            bundle.putString("statuslaporanbulanan",obj.getStatusLaporanbulanan());
+            bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
+            bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
             DetailBulanan bulanan = new DetailBulanan();
             bulanan.setArguments(bundle);
             replaceFragment(bulanan, null);
@@ -119,7 +128,12 @@ public class LaporanBulanan extends BaseFragment {
         @Override
         public void onRefresh() {
 
-            mViewModel.fetchFromApi(getRequestBulanan());
+            if (isNotif) {
+                mViewModel.fetchFromApi(getRequestBulananAll());
+            } else {
+                mViewModel.fetchFromApi(getRequestBulanan());
+            }
+            binding.setIsLoading(false);
         }
     };
 }

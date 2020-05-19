@@ -93,6 +93,16 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
         tahun = calendar.get(Calendar.YEAR);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            binding.tvKaryawan.setText(userModel.getNamaUser());
+            binding.tvTanggal.setText(bulan + " " + tahun);
+        } catch (NullPointerException e) {
+
+        }
+    }
 
     private HalamanRekapanCallback halamanRekapanCallback = new HalamanRekapanCallback() {
         @Override
@@ -113,12 +123,12 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
                 l.setIdUser(userModel.getIdUser());
                 l.setBulanLaporanharian(bulan);
                 l.setTahunLaporanharian(tahun);
-                Log.e("sync",userModel.toString());
+                Log.e("sync", userModel.toString());
                 binding.setIsLoading(true);
                 mViewModel.setharianrekap(l);
 
-            }catch (NullPointerException e){
-                Snackbar.make(binding.rv,"Tentukan Data Rekapan !", BaseTransientBottomBar.LENGTH_LONG).show();
+            } catch (NullPointerException e) {
+                Snackbar.make(binding.rv, "Tentukan Data Rekapan !", BaseTransientBottomBar.LENGTH_LONG).show();
             }
 
         }
@@ -146,8 +156,8 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
         public void onDetail(int pos) {
             LaporanHarianModel obj = adapterLaporanHarianRekapan.getFromPosition(pos);
             Bundle bundle = new Bundle();
-            bundle.putString("idlaporanharian",obj.getIdLaporanharian());
-            bundle.putString("statuslaporanharian",obj.getStatusLaporanharian());
+            bundle.putString("idlaporanharian", obj.getIdLaporanharian());
+            bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
             DetailHarian detailHarian = new DetailHarian();
             detailHarian.setArguments(bundle);
             replaceFragment(detailHarian, null);
@@ -159,7 +169,7 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
             sheetKaryawan.dismiss();
             binding.setKaryawan(kotaModel);
             userModel = kotaModel;
-            Log.e("",userModel.toString());
+            Log.e("", userModel.toString());
         }
     };
 
@@ -193,6 +203,7 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
             adapterLaporanHarianRekapan.setData(laporanHarianModels);
             HalamanPilihRekapanHarian.this.laporanHarianModels = laporanHarianModels;
             HalamanPilihRekapanHarian.this.AdaData = true;
+
         }
 
         @Override
@@ -205,6 +216,7 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
             binding.setIsLoading(false);
             HalamanPilihRekapanHarian.this.AdaData = false;
             adapterLaporanHarianRekapan.clearData();
+            Snackbar.make(binding.rv, "Tidak Ada Data", Snackbar.LENGTH_INDEFINITE).show();
         }
 
         @Override
@@ -239,7 +251,7 @@ public class HalamanPilihRekapanHarian extends BaseFragment {
                     showProgress("Memproses..");
                     cekPermission();
                 } else {
-                    Snackbar.make(binding.rv,"Tidak Ada Data!",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(binding.rv, "Tidak Ada Data!", Snackbar.LENGTH_LONG).show();
                 }
                 return true;
             case R.id.menu_close:

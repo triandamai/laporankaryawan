@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,18 +36,12 @@ public class BaseFragment extends Fragment {
     public static final int REQUEST_IMAGE = 100;
     private ProgressDialog progressDialog;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     public void showProgress(String pesan) {
@@ -70,6 +62,7 @@ public class BaseFragment extends Fragment {
         LaporanHarianRequestData l = new LaporanHarianRequestData();
         l.setBulanLaporanharian(month + 1);
         l.setTahunLaporanharian(year);
+        l.setStatusLaporanharian(null);
         return l;
     }
 
@@ -80,6 +73,29 @@ public class BaseFragment extends Fragment {
         LaporanBulananRequestData l = new LaporanBulananRequestData();
         l.setBulanLaporanbulanan(month + 1);
         l.setTahunLaporanbulanan(year);
+        l.setStatusLaporanbulanan(null);
+        return l;
+    }
+
+    protected LaporanHarianRequestData getRequestHarianAll() {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        LaporanHarianRequestData l = new LaporanHarianRequestData();
+        l.setBulanLaporanharian(null);
+        l.setTahunLaporanharian(year);
+        l.setStatusLaporanharian(1);
+        return l;
+    }
+
+    protected LaporanBulananRequestData getRequestBulananAll() {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        LaporanBulananRequestData l = new LaporanBulananRequestData();
+        l.setBulanLaporanbulanan(null);
+        l.setTahunLaporanbulanan(year);
+        l.setStatusLaporanbulanan(1);
         return l;
     }
 
@@ -120,8 +136,7 @@ public class BaseFragment extends Fragment {
 
     protected void dialogGagal(String message) {
 
-        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
-        builder.create();
+
         builder.setTitle("Oops!");
         builder.setMessage(message);
         builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());
@@ -130,8 +145,7 @@ public class BaseFragment extends Fragment {
 
     protected void dialogBerhasil(String message) {
 
-        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
-        builder.create();
+
         builder.setTitle("Info");
         builder.setMessage(message);
         builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());

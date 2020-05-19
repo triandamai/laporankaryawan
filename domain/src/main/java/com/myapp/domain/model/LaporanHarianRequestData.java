@@ -10,6 +10,17 @@ public class LaporanHarianRequestData {
     @SerializedName("tahun_laporanharian")
     @Expose
     private Integer tahunLaporanharian;
+    @SerializedName("status_laporanharian")
+    @Expose
+    private Integer statusLaporanharian;
+
+    public Integer getStatusLaporanharian() {
+        return statusLaporanharian;
+    }
+
+    public void setStatusLaporanharian(Integer statusLaporanharian) {
+        this.statusLaporanharian = statusLaporanharian;
+    }
 
     public Integer getBulanLaporanharian() {
         return bulanLaporanharian;

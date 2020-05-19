@@ -9,7 +9,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
-import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.domain.response.ResponseGetLaporanBulanan;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.RekapanListener;
@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,10 +40,12 @@ public class HalamanPilihRekapanBulananViewModel extends ViewModel {
     private ApiService service;
     private RekapanListener listener;
     private ExportListener exportListener;
+    private Realm realm;
 
     public HalamanPilihRekapanBulananViewModel(Context context) {
         this.context = context;
         this.service = LaporanRepository.getService(context);
+        this.realm = Realm.getDefaultInstance();
 
     }
 
@@ -64,6 +67,23 @@ public class HalamanPilihRekapanBulananViewModel extends ViewModel {
                     //  Log.e(TAG,response.toString());
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData() != null) {
+                            for (LaporanBulananModel item : response.body().getData()) {
+                                LaporanBulananObject laporanBulananObject = new LaporanBulananObject();
+
+                                laporanBulananObject.setIdLaporanbulanan(item.getIdLaporanbulanan());
+                                laporanBulananObject.setCreatedAt(item.getCreatedAt());
+                                laporanBulananObject.setFotoUser(item.getUser().getFotoUser());
+                                laporanBulananObject.setIdUser(item.getIdUser());
+                                laporanBulananObject.setIsiLaporanbulanan(item.getIsiLaporanbulanan());
+                                laporanBulananObject.setLevelUser(item.getUser().getLevelUser());
+                                laporanBulananObject.setNamaUser(item.getUser().getNamaUser());
+                                laporanBulananObject.setNipUser(item.getUser().getNipUser());
+                                laporanBulananObject.setStatusLaporanbulanan(item.getStatusLaporanbulanan());
+                                laporanBulananObject.setUpdatedAt(item.getUpdatedAt());
+
+                                realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(laporanBulananObject));
+
+                            }
 
                             listener.onSuccessBulanan(response.body().getData());
                         } else {

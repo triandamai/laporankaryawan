@@ -57,7 +57,7 @@ public interface ApiService {
     Call<ResponseGetKaryawan> getAllKaryawan(@Body UserModel karyawanModel);
 
     @Headers({accept_json, content_type, api_key})
-    @POST("user/data")
+    @POST("user/update_data")
     Call<ResponsePost> updateuser(@Body UserModel karyawanModel);
 
     @Headers({accept_json, content_type, api_key})
@@ -81,7 +81,7 @@ public interface ApiService {
     Call<ResponsePost> ubahkota(@Body KotaModel kotaModel);
 
     @Headers({accept_json, content_type, api_key})
-    @POST("kota/update")
+    @POST("kota/delete")
     Call<ResponsePost> hapuskota(@Body KotaModel kotaModel);
 
     @Headers({accept_json, content_type, api_key})

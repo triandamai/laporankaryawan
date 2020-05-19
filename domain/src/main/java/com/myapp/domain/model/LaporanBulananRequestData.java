@@ -13,6 +13,17 @@ public class LaporanBulananRequestData {
     @SerializedName("tahun_laporanbulanan")
     @Expose
     private Integer tahunLaporanbulanan;
+    @SerializedName("status_laporanbulanan")
+    @Expose
+    private Integer statusLaporanbulanan;
+
+    public Integer getStatusLaporanbulanan() {
+        return statusLaporanbulanan;
+    }
+
+    public void setStatusLaporanbulanan(Integer statusLaporanbulanan) {
+        this.statusLaporanbulanan = statusLaporanbulanan;
+    }
 
     public String getIdUser() {
         return idUser;

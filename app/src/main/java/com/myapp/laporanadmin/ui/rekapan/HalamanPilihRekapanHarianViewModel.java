@@ -10,6 +10,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.domain.response.ResponseGetLaporanHarian;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.RekapanListener;
@@ -28,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,10 +41,12 @@ public class HalamanPilihRekapanHarianViewModel extends ViewModel {
     private ApiService service;
     private RekapanListener listener;
     private ExportListener exportListener;
+    private Realm realm;
 
     public HalamanPilihRekapanHarianViewModel(Context context) {
         this.context = context;
         this.service = LaporanRepository.getService(context);
+        this.realm = Realm.getDefaultInstance();
 
     }
 
@@ -65,6 +69,28 @@ public class HalamanPilihRekapanHarianViewModel extends ViewModel {
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData() != null) {
 
+                            for (LaporanHarianModel item : response.body().getData()) {
+                                Log.e("tes", response.toString());
+                                LaporanHarianObject laporanHarianObject = new LaporanHarianObject();
+                                laporanHarianObject.setIdLaporanharian(item.getIdLaporanharian());
+                                laporanHarianObject.setAlamatLaporanharian(item.getAlamatLaporanharian());
+                                laporanHarianObject.setBuktiLaporanharian(item.getBuktiLaporanharian());
+                                laporanHarianObject.setCreatedAt(item.getCreatedAt());
+                                laporanHarianObject.setFotoUser(item.getUser().getFotoUser());
+                                laporanHarianObject.setIdKota(item.getOutlet().getIdKota());
+                                laporanHarianObject.setIdOutlet(item.getIdOutlet());
+                                laporanHarianObject.setIdUser(item.getIdUser());
+                                laporanHarianObject.setKeteranganLaporanharian(item.getKeteranganLaporanharian());
+                                laporanHarianObject.setLatitudeLaporanharian(item.getLatitudeLaporanharian());
+                                laporanHarianObject.setLongitudeLaporanharian(item.getLongitudeLaporanharian());
+                                laporanHarianObject.setLevelUser(item.getUser().getLevelUser());
+                                laporanHarianObject.setNamaKota(item.getOutlet().getKota().getNamaKota());
+                                laporanHarianObject.setNamaOutlet(item.getOutlet().getNamaOutlet());
+                                laporanHarianObject.setNamaUser(item.getUser().getNamaUser());
+                                laporanHarianObject.setNipUser(item.getUser().getNipUser());
+                                laporanHarianObject.setStatusLaporanharian(item.getStatusLaporanharian());
+                                realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(laporanHarianObject));
+                            }
                             listener.onSuccessHarian(response.body().getData());
                         } else {
                             listener.onFailed("Tidak Ada Data");

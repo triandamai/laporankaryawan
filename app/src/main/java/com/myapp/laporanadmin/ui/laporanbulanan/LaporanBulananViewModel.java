@@ -21,6 +21,7 @@ public class LaporanBulananViewModel extends ViewModel {
     private Context context;
     private LiveData<List<LaporanBulananObject>> listLiveData;
     private Realm realm;
+
     public LaporanBulananViewModel(Context context, LaporanBulananRequestData laporanHarianRequestData) {
         this.context = context;
         this.context = context;
@@ -37,34 +38,26 @@ public class LaporanBulananViewModel extends ViewModel {
         }
     }
 
-    public void init(){
-            try {
+    public LiveData<List<LaporanBulananObject>> init() {
+        try {
 
-                listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).findAll());
-            }finally {
-                if(realm != null){
-
-                }
-            }
-
-
-    }
-    public void initNotifikasi(){
-      try {
-
-          listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).equalTo("statusLaporanbulanan","1").findAll());
-      }finally {
-          if(realm != null){
-
-          }
-      }
-
-
-    }
-
-    public LiveData<List<LaporanBulananObject>> getListLiveData() {
-
+            listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).findAll());
+        } catch (NullPointerException e) {
+            listLiveData = new MutableLiveData<>();
+        }
         return listLiveData;
+
     }
-    // TODO: Implement the ViewModel
+
+    public LiveData<List<LaporanBulananObject>> initNotifikasi() {
+        try {
+
+            listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).equalTo("statusLaporanbulanan", "1").findAll());
+        } catch (NullPointerException e) {
+            listLiveData = new MutableLiveData<>();
+        }
+        return listLiveData;
+
+    }
+
 }

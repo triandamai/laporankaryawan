@@ -1,15 +1,8 @@
 package com.myapp.laporanadmin.ui.rekapan;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -95,6 +93,16 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
         tahun = calendar.get(Calendar.YEAR);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            binding.tvKaryawan.setText(userModel.getNamaUser());
+            binding.tvTanggal.setText(bulan + " " + tahun);
+        } catch (NullPointerException e) {
+
+        }
+    }
 
     private HalamanRekapanCallback halamanRekapanCallback = new HalamanRekapanCallback() {
         @Override
@@ -115,12 +123,12 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
                 l.setIdUser(userModel.getIdUser());
                 l.setBulanLaporanbulanan(bulan);
                 l.setTahunLaporanbulanan(tahun);
-                Log.e("sync",userModel.toString());
+                Log.e("sync", userModel.toString());
                 binding.setIsLoading(true);
                 mViewModel.setharianrekap(l);
 
-            }catch (NullPointerException e){
-                Snackbar.make(binding.rv,"Tentukan Data Rekapan !", BaseTransientBottomBar.LENGTH_LONG).show();
+            } catch (NullPointerException e) {
+                Snackbar.make(binding.rv, "Tentukan Data Rekapan !", BaseTransientBottomBar.LENGTH_LONG).show();
             }
 
         }
@@ -149,8 +157,8 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
             LaporanBulananModel obj = adapterLaporanBulananRekapan.getFromPosition(pos);
 
             Bundle bundle = new Bundle();
-            bundle.putString("idlaporanbulanan",obj.getIdLaporanbulanan());
-            bundle.putString("statuslaporanbulanan",obj.getStatusLaporanbulanan());
+            bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
+            bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
             DetailBulanan bulanan = new DetailBulanan();
             bulanan.setArguments(bundle);
             replaceFragment(bulanan, null);
@@ -162,7 +170,7 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
             sheetKaryawan.dismiss();
             binding.setKaryawan(kotaModel);
             userModel = kotaModel;
-            Log.e("",userModel.toString());
+            Log.e("", userModel.toString());
         }
     };
 
@@ -208,6 +216,7 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
             binding.setIsLoading(false);
             HalamanPilihRekapanBulanan.this.AdaData = false;
             adapterLaporanBulananRekapan.clearData();
+            Snackbar.make(binding.rv, "Tidak Ada Data", Snackbar.LENGTH_INDEFINITE).show();
         }
 
         @Override
@@ -242,7 +251,7 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
                     showProgress("Memproses..");
                     cekPermission();
                 } else {
-                    Snackbar.make(binding.rv,"Tidak Ada Data!",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(binding.rv, "Tidak Ada Data!", Snackbar.LENGTH_LONG).show();
                 }
                 return true;
             case R.id.menu_close:
@@ -277,4 +286,5 @@ public class HalamanPilihRekapanBulanan extends BaseFragment {
                     }
                 }).check();
     }
+
 }

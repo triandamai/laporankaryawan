@@ -31,18 +31,11 @@ public class LaporanHarian extends BaseFragment {
 
     }
 
-    public LaporanHarian(boolean p) {
-        super();
-        this.isNotif = p;
-    }
 
     public static LaporanHarian newInstance() {
         return new LaporanHarian();
     }
 
-    public static LaporanHarian newInstance(boolean isNotif) {
-        return new LaporanHarian(isNotif);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,6 +44,10 @@ public class LaporanHarian extends BaseFragment {
         binding.setListener(refreshListener);
         setActionBar(binding.toolbar, "Laporan Harian", "");
         binding.setIsLoading(true);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            isNotif = bundle.getBoolean("isNotif");
+        }
         adapterLaporanHarian = new AdapterLaporanHarian(adapterItemClicked);
         binding.rv.setAdapter(adapterLaporanHarian);
 
@@ -68,23 +65,32 @@ public class LaporanHarian extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.fetchFromApi(getRequestHarian());
         if (isNotif) {
-            mViewModel.initnotifikasi();
+            mViewModel.fetchFromApi(getRequestHarianAll());
         } else {
-            mViewModel.init();
+            mViewModel.fetchFromApi(getRequestHarian());
         }
         observe(mViewModel);
 
     }
 
     private void observe(LaporanHarianViewModel mViewModel) {
-        mViewModel.getListLiveData().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
-            binding.setIsLoading(false);
-            if (laporanHarianObjects.size() >= 1) {
-                adapterLaporanHarian.setData(laporanHarianObjects);
-            }
-        });
+        if (isNotif) {
+            mViewModel.initnotifikasi().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
+                binding.setIsLoading(false);
+                if (laporanHarianObjects.size() >= 1) {
+                    adapterLaporanHarian.setData(laporanHarianObjects);
+                }
+            });
+        } else {
+            mViewModel.init().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
+                binding.setIsLoading(false);
+                if (laporanHarianObjects.size() >= 1) {
+                    adapterLaporanHarian.setData(laporanHarianObjects);
+                }
+            });
+        }
+
     }
 
     private AdapterItemClicked adapterItemClicked = new AdapterItemClicked() {
@@ -107,8 +113,8 @@ public class LaporanHarian extends BaseFragment {
         public void onDetail(int pos) {
             LaporanHarianObject obj = adapterLaporanHarian.getFromPosition(pos);
             Bundle bundle = new Bundle();
-            bundle.putString("idlaporanharian",obj.getIdLaporanharian());
-            bundle.putString("statuslaporanharian",obj.getStatusLaporanharian());
+            bundle.putString("idlaporanharian", obj.getIdLaporanharian());
+            bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
             DetailHarian detailHarian = new DetailHarian();
             detailHarian.setArguments(bundle);
             replaceFragment(detailHarian, null);
@@ -117,7 +123,12 @@ public class LaporanHarian extends BaseFragment {
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            mViewModel.fetchFromApi(getRequestHarian());
+            if (isNotif) {
+                mViewModel.fetchFromApi(getRequestHarianAll());
+            } else {
+                mViewModel.fetchFromApi(getRequestHarian());
+            }
+            binding.setIsLoading(false);
         }
     };
 

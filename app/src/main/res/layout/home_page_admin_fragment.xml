@@ -77,7 +77,7 @@
                                 android:onClick="@{(v)->click.LogOut(v)}"
                                 android:padding="@dimen/dp_4"
                                 android:background="?attr/selectableItemBackground"
-                                android:layout_alignParentEnd="true"/>
+                                android:layout_alignParentEnd="true" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -330,7 +330,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingTop="@dimen/dp_8"
                                 android:paddingBottom="@dimen/dp_8"
-                                android:onClick="@{(v)->click.notifikasiBulanan(v)}"
+                                android:onClick="@{(v)->click.notifikasiHarian(v)}"
                                 android:background="@color/biru">
 
                                 <ImageView

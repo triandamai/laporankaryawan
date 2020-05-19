@@ -1,9 +1,5 @@
 package com.myapp;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -16,6 +12,10 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -81,13 +81,14 @@ public class ImagePickerActivity extends AppCompatActivity {
             chooseImageFromGallery();
         }
     }
+
     public static void showImagePickerOptions(Context context, PickerOptionListener listener) {
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Ambil foto");
 
         // add a list
-        String[] animals = {"Ambil Kamera", "AMbil Gallery"};
+        String[] animals = {"Ambil Dari Kamera", "Ambil Dari Gallery"};
         builder.setItems(animals, (dialog, which) -> {
             switch (which) {
                 case 0:
@@ -103,6 +104,7 @@ public class ImagePickerActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
     private void takeCameraImage() {
         Dexter.withActivity(this)
                 .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -125,6 +127,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                     }
                 }).check();
     }
+
     private void chooseImageFromGallery() {
         Dexter.withActivity(this)
                 .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -145,6 +148,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 }).check();
 
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -179,6 +183,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 setResultCancelled();
         }
     }
+
     private void cropImage(Uri sourceUri) {
         Uri destinationUri = Uri.fromFile(new File(getCacheDir(), queryName(getContentResolver(), sourceUri)));
         UCrop.Options options = new UCrop.Options();

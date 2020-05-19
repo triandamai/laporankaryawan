@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,6 +38,19 @@ public class BaseFragment extends Fragment {
     public static final int REQUEST_IMAGE = 100;
     private ProgressDialog progressDialog;
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     public void showProgress(String pesan) {
         progressDialog = new ProgressDialog(getContext());
@@ -44,55 +63,61 @@ public class BaseFragment extends Fragment {
         progressDialog.dismiss();
     }
 
-    protected LaporanHarianRequestData getRequestHarian(){
+    protected LaporanHarianRequestData getRequestHarian() {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanHarianRequestData l = new LaporanHarianRequestData();
-        l.setBulanLaporanharian(month+1);
+        l.setBulanLaporanharian(month + 1);
         l.setTahunLaporanharian(year);
         return l;
     }
-    protected LaporanBulananRequestData getRequestBulanan(){
+
+    protected LaporanBulananRequestData getRequestBulanan() {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanBulananRequestData l = new LaporanBulananRequestData();
-        l.setBulanLaporanbulanan(month+1);
+        l.setBulanLaporanbulanan(month + 1);
         l.setTahunLaporanbulanan(year);
         return l;
     }
-    protected void addFragment(Fragment f, String TAG){
+
+    protected void addFragment(Fragment f, String TAG) {
         try {
             ((RootAdmin) requireActivity()).addFragment(f, TAG);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("add Fragment", Objects.requireNonNull(e.getMessage()));
         }
     }
-    protected void replaceFragment(Fragment f,String TAG){
+
+    protected void replaceFragment(Fragment f, String TAG) {
         try {
 
             ((RootAdmin) requireActivity()).replaceFragment(f, TAG);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("replace Fragment", Objects.requireNonNull(e.getMessage()));
         }
     }
-    protected void back(){
+
+    protected void back() {
         try {
-        ((RootAdmin) getActivity()).onBack();
-        }catch (NullPointerException e){
+            ((RootAdmin) getActivity()).onBack();
+        } catch (NullPointerException e) {
             Log.e("onBack Fragment", Objects.requireNonNull(e.getMessage()));
         }
     }
-    protected void setActionBar(Toolbar toolbar, String title, String subtitle){
+
+    protected void setActionBar(Toolbar toolbar, String title, String subtitle) {
         try {
             ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(title);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(subtitle);
-        }catch (NullPointerException e){
-            Log.e("AsctionBar",e.getMessage());
+        } catch (NullPointerException e) {
+            Log.e("AsctionBar", e.getMessage());
         }
     }
+
     protected void dialogGagal(String message) {
 
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
@@ -102,6 +127,7 @@ public class BaseFragment extends Fragment {
         builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());
         builder.show();
     }
+
     protected void dialogBerhasil(String message) {
 
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
@@ -111,7 +137,8 @@ public class BaseFragment extends Fragment {
         builder.setPositiveButton("Oke", (dialog, which) -> dialog.dismiss());
         builder.show();
     }
-    protected void signOut(){
+
+    protected void signOut() {
         ((RootAdmin) getActivity()).onSignOut();
     }
 
@@ -143,13 +170,15 @@ public class BaseFragment extends Fragment {
         intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
         startActivityForResult(intent, REQUEST_IMAGE);
     }
+
     // navigating user to app settings
     protected void openSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package",getContext().getPackageName(), null);
+        Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
         intent.setData(uri);
         startActivityForResult(intent, 101);
     }
+
     /**
      * Showing Alert Dialog with Settings option
      * Navigates user to app settings
@@ -167,27 +196,27 @@ public class BaseFragment extends Fragment {
         builder.show();
 
     }
-    protected String encodeImage(Bitmap bm)
-    {
+
+    protected String encodeImage(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
         String encImage = Base64.encodeToString(b, Base64.DEFAULT);
 
         return encImage;
     }
-    protected String encodeImage(String path)
-    {
+
+    protected String encodeImage(String path) {
         File imagefile = new File(path);
         FileInputStream fis = null;
-        try{
+        try {
             fis = new FileInputStream(imagefile);
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         Bitmap bm = BitmapFactory.decodeStream(fis);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
         String encImage = Base64.encodeToString(b, Base64.DEFAULT);
         //Base64.de

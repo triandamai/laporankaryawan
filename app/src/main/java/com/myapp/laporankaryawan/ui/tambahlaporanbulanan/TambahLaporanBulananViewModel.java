@@ -13,7 +13,7 @@ public class TambahLaporanBulananViewModel extends ViewModel {
     private Realm realm;
     private Context context;
 
-    private
+
     public TambahLaporanBulananViewModel(Context context) {
     }
 

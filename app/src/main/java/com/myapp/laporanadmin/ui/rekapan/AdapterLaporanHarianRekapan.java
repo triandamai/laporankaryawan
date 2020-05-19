@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.myapp.R;
 import com.myapp.databinding.ItemHarianRekapBinding;
 import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.laporanadmin.callback.AdapterItemClicked;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,10 @@ import java.util.Objects;
 public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLaporanHarianRekapan.MyViewHolder> {
 
     private List<LaporanHarianModel> dalist = new ArrayList<>();
+    private AdapterItemClicked adapterItemClicked;
 
-    public AdapterLaporanHarianRekapan() {
+    public AdapterLaporanHarianRekapan(AdapterItemClicked adapterItemClicked) {
+        this.adapterItemClicked = adapterItemClicked;
     }
 
     @NonNull
@@ -34,6 +37,7 @@ public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLap
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setPosition(position);
         holder.binding.setData(dalist.get(position));
+        holder.binding.setEvent(adapterItemClicked);
 
     }
 
@@ -76,6 +80,10 @@ public class AdapterLaporanHarianRekapan extends RecyclerView.Adapter<AdapterLap
 
     public LaporanHarianModel getFromPosition(int position) {
         return dalist.get(position);
+    }
+
+    public void clearData() {
+        this.dalist.clear();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

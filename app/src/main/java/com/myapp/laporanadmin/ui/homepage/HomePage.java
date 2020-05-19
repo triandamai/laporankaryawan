@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
-import com.myapp.databinding.HomePageFragmentBinding;
-import com.myapp.domain.realmobject.HomePageObject;
+import com.myapp.databinding.HomePageAdminFragmentBinding;
 import com.myapp.laporanadmin.BaseFragment;
 
 import com.myapp.laporanadmin.callback.HomePageItemClicked;
@@ -25,16 +23,14 @@ import com.myapp.laporanadmin.ui.dataoutlet.DataOutlet;
 import com.myapp.laporanadmin.ui.datapegawai.DataPegawai;
 import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
-import com.myapp.laporanadmin.ui.rekapan.HalamanPilihRekapan;
-import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
-import com.myapp.laporanadmin.ui.tambahoutlet.TambahOutlet;
+import com.myapp.laporanadmin.ui.rekapan.ListRekapan;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
 public class HomePage extends BaseFragment {
     public static String TAG = "Home Page Fragment";
 
     private HomePageViewModel mViewModel;
-    private HomePageFragmentBinding binding;
+    private HomePageAdminFragmentBinding binding;
     private MaterialAlertDialogBuilder builder;
     public static HomePage newInstance() {
         return new HomePage();
@@ -43,7 +39,7 @@ public class HomePage extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-      binding = DataBindingUtil.inflate(inflater, R.layout.home_page_fragment, container, false);
+      binding = DataBindingUtil.inflate(inflater, R.layout.home_page_admin_fragment, container, false);
       binding.setIsLoading(true);
       binding.setIsNotifikasiBulanan(false);
       binding.setIsNotifikasiBulanan(false);
@@ -65,6 +61,7 @@ public class HomePage extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.fetchFromApi();
         mViewModel.init();
         observe(mViewModel);
     }
@@ -76,10 +73,14 @@ public class HomePage extends BaseFragment {
                     binding.setIsLoading(false);
                     int bulanan = Integer.parseInt(homePageObject.getLapMasukBulanan().toString());
                     int harian = Integer.parseInt(homePageObject.getLapMasukHarian().toString());
-                    if (bulanan >= 1) {
+                    if(bulanan == 0 ||  homePageObject.getLapMasukBulanan() == null){
+                        binding.setIsNotifikasiBulanan(false);
+                    }else {
                         binding.setIsNotifikasiBulanan(true);
                     }
-                    if (harian >= 1) {
+                    if(harian == 0 || homePageObject.getLapMasukHarian() == null){
+                        binding.setIsNotifikasiHarian(false);
+                    }else {
                         binding.setIsNotifikasiHarian(true);
                     }
 
@@ -152,7 +153,7 @@ public class HomePage extends BaseFragment {
 
         @Override
         public void RekapLaporan(View v) {
-            replaceFragment(HalamanPilihRekapan.newInstance(),null);
+            replaceFragment(ListRekapan.newInstance(),null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

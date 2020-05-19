@@ -92,7 +92,7 @@ public class SheetKaryawan extends BottomSheetDialogFragment {
         public void onClick(KaryawanObject karyawanObject) {
             Log.e("TAG",karyawanObject.toString());
             UserModel karyawanModel = new UserModel();
-            karyawanModel.setIdUser(karyawanModel.getIdUser());
+            karyawanModel.setIdUser(karyawanObject.getIdUser());
             karyawanModel.setCreatedAt(karyawanObject.getCreatedAt());
             karyawanModel.setFotoUser(karyawanObject.getFotoUser());
             karyawanModel.setLevelUser(karyawanObject.getLevelUser());

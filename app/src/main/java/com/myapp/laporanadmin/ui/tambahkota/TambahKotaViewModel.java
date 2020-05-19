@@ -30,24 +30,25 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     private Context context;
     private ApiService apiService;
     private SendDataListener listener;
-    public ObservableField<KotaModel> kotamodel = new ObservableField<>();
+    public MutableLiveData<KotaModel> kotamodel = new MutableLiveData<>();
+    public MutableLiveData<String> tipe = new MutableLiveData<>();
 
     public TambahKotaViewModel(Context context) {
         this.context = context;
         apiService = LaporanRepository.getService(context);
 
         try {
-            kotamodel.get().getIdKota();
-            kotamodel.get().getNamaKota();
-            kotamodel.get().getCreatedAt();
-            kotamodel.get().getUpdatedAt();
+            kotamodel.getValue().getIdKota();
+            kotamodel.getValue().getNamaKota();
+            kotamodel.getValue().getCreatedAt();
+            kotamodel.getValue().getUpdatedAt();
         }catch (NullPointerException e){
             KotaModel kotaModel = new KotaModel();
             kotaModel.setIdKota("");
             kotaModel.setNamaKota("");
             kotaModel.setUpdatedAt("");
             kotaModel.setCreatedAt("");
-            kotamodel.set(kotaModel);
+            kotamodel.setValue(kotaModel);
         }
     }
     public void setOnSendData(SendDataListener listener){
@@ -56,23 +57,24 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
     public void simpan(View v){
         listener.onStart();
         KotaModel kota = new KotaModel();
-        try {
-            kota.setIdKota(Objects.requireNonNull(kotamodel.get()).getIdKota());
-        }catch (NullPointerException e){
-            kota.setIdKota(" ");
-        }
 
 
-        kota.setNamaKota(Objects.requireNonNull(kotamodel.get()).getNamaKota());
-        kota.setCreatedAt(Objects.requireNonNull(kotamodel.get()).getCreatedAt());
-        kota.setUpdatedAt(Objects.requireNonNull(kotamodel.get()).getUpdatedAt());
 
-        String tipe = MyUser.getInstance(context).getTipeFormOutlet();
-        if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+
+
+        if(tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+            kota.setIdKota(kotamodel.getValue().getIdKota());
+            kota.setNamaKota(kotamodel.getValue().getNamaKota());
+            kota.setUpdatedAt("");
+            kota.setCreatedAt("");
             apiService.simpankota(kota).enqueue(this);
-        }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){
+        }else if(tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))){
+            kota.setIdKota(kotamodel.getValue().getIdKota());
+            kota.setNamaKota(kotamodel.getValue().getNamaKota());
+            kota.setUpdatedAt(kotamodel.getValue().getUpdatedAt());
+            kota.setCreatedAt(kotamodel.getValue().getCreatedAt());
             apiService.ubahkota(kota).enqueue(this);
-        }else if(tipe.equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))){
+        }else if(tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))){
             apiService.hapuskota(kota).enqueue(this);
         }
     }

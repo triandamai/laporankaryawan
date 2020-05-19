@@ -14,8 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
-import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.OutletModel;
@@ -34,15 +35,9 @@ public class TambahOutlet extends BaseFragment {
     private String tipe ;
     private OutletModel outletModel;
     public TambahOutlet(){ }
-    public TambahOutlet(String tipe, OutletModel outletModel){
-        this.tipe = tipe;
-        this.outletModel = outletModel;
-    }
+
     public static TambahOutlet newInstance() {
         return new TambahOutlet();
-    }
-    public static TambahOutlet newInstance(String tipe,OutletModel outletModel) {
-        return new TambahOutlet(tipe,outletModel);
     }
 
     @Override
@@ -53,24 +48,38 @@ public class TambahOutlet extends BaseFragment {
 
         mViewModel = new ViewModelProvider(requireActivity(),new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
         setHasOptionsMenu(true);
-        setActionBar(binding.toolbar,"Tambah Outlet","");
+
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
+        binding.setVm(mViewModel);
         mViewModel.setOnListener(sendDataListener);
         binding.setEvent(sheetShow);
-        binding.setVm(mViewModel);
-        if(tipe == null){
-            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
-        }
-        MyUser.getInstance(getContext()).setTipeFormOutlet(tipe);
-        if(outletModel != null){
-            PostOutletModel outlet = new PostOutletModel();
-            outlet.setIdKota(Integer.parseInt(outletModel.getIdKota()));
-            outlet.setNamaOutlet(outletModel.getNamaOutlet());
-            outlet.setIdOutlet(outletModel.getIdOutlet());
-            mViewModel.outletmodel.set(outlet);
-        }
-        sheetKota = new SheetKota();
+
 
         sheetKota = new SheetKota();
+        sheetKota.setOnSheetListener(sheetListener);
+        Gson gson = new Gson();
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            setActionBar(binding.toolbar,"Ubah Outlet","");
+
+            PostOutletModel pot = gson.fromJson(bundle.getString("outlet"),PostOutletModel.class);
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setIdKota(String.valueOf(pot.getIdKota()));
+            kotaModel.setNamaKota(pot.getNamaKota());
+            kotaModel.setUpdatedAt("");
+            kotaModel.setCreatedAt("");
+            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
+            mViewModel.outletmodel.setValue(pot);
+            mViewModel.kotamodel.setValue(kotaModel);
+            binding.setKota(kotaModel);
+
+        }else {
+
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+            setActionBar(binding.toolbar,"Tambah Outlet","");
+        }
+
         return binding.getRoot();
     }
 
@@ -78,7 +87,6 @@ public class TambahOutlet extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        sheetKota.setOnSheetListener(sheetListener);
     }
 
     @Override
@@ -108,7 +116,13 @@ public class TambahOutlet extends BaseFragment {
         @Override
         public void onSuccess(String message) {
             binding.setIsLoading(false);
-            dialogBerhasil(message);
+            builder.setTitle("Info");
+            builder.setMessage(message);
+            builder.setPositiveButton("Oke", (dialog, which) ->{
+                dialog.dismiss();
+                back();
+            });
+            builder.show();
         }
 
         @Override
@@ -132,21 +146,24 @@ public class TambahOutlet extends BaseFragment {
     private SheetKota.BottomSheetListener sheetListener = new SheetKota.BottomSheetListener() {
         @Override
         public void onOptionClick(KotaObject kotaModel) {
-            Log.e("on sheet click",kotaModel.getNamaKota());
+
             sheetKota.dismiss();
             KotaModel kotaModel1 = new KotaModel();
             kotaModel1.setIdKota(kotaModel.getIdKota());
             kotaModel1.setCreatedAt(kotaModel.getCreatedAt());
             kotaModel1.setUpdatedAt(kotaModel.getUpdatedAt());
             kotaModel1.setNamaKota(kotaModel.getNamaKota());
+            Log.e("on sheet click",kotaModel1.toString());
+            mViewModel.kotamodel.setValue(kotaModel1);
             binding.setKota(kotaModel1);
-
         }
     };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MyUser.getInstance(getContext()).setTipeFormOutlet(null);
+        mViewModel.outletmodel.setValue(null);
+        mViewModel.kotamodel.setValue(null);
+        mViewModel.tipe.setValue(null);
     }
 }

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.DataPegawaiFragmentBinding;
 import com.myapp.domain.model.UserModel;
@@ -40,6 +41,8 @@ public class DataPegawai extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.data_pegawai_fragment, container, false);
         binding.setListener(refreshListener);
+        builder = new MaterialAlertDialogBuilder(getActivity(), R.style.dialog);
+        builder.create();
         setActionBar(binding.toolbar, "Data Karyawan", "");
         setHasOptionsMenu(true);
         binding.setIsLoading(true);
@@ -61,6 +64,7 @@ public class DataPegawai extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.fetchFromApi();
         observe(mViewModel);
     }
 
@@ -84,14 +88,17 @@ public class DataPegawai extends BaseFragment {
         public void onEdit(int pos) {
             KaryawanObject data = adapterDataPegawai.getFromPosition(pos);
             UserModel userModel = UserModel.covertdariobjek(data);
-            builder = new MaterialAlertDialogBuilder(getActivity(), R.style.dialog);
-            builder.create();
+
             builder.setTitle("Hi");
             builder.setMessage("Mau Edit Karyawan " + userModel.getNamaUser() + "?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
                 dialog.dismiss();
-                String aksi = getContext().getString(R.string.AKSI_UBAH);
-                replaceFragment(TambahUser.newInstance(aksi, userModel), null);
+                Gson gson = new Gson();
+                Bundle bundle = new Bundle();
+                bundle.putString("user",gson.toJson(userModel));
+                TambahUser tambahUser = new TambahUser();
+                tambahUser.setArguments(bundle);
+                replaceFragment(tambahUser, null);
             });
             builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton("Hapus", (dialog, which) -> {

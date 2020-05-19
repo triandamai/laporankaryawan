@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.LaporanBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
@@ -48,6 +49,8 @@ public class LaporanBulanan extends BaseFragment {
         binding.setListener(refreshListener);
         setActionBar(binding.toolbar, "Laporan Bulanan", "");
         binding.setIsLoading(true);
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         adapterLaporanBulanan = new AdapterLaporanBulanan(adapterItemClicked);
         binding.rv.setAdapter(adapterLaporanBulanan);
         return binding.getRoot();
@@ -101,8 +104,15 @@ public class LaporanBulanan extends BaseFragment {
 
         @Override
         public void onDetail(int pos) {
+
             LaporanBulananObject obj = adapterLaporanBulanan.getFromPosition(pos);
-            replaceFragment(DetailBulanan.newInstance(obj), null);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("idlaporanbulanan",obj.getIdLaporanbulanan());
+            bundle.putString("statuslaporanbulanan",obj.getStatusLaporanbulanan());
+            DetailBulanan bulanan = new DetailBulanan();
+            bulanan.setArguments(bundle);
+            replaceFragment(bulanan, null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

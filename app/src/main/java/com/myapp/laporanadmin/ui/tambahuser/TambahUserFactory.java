@@ -6,10 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapp.laporanadmin.callback.SendDataListener;
+
 public  class TambahUserFactory implements ViewModelProvider.Factory {
     private Context context;
-    public TambahUserFactory(Context context){
-
+    private SendDataListener sendDataListener;
+    public TambahUserFactory(Context context, SendDataListener sendDataListener){
+        this.sendDataListener = sendDataListener;
         this.context = context;
     }
 
@@ -18,7 +21,7 @@ public  class TambahUserFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(TambahUserViewModel.class)) {
-            return (T) new TambahUserViewModel(context);
+            return (T) new TambahUserViewModel(context,sendDataListener);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

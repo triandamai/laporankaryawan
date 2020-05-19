@@ -9,7 +9,9 @@
         <variable
             name="isLoading"
             type="boolean" />
-
+        <variable
+            name="kota"
+            type="com.myapp.domain.model.KotaModel" />
         <variable
             name="vm"
             type="com.myapp.laporanadmin.ui.tambahoutlet.TambahOutletViewModel" />
@@ -18,9 +20,6 @@
             name="event"
             type="com.myapp.laporanadmin.callback.SheetShow" />
 
-        <variable
-            name="kota"
-            type="com.myapp.domain.model.KotaModel" />
 
     </data>
 
@@ -95,7 +94,7 @@
                     android:background="@drawable/ripple_primary"
                     android:clickable="true"
                     viewGone="@{!isLoading}"
-                    android:onClick="@{(v)->vm.simpan(v,kota)}"
+                    android:onClick="@{(v)->vm.simpan(v)}"
                     android:text="@string/simpan"
                     android:focusable="true" />
 

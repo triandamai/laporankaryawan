@@ -131,7 +131,7 @@ public class UserModel {
 
     }
     public boolean validData(){
-        return !TextUtils.isEmpty(usernameUser) &&
+        return
                 !TextUtils.isEmpty(passwordUser) &&
                 !TextUtils.isEmpty(namaUser) &&
                 !TextUtils.isEmpty(nipUser);

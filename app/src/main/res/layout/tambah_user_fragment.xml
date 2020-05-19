@@ -5,7 +5,10 @@
     tools:context=".ui.tambahuser.TambahUser">
     <data>
         <variable
-            name="isLoading"
+        name="isLoading"
+        type="boolean" />
+        <variable
+            name="isEdit"
             type="boolean" />
         <variable
             name="vm"
@@ -84,24 +87,7 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={vm.usermodel.nipUser}"
                     android:hint="Masukkan NIP Karyawan" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Username" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/gray_muda_banget"
-                    android:inputType="text"
-                    android:padding="@dimen/dp_16"
-                    android:gravity="top"
-                    android:textSize="@dimen/sp_14"
-                    android:singleLine="false"
-                    android:textColor="@color/black_tua_hehe"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:text="@={vm.usermodel.usernameUser}"
-                    android:hint="Masukkan Password Baru" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -117,30 +103,12 @@
                     android:gravity="top"
                     android:textSize="@dimen/sp_14"
                     android:singleLine="false"
+                    android:focusable="@{isEdit}"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={vm.usermodel.passwordUser}"
                     android:hint="Masukkan Password Baru" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ulang Password" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/gray_muda_banget"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/dp_16"
-                    android:gravity="top"
-                    android:textSize="@dimen/sp_14"
-                    android:singleLine="false"
-                    android:textColor="@color/black_tua_hehe"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="@={vm.ulangpassword}"
-                    android:hint="Ulangi Password Diatas" />
 
                 <Button
                     android:layout_width="match_parent"

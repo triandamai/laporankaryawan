@@ -9,20 +9,22 @@ import androidx.fragment.app.Fragment;
 
 
 import com.myapp.R;
-import com.myapp.databinding.ActivityRootBinding;
+import com.myapp.databinding.ActivityRootAdminBinding;
 import com.myapp.laporanadmin.ui.homepage.HomePage;
 import com.myapp.login.Login;
 
 
-public class Root extends AppCompatActivity {
-    private ActivityRootBinding binding;
+public class RootAdmin extends AppCompatActivity {
+    private ActivityRootAdminBinding binding;
     private HomePage homePage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       binding = DataBindingUtil.setContentView(this, R.layout.activity_root);
+       binding = DataBindingUtil.setContentView(this, R.layout.activity_root_admin);
        homePage = HomePage.newInstance();
-       addFragment(homePage,null);
+       if (savedInstanceState == null){
+            addFragment(homePage,null);
+       }
     }
 
     public void replaceFragment(Fragment f,String TAG){
@@ -42,7 +44,8 @@ public class Root extends AppCompatActivity {
     }
 
     public void onSignOut(){
-        startActivity(new Intent(Root.this,Login.class));
+
+        startActivity(new Intent(RootAdmin.this,Login.class));
         finish();
     }
     @Override

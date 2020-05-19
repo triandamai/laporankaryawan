@@ -11,6 +11,10 @@
             name="iSrejected"
             type="boolean" />
 
+
+        <variable
+            name="isEditable"
+            type="boolean" />
         <variable
             name="data"
             type="com.myapp.domain.realmobject.LaporanHarianObject" />
@@ -64,6 +68,7 @@
                     android:layout_marginBottom="@dimen/dp_10"
                     android:textColor="@color/putih"
                     setStatus="@{data.statusLaporanharian}" />
+
 
                 <TextView
                     viewGone="@{!iSrejected}"
@@ -191,12 +196,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="2"
+                    viewGone="@{isEditable}"
                     android:orientation="horizontal">
 
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        disbleButton="@{iSrejected}"
+
                         android:layout_weight="1"
                         android:text="@string/tolak"
                         android:textColor="@color/putih"
@@ -207,7 +213,7 @@
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        disbleButton="@{!iSrejected}"
+
                         android:layout_weight="1"
                         android:text="@string/terima"
                         android:textColor="@color/putih"

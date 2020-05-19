@@ -47,4 +47,8 @@
     <string name="daftar_karyawan">Daftar Karyawan</string>
     <string name="info_rekap">Pilih data yang akan di lihat rekapan laporanya</string>
     <string name="cari_data_rekapan">Cari Data Rekapan</string>
+    <string name="bulanan">Laporan Bulanan</string>
+    <string name="laporan_harian">Laporan Harian</string>
+    <string name="laporan_bulanan">Laporan Bulanan</string>
+    <string name="edit_profil">Edit\nProfil</string>
 </resources>

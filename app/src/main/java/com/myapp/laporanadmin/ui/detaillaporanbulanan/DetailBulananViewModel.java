@@ -3,6 +3,7 @@ package com.myapp.laporanadmin.ui.detaillaporanbulanan;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveObject;
@@ -24,27 +25,26 @@ import static com.myapp.data.service.ApiHandler.cek;
 
 public class DetailBulananViewModel extends ViewModel {
     private Context context;
-    private LaporanBulananObject obj;
     private ApiService apiService;
     private Realm realm;
     private SendDataListener sendDataListener;
 
     public LiveData<LaporanBulananObject> laporanBulananObjectLiveData;
 
-    public DetailBulananViewModel(Context context, LaporanBulananObject obj) {
+    public DetailBulananViewModel(Context context) {
         this.context = context;
-        this.obj = obj;
+
         this.apiService = LaporanRepository.getService(context);
         this.realm = Realm.getDefaultInstance();
-        getObject();
+
     }
 
     public void setSendDataListener(SendDataListener sendDataListener) {
         this.sendDataListener = sendDataListener;
     }
 
-    public void getObject() {
-        laporanBulananObjectLiveData = new RealmLiveObject(realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan",obj.getIdLaporanbulanan()).findFirst());
+    public void getObject(String id) {
+        laporanBulananObjectLiveData = new RealmLiveObject(realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan",id).findFirst());
     }
     public void aksi(int s,String idl){
         sendDataListener.onStart();

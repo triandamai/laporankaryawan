@@ -13,8 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
-import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahKotaFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.laporanadmin.BaseFragment;
@@ -31,18 +32,12 @@ public class TambahKota extends BaseFragment {
 
     }
 
-    public TambahKota(String tipe, KotaModel kotaModel) {
-        this.tipe = tipe;
-        this.kotaModel = kotaModel;
-    }
 
     public static TambahKota newInstance() {
         return new TambahKota();
     }
 
-    public static TambahKota newInstance(String tipe, KotaModel kotaModel) {
-        return new TambahKota(tipe, kotaModel);
-    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -50,15 +45,21 @@ public class TambahKota extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_kota_fragment, container, false);
         mViewModel = new ViewModelProvider(requireActivity(), new TambahKotaFactory(getContext())).get(TambahKotaViewModel.class);
         setHasOptionsMenu(true);
-        setActionBar(binding.toolbar, "Tambah Kota", "");
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         binding.setVm(mViewModel);
         mViewModel.setOnSendData(sendDataListener);
-        if (tipe == null) {
-            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
-        }
-        MyUser.getInstance(getContext()).setTipeFormKota(tipe);
-        if(kotaModel != null){
-            mViewModel.kotamodel.set(kotaModel);
+        Gson gson = new Gson();
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            setActionBar(binding.toolbar, "Ubah Kota", "");
+            kotaModel = gson.fromJson(bundle.getString("kota"),KotaModel.class);
+            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
+            mViewModel.kotamodel.setValue(kotaModel);
+        }else {
+            setActionBar(binding.toolbar, "Tambah Kota", "");
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+
         }
 
 
@@ -94,7 +95,13 @@ public class TambahKota extends BaseFragment {
         @Override
         public void onSuccess(String message) {
             binding.setIsLoading(false);
-            dialogBerhasil(message);
+            builder.setTitle("Info");
+            builder.setMessage(message);
+            builder.setPositiveButton("Oke", (dialog, which) ->{
+                dialog.dismiss();
+                back();
+            });
+            builder.show();
         }
 
         @Override
@@ -113,6 +120,7 @@ public class TambahKota extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MyUser.getInstance(getContext()).setTipeFormKota(null);
+        mViewModel.kotamodel.setValue(null);
+        mViewModel.tipe.setValue(null);
     }
 }

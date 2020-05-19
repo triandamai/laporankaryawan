@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +17,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -45,44 +46,49 @@ public class TambahUser extends BaseFragment {
 
     private TambahUserViewModel mViewModel;
     private TambahUserFragmentBinding binding;
-    private String tipe;
-    private UserModel userModel;
+    private MaterialAlertDialogBuilder builder ;
 
     public TambahUser(){ }
-    public TambahUser(String tipe,UserModel userModel){
-        this.tipe = tipe;
-        this.userModel = userModel;
-    }
+
     public static TambahUser newInstance() {
         return new TambahUser();
     }
-    public static TambahUser newInstance(String tipe,UserModel userModel) {
-        return new TambahUser(tipe,userModel);
-    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_user_fragment, container, false);
         binding.setPick(pickImage);
-
-
-        mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext()))
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
+        mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext(),sendDataListener))
                 .get(TambahUserViewModel.class);
-        if(tipe == null){
-            this.tipe = getContext().getString(R.string.AKSI_TAMBAH);
-        }
-        MyUser.getInstance(getContext()).setTipeFormUser(tipe);
-        if(userModel != null){
-            mViewModel.usermodel.set(userModel);
-            binding.setImage(userModel.getFotoUser());
-        }
         setHasOptionsMenu(true);
-        setActionBar(binding.toolbar,"Tambah Karyawan","");
-        binding.setVm(mViewModel);
-        mViewModel.setOnSendData(sendDataListener);
-        binding.setIsLoading(false);
 
+
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            Gson gson = new Gson();
+            setActionBar(binding.toolbar,"Ubah Karyawan","");
+            UserModel userModel = gson.fromJson(bundle.getString("user"),UserModel.class);
+            Log.e("",userModel.toString());
+            binding.setIsEdit(false);
+            binding.setImage(userModel.getFotoUser());
+            mViewModel.usermodel.setValue(userModel);
+            mViewModel.foto.setValue(userModel.getFotoUser());
+            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
+
+        }else {
+            binding.setIsEdit(true);
+            setActionBar(binding.toolbar,"Tambah Karyawan","");
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+        }
+
+
+
+        binding.setIsLoading(false);
+        binding.setVm(mViewModel);
 
         ImagePickerActivity.clearCache(getContext());
 
@@ -106,7 +112,14 @@ public class TambahUser extends BaseFragment {
         @Override
         public void onSuccess(String message) {
             binding.setIsLoading(false);
-            dialogBerhasil(message);
+
+            builder.setTitle("Info");
+            builder.setMessage(message);
+            builder.setPositiveButton("Oke", (dialog, which) ->{
+                dialog.dismiss();
+                back();
+            });
+            builder.show();
         }
 
         @Override
@@ -121,30 +134,25 @@ public class TambahUser extends BaseFragment {
             dialogGagal(message);
         }
     };
-    private PickImage pickImage = new PickImage() {
-        @Override
-        public void ImageClicked(View v) {
-            Dexter.withActivity(getActivity())
-                    .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .withListener(new MultiplePermissionsListener() {
-                        @Override
-                        public void onPermissionsChecked(MultiplePermissionsReport report) {
-                            if (report.areAllPermissionsGranted()) {
-                                showImagePickerOptions();
-                            }
+    private PickImage pickImage = v -> Dexter.withActivity(getActivity())
+            .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .withListener(new MultiplePermissionsListener() {
+                @Override
+                public void onPermissionsChecked(MultiplePermissionsReport report) {
+                    if (report.areAllPermissionsGranted()) {
+                        showImagePickerOptions();
+                    }
 
-                            if (report.isAnyPermissionPermanentlyDenied()) {
-                                showSettingsDialog();
-                            }
-                        }
+                    if (report.isAnyPermissionPermanentlyDenied()) {
+                        showSettingsDialog();
+                    }
+                }
 
-                        @Override
-                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                            token.continuePermissionRequest();
-                        }
-                    }).check();
-        }
-    };
+                @Override
+                public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                    token.continuePermissionRequest();
+                }
+            }).check();
 
     private void showImagePickerOptions() {
         ImagePickerActivity.showImagePickerOptions(getContext(), new ImagePickerActivity.PickerOptionListener() {
@@ -161,7 +169,13 @@ public class TambahUser extends BaseFragment {
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyUser.getInstance(getContext()).setTipeFormUser(null);
 
+        mViewModel.usermodel.setValue(null);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -174,6 +188,7 @@ public class TambahUser extends BaseFragment {
 
                     // loading profile image from local cache
                     binding.setImage(uri.toString());
+
                     mViewModel.foto.setValue(encodeImage(uri.getPath()));
                 } catch (IOException e) {
                     e.printStackTrace();

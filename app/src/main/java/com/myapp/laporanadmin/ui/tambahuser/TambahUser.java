@@ -25,10 +25,8 @@ import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-
 import com.myapp.ImagePickerActivity;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
@@ -42,13 +40,14 @@ import java.io.IOException;
 import java.util.List;
 
 public class TambahUser extends BaseFragment {
-    public static String  TAG = TambahUser.class.getSimpleName();
+    public static String TAG = TambahUser.class.getSimpleName();
 
     private TambahUserViewModel mViewModel;
     private TambahUserFragmentBinding binding;
-    private MaterialAlertDialogBuilder builder ;
+    private MaterialAlertDialogBuilder builder;
 
-    public TambahUser(){ }
+    public TambahUser() {
+    }
 
     public static TambahUser newInstance() {
         return new TambahUser();
@@ -62,29 +61,28 @@ public class TambahUser extends BaseFragment {
         binding.setPick(pickImage);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
-        mViewModel = new ViewModelProvider(requireActivity(),new TambahUserFactory(getContext(),sendDataListener))
+        mViewModel = new ViewModelProvider(requireActivity(), new TambahUserFactory(getContext(), sendDataListener))
                 .get(TambahUserViewModel.class);
         setHasOptionsMenu(true);
 
 
         Bundle bundle = getArguments();
-        if (bundle != null){
+        if (bundle != null) {
             Gson gson = new Gson();
-            setActionBar(binding.toolbar,"Ubah Karyawan","");
-            UserModel userModel = gson.fromJson(bundle.getString("user"),UserModel.class);
-            Log.e("",userModel.toString());
+            setActionBar(binding.toolbar, "Ubah Karyawan", "");
+            UserModel userModel = gson.fromJson(bundle.getString("user"), UserModel.class);
+            Log.e("", userModel.toString());
             binding.setIsEdit(false);
             binding.setImage(userModel.getFotoUser());
             mViewModel.usermodel.setValue(userModel);
-            mViewModel.foto.setValue(userModel.getFotoUser());
+            mViewModel.foto.setValue("");
             mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
 
-        }else {
+        } else {
             binding.setIsEdit(true);
-            setActionBar(binding.toolbar,"Tambah Karyawan","");
+            setActionBar(binding.toolbar, "Tambah Karyawan", "");
             mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
         }
-
 
 
         binding.setIsLoading(false);
@@ -96,13 +94,13 @@ public class TambahUser extends BaseFragment {
     }
 
 
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.toolbarformnav,menu);
+        inflater.inflate(R.menu.toolbarformnav, menu);
     }
+
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {
@@ -115,7 +113,7 @@ public class TambahUser extends BaseFragment {
 
             builder.setTitle("Info");
             builder.setMessage(message);
-            builder.setPositiveButton("Oke", (dialog, which) ->{
+            builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             });
@@ -199,7 +197,7 @@ public class TambahUser extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_close:
                 back();
                 return true;

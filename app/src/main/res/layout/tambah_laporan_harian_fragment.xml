@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="isLoading"
+            type="boolean" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,6 +31,108 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/sp_16"
+                android:layout_marginTop="@dimen/padding_10"
+                android:paddingEnd="@dimen/sp_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Outlet" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_muda_banget"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_16"
+                    android:gravity="top"
+                    android:textSize="@dimen/sp_14"
+                    android:singleLine="false"
+                    android:textColor="@color/black_tua_hehe"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="@={``}"
+                    android:hint="Pilih Outlet " />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_muda_banget"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_16"
+                    android:gravity="top"
+                    android:minHeight="@dimen/dp_100"
+                    android:textSize="@dimen/sp_14"
+                    android:singleLine="false"
+                    android:textColor="@color/black_tua_hehe"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="@={``}"
+                    android:hint="Masukkan Alamat Laporan" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_muda_banget"
+                    android:inputType="text"
+                    android:padding="@dimen/dp_16"
+                    android:gravity="top"
+                    android:textSize="@dimen/sp_14"
+                    android:singleLine="false"
+                    android:textColor="@color/black_tua_hehe"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="@={``}"
+                    android:hint="Masukkan Keterangan Laporan" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dp_100"
+                    android:maxHeight="@dimen/dp_200"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:layout_marginBottom="@dimen/padding_10"
+                    android:src="@drawable/logo" />
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_10"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/sp_16"
+                    android:background="@drawable/ripple_primary"
+                    android:clickable="true"
+                    viewGone="@{!isLoading}"
+                    android:onClick="@{}"
+                    android:text="Simpan" />
+
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    viewGone="@{isLoading}"
+                    android:layout_gravity="center" />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

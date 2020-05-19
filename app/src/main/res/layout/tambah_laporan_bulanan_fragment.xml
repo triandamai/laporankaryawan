@@ -6,24 +6,81 @@
 
     <data>
 
+        <variable
+            name="isLoading"
+            type="boolean" />
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/sp_16"
+                android:paddingStart="@dimen/sp_16"
+                android:paddingTop="@dimen/sp_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Isi Laporan" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_muda_banget"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/dp_16"
+                    android:gravity="top"
+                    android:textSize="@dimen/sp_14"
+                    android:singleLine="false"
+                    android:minHeight="@dimen/dp_200"
+                    android:textColor="@color/black_tua_hehe"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="@={``}"
+                    android:layout_marginBottom="@dimen/sp_16"
+                    android:hint="Masukkan Isi LaporanBaru" />
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/sp_16"
+                    android:background="@drawable/ripple_primary"
+                    android:clickable="true"
+                    viewGone="@{!isLoading}"
+                    android:onClick="@{}"
+                    android:text="Simpan" />
+
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    viewGone="@{isLoading}"
+                    android:layout_gravity="center" />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

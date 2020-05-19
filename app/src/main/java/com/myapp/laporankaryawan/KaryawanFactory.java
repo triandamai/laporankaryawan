@@ -29,7 +29,7 @@ public class KaryawanFactory implements ViewModelProvider.Factory {
         } else if (modelClass.isAssignableFrom(ResetPasswordViewModel.class)) {
             return (T) new ResetPasswordViewModel(context);
         } else if (modelClass.isAssignableFrom(TambahLaporanBulananViewModel.class)) {
-            return (T) new TambahLaporanBulananViewModel();
+            return (T) new TambahLaporanBulananViewModel(context);
         } else if (modelClass.isAssignableFrom(TambahLaporanHarianViewModel.class)) {
             return (T) new TambahLaporanHarianViewModel(context);
         } else if (modelClass.isAssignableFrom(UbahProfilViewModel.class)) {

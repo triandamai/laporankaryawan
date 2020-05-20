@@ -9,6 +9,22 @@
         <variable
             name="isLoading"
             type="boolean" />
+
+        <variable
+            name="outlet"
+            type="com.myapp.domain.model.OutletModel" />
+
+        <variable
+            name="alamat"
+            type="String" />
+
+        <variable
+            name="image"
+            type="String" />
+
+        <variable
+            name="vm"
+            type="com.myapp.laporankaryawan.ui.tambahlaporanharian.TambahLaporanHarianViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -55,7 +71,7 @@
                     android:singleLine="false"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:text="@={``}"
+                    android:text="@={outlet.namaOutlet}"
                     android:hint="Pilih Outlet " />
 
                 <TextView
@@ -75,7 +91,7 @@
                     android:singleLine="false"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:text="@={``}"
+                    android:text="@={alamat}"
                     android:hint="Masukkan Alamat Laporan" />
 
                 <TextView
@@ -94,7 +110,7 @@
                     android:singleLine="false"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:text="@={``}"
+                    android:text="@={vm.req.keteranganLaporanharian}"
                     android:hint="Masukkan Keterangan Laporan" />
 
                 <TextView
@@ -110,6 +126,7 @@
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     android:layout_marginBottom="@dimen/padding_10"
+                    setImageUrl="@{image}"
                     android:src="@drawable/logo" />
 
 
@@ -124,7 +141,7 @@
                     android:background="@drawable/ripple_primary"
                     android:clickable="true"
                     viewGone="@{!isLoading}"
-                    android:onClick="@{}"
+                    android:onClick="@{()->vm.simpan()}"
                     android:text="Simpan" />
 
                 <ProgressBar

@@ -82,4 +82,17 @@ public class RequestSimpanHarian {
     public void setBuktiLaporanharian(String buktiLaporanharian) {
         this.buktiLaporanharian = buktiLaporanharian;
     }
+
+    @Override
+    public String toString() {
+        return "RequestSimpanHarian{" +
+                "idUser=" + idUser +
+                ", idOutlet=" + idOutlet +
+                ", alamatLaporanharian='" + alamatLaporanharian + '\'' +
+                ", latitudeLaporanharian=" + latitudeLaporanharian +
+                ", longitudeLaporanharian=" + longitudeLaporanharian +
+                ", keteranganLaporanharian='" + keteranganLaporanharian + '\'' +
+                ", buktiLaporanharian='" + buktiLaporanharian + '\'' +
+                '}';
+    }
 }

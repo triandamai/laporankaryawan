@@ -51,4 +51,6 @@
     <string name="laporan_harian">Laporan\nHarian</string>
     <string name="laporan_bulanan">Laporan\nBulanan</string>
     <string name="edit_profil">Edit\nProfil</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="ubah_profil">Ubah Profil</string>
 </resources>

@@ -12,6 +12,8 @@ import com.myapp.R;
 import com.squareup.picasso.Picasso;
 import com.todkars.shimmer.ShimmerRecyclerView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MyBindingAdapter {
     @BindingAdapter("showShimmer")
     public static void shimmer(ShimmerRecyclerView v, boolean isShow) {
@@ -44,6 +46,13 @@ public class MyBindingAdapter {
 
     @BindingAdapter("setImageUrl")
     public static void setImageUrl(ImageView v, String url) {
+        Picasso.get().load(url)
+                .placeholder(R.drawable.ic_user)
+                .into(v);
+    }
+
+    @BindingAdapter("setImageUrlC")
+    public static void setImageUrlC(CircleImageView v, String url) {
         Picasso.get().load(url)
                 .placeholder(R.drawable.ic_user)
                 .into(v);

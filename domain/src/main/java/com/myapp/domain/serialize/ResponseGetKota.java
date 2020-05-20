@@ -51,4 +51,5 @@ public class ResponseGetKota {
     public void setData(List<KotaModel> data) {
         this.data = data;
     }
+
 }

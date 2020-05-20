@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LaporanHarianRequestData {
+    @SerializedName("id_user")
+    @Expose
+    private Integer iduser;
     @SerializedName("bulan_laporanharian")
     @Expose
     private Integer bulanLaporanharian;
@@ -14,12 +17,12 @@ public class LaporanHarianRequestData {
     @Expose
     private Integer statusLaporanharian;
 
-    public Integer getStatusLaporanharian() {
-        return statusLaporanharian;
+    public Integer getIduser() {
+        return iduser;
     }
 
-    public void setStatusLaporanharian(Integer statusLaporanharian) {
-        this.statusLaporanharian = statusLaporanharian;
+    public void setIduser(Integer iduser) {
+        this.iduser = iduser;
     }
 
     public Integer getBulanLaporanharian() {
@@ -36,5 +39,13 @@ public class LaporanHarianRequestData {
 
     public void setTahunLaporanharian(Integer tahunLaporanharian) {
         this.tahunLaporanharian = tahunLaporanharian;
+    }
+
+    public Integer getStatusLaporanharian() {
+        return statusLaporanharian;
+    }
+
+    public void setStatusLaporanharian(Integer statusLaporanharian) {
+        this.statusLaporanharian = statusLaporanharian;
     }
 }

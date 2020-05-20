@@ -60,6 +60,7 @@ public class BaseFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanHarianRequestData l = new LaporanHarianRequestData();
+        l.setIduser(null);
         l.setBulanLaporanharian(month + 1);
         l.setTahunLaporanharian(year);
         l.setStatusLaporanharian(null);
@@ -71,6 +72,7 @@ public class BaseFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanBulananRequestData l = new LaporanBulananRequestData();
+        l.setIdUser(null);
         l.setBulanLaporanbulanan(month + 1);
         l.setTahunLaporanbulanan(year);
         l.setStatusLaporanbulanan(null);
@@ -82,6 +84,7 @@ public class BaseFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanHarianRequestData l = new LaporanHarianRequestData();
+        l.setIduser(null);
         l.setBulanLaporanharian(null);
         l.setTahunLaporanharian(year);
         l.setStatusLaporanharian(1);
@@ -93,6 +96,7 @@ public class BaseFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanBulananRequestData l = new LaporanBulananRequestData();
+        l.setIdUser(null);
         l.setBulanLaporanbulanan(null);
         l.setTahunLaporanbulanan(year);
         l.setStatusLaporanbulanan(1);

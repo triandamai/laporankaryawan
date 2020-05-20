@@ -26,4 +26,12 @@ public class RequestSimpanBulanan {
     public void setIsiLaporanbulanan(String isiLaporanbulanan) {
         this.isiLaporanbulanan = isiLaporanbulanan;
     }
+
+    @Override
+    public String toString() {
+        return "RequestSimpanBulanan{" +
+                "idUser=" + idUser +
+                ", isiLaporanbulanan='" + isiLaporanbulanan + '\'' +
+                '}';
+    }
 }

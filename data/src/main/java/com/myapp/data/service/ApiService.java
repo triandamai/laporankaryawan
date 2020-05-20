@@ -2,7 +2,6 @@ package com.myapp.data.service;
 
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
-import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.model.LoginModel;
@@ -21,6 +20,8 @@ import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.domain.serialize.ResponsePostLogin;
 import com.myapp.domain.serialize.req.RequestSimpanBulanan;
 import com.myapp.domain.serialize.req.RequestSimpanHarian;
+import com.myapp.domain.serialize.req.RequestUbahPassword;
+import com.myapp.domain.serialize.req.RequestUbahProfil;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -60,11 +61,11 @@ public interface ApiService {
 
     @Headers({accept_json, content_type, api_key})
     @POST("user/update_data")
-    Call<ResponsePost> updateuser(@Body UserModel karyawanModel);
+    Call<ResponsePost> updateuser(@Body RequestUbahProfil karyawanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("user/update_password")
-    Call<ResponsePost> ubahpassword(@Body UserModel karyawanModel);
+    Call<ResponsePost> ubahpassword(@Body RequestUbahPassword karyawanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("user/delete")
@@ -95,10 +96,6 @@ public interface ApiService {
     Call<ResponseGetLaporanHarian> getAllLaporanharianRekapan(@Body LaporanHarianRekapanRequestData laporanHarianRequestData);
 
     @Headers({accept_json, content_type, api_key})
-    @POST("laporanharian/data")
-    Call<ResponseGetLaporanHarian> getAllLaporanharianRekap(@Body LaporanHarianRequestData laporanHarianRequestData);
-
-    @Headers({accept_json, content_type, api_key})
     @POST("laporanbulanan/data")
     Call<ResponseGetLaporanBulanan> getAllLaporanbulanan(@Body LaporanBulananRequestData laporanHarianRequestData);
 
@@ -125,10 +122,6 @@ public interface ApiService {
     @Headers({accept_json, content_type, api_key})
     @POST("outlet/delete")
     Call<ResponsePost> hapusoutlet(@Body PostOutletModel outletModel);
-
-    @Headers({accept_json, content_type, api_key})
-    @POST("laporanbulanan/data")
-    Call<ResponseGetLaporanHarian> getAllLaporanBulanan(@Body LaporanHarianModel laporanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("laporanbulanan/add")

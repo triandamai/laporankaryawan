@@ -7,7 +7,7 @@
     <string name="lap_harian">Lap. Harian</string>
     <string name="lap_bulanan">Lap. Bulanan</string>
     <string name="lihat_semua">Lihat Semua</string>
-    <string name="info">Informasi di atas menunjukkan total dari seluruh masing-masing data yang di kelola oleh admin</string>
+    <string name="info">Informasi di atas menunjukkan total dari seluruh masing-masing data pada bulan ini</string>
     <string name="kelola_data">Kelola data</string>
     <string name="tambah_nkota">Tambah\nKota</string>
     <string name="tambah_nuser">Tambah\nKaryawan</string>

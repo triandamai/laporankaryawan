@@ -140,7 +140,7 @@
                                         android:orientation="vertical"
                                         android:clickable="true"
                                         android:padding="@dimen/dp_4"
-                                        android:onClick="@{()->click.onHarian()}"
+                                        android:onClick="@{()->click.onAllHarian()}"
                                         android:background="?attr/selectableItemBackground"
                                         android:focusable="true">
 
@@ -166,7 +166,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="textStart"
-                                            android:onClick="@{()->click.onHarian()}"
+                                            android:onClick="@{()->click.onAllHarian()}"
                                             android:textColor="@color/biru"
                                             android:gravity="center_vertical"
                                             android:drawableTint="@color/colorPrimary"
@@ -181,7 +181,7 @@
                                         android:orientation="vertical"
                                         android:clickable="true"
                                         android:padding="@dimen/dp_4"
-                                        android:onClick="@{()->click.onBulanan()}"
+                                        android:onClick="@{()->click.onAllBulanan()}"
                                         android:background="?attr/selectableItemBackground"
                                         android:focusable="true">
 
@@ -207,7 +207,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="textStart"
-                                            android:onClick="@{()->click.onBulanan()}"
+                                            android:onClick="@{()->click.onAllBulanan()}"
                                             android:textColor="@color/biru"
                                             android:gravity="center_vertical"
                                             android:drawableTint="@color/colorPrimary"
@@ -253,13 +253,13 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
-                                android:onClick="@{(v)->click.onAllHarian()}"
+                                android:onClick="@{(v)->click.onHarian()}"
                                 android:layout_weight="1">
 
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="@{(v)->click.onAllHarian()}"
+                                    android:onClick="@{(v)->click.onHarian()}"
                                     android:background="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -293,13 +293,13 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:background="?attr/selectableItemBackground"
-                                android:onClick="@{(v)->click.onAllBulanan()}"
+                                android:onClick="@{(v)->click.onBulanan()}"
                                 android:layout_weight="1">
 
                                 <LinearLayout
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="@{(v)->click.onAllBulanan()}"
+                                    android:onClick="@{(v)->click.onBulanan()}"
                                     android:background="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"

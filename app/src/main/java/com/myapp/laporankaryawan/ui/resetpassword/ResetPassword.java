@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myapp.R;
 import com.myapp.databinding.ResetPasswordFragmentBinding;
+import com.myapp.domain.serialize.req.RequestUbahPassword;
+import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
 
@@ -30,8 +32,38 @@ public class ResetPassword extends BaseKaryawanFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.reset_password_fragment, container, false);
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(ResetPasswordViewModel.class);
+        mViewModel.setListener(sendDataListener);
+        mViewModel.repass.setValue("");
+        RequestUbahPassword requestUbahPassword = new RequestUbahPassword();
+        requestUbahPassword.setIdUser(0);
+        requestUbahPassword.setPasswordBaru("");
+        requestUbahPassword.setPasswordLama("");
+        mViewModel.req.setValue(requestUbahPassword);
+        binding.setIsLoading(false);
+        binding.setVm(mViewModel);
         return binding.getRoot();
     }
 
+    private SendDataListener sendDataListener = new SendDataListener() {
+        @Override
+        public void onStart() {
+
+        }
+
+        @Override
+        public void onSuccess(String message) {
+
+        }
+
+        @Override
+        public void onFailed(String message) {
+
+        }
+
+        @Override
+        public void onError(String message) {
+
+        }
+    };
 
 }

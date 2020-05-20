@@ -21,7 +21,6 @@ import com.myapp.domain.serialize.ResponsePostLogin;
 import com.myapp.domain.serialize.req.RequestSimpanBulanan;
 import com.myapp.domain.serialize.req.RequestSimpanHarian;
 import com.myapp.domain.serialize.req.RequestUbahPassword;
-import com.myapp.domain.serialize.req.RequestUbahProfil;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -61,7 +60,7 @@ public interface ApiService {
 
     @Headers({accept_json, content_type, api_key})
     @POST("user/update_data")
-    Call<ResponsePost> updateuser(@Body RequestUbahProfil karyawanModel);
+    Call<ResponsePost> updateuser(@Body UserModel karyawanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("user/update_password")

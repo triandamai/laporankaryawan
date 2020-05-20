@@ -11,6 +11,7 @@ import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.laporankaryawan.ui.homepage.HomeKaryawanViewModel;
 import com.myapp.laporankaryawan.ui.laporanbulanan.LaporanBulananViewModel;
 import com.myapp.laporankaryawan.ui.laporanharian.LaporanHarianViewModel;
+import com.myapp.laporankaryawan.ui.listubahprofil.ListUbahProfilViewModel;
 import com.myapp.laporankaryawan.ui.resetpassword.ResetPasswordViewModel;
 import com.myapp.laporankaryawan.ui.tambahlaporanbulanan.TambahLaporanBulananViewModel;
 import com.myapp.laporankaryawan.ui.tambahlaporanharian.TambahLaporanHarianViewModel;
@@ -54,6 +55,8 @@ public class KaryawanFactory implements ViewModelProvider.Factory {
             return (T) new LaporanHarianViewModel(context, laporanHarianRequestData);
         } else if (modelClass.isAssignableFrom(LaporanBulananViewModel.class)) {
             return (T) new LaporanBulananViewModel(context, laporanBulananRequestData);
+        } else if (modelClass.isAssignableFrom(ListUbahProfilViewModel.class)) {
+            return (T) new ListUbahProfilViewModel(context);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

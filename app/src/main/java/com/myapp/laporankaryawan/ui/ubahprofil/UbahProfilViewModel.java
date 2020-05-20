@@ -3,12 +3,13 @@ package com.myapp.laporankaryawan.ui.ubahprofil;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
+import com.myapp.domain.model.UserModel;
 import com.myapp.domain.serialize.ResponsePost;
-import com.myapp.domain.serialize.req.RequestUbahProfil;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import io.realm.Realm;
@@ -21,6 +22,8 @@ public class UbahProfilViewModel extends ViewModel {
     private Realm realm;
     private ApiService apiService;
     private SendDataListener listener;
+    public MutableLiveData<UserModel> usermodel = new MutableLiveData<>();
+    public MutableLiveData<String> foto = new MutableLiveData<>();
 
     public UbahProfilViewModel(Context context) {
         this.context = context;
@@ -34,8 +37,17 @@ public class UbahProfilViewModel extends ViewModel {
 
     public void simpan() {
         listener.onStart();
-        RequestUbahProfil requestUbahProfil = new RequestUbahProfil();
-        apiService.updateuser(requestUbahProfil).enqueue(new Callback<ResponsePost>() {
+        UserModel userModel = new UserModel();
+        userModel.setIdUser(usermodel.getValue().getIdUser());
+        userModel.setNamaUser(usermodel.getValue().getNamaUser());
+        userModel.setUsernameUser(null);
+        userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+        userModel.setFotoUser(foto.getValue());
+        userModel.setNipUser(usermodel.getValue().getNipUser());
+        userModel.setCreatedAt("");
+        userModel.setUpdatedAt("");
+        userModel.setLevelUser("1");
+        apiService.updateuser(userModel).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 Log.e("Hasil", response.body().toString());

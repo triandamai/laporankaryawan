@@ -3,6 +3,7 @@ package com.myapp.laporankaryawan.ui.resetpassword;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.repositroy.LaporanRepository;
@@ -21,6 +22,9 @@ public class ResetPasswordViewModel extends ViewModel {
     private ApiService apiService;
     private Realm realm;
     private SendDataListener listener;
+
+    public MutableLiveData<RequestUbahPassword> req = new MutableLiveData<>();
+    public MutableLiveData<String> repass = new MutableLiveData<>();
 
     public ResetPasswordViewModel(Context context) {
         this.context = context;

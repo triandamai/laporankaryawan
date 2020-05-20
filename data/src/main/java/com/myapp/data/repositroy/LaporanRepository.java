@@ -114,7 +114,7 @@ public class LaporanRepository {
             @Override
             public void onResponse(Call<ResponseGetLaporanHarian> call, Response<ResponseGetLaporanHarian> response) {
                 if (cek(response.code(), context, "getData lap harian")) {
-                    Log.e(TAG, response.body().getData().toString());
+                    Log.e(TAG, response.body().toString());
 
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {

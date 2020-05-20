@@ -3,17 +3,14 @@ package com.myapp.laporanadmin.ui.detaillaporanbulanan;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveObject;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.PostProsesLaporanBulanan;
-import com.myapp.domain.model.PostProsesLaporanHarian;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.domain.realmobject.LaporanHarianObject;
-import com.myapp.domain.response.ResponsePost;
+import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import io.realm.Realm;
@@ -44,9 +41,10 @@ public class DetailBulananViewModel extends ViewModel {
     }
 
     public void getObject(String id) {
-        laporanBulananObjectLiveData = new RealmLiveObject(realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan",id).findFirst());
+        laporanBulananObjectLiveData = new RealmLiveObject(realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan", id).findFirst());
     }
-    public void aksi(int s,String idl){
+
+    public void aksi(int s, String idl) {
         sendDataListener.onStart();
         PostProsesLaporanBulanan post = new PostProsesLaporanBulanan();
         post.setIdLaporanbulanan(idl);
@@ -54,23 +52,23 @@ public class DetailBulananViewModel extends ViewModel {
         apiService.laporanbulananproses(post).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                if(cek(response.code(),context,"Proses Laporan Harian")){
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                if (cek(response.code(), context, "Proses Laporan Harian")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         sendDataListener.onSuccess(response.body().getResponseMessage());
                         realm.executeTransactionAsync(new Realm.Transaction() {
                             @Override
                             public void execute(Realm realm) {
-                                LaporanBulananObject obj = realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan",idl).findFirst();
-                                if(obj != null){
+                                LaporanBulananObject obj = realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan", idl).findFirst();
+                                if (obj != null) {
                                     obj.setStatusLaporanbulanan(String.valueOf(s));
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         sendDataListener.onFailed(response.body().getResponseMessage());
                     }
 
-                }else {
+                } else {
                     sendDataListener.onFailed(response.message());
                 }
             }
@@ -81,6 +79,7 @@ public class DetailBulananViewModel extends ViewModel {
             }
         });
     }
+
     public LiveData<LaporanBulananObject> getLaporanBulananObjectLiveData() {
         return laporanBulananObjectLiveData;
     }

@@ -10,7 +10,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
-import com.myapp.domain.response.ResponsePost;
+import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import java.util.List;

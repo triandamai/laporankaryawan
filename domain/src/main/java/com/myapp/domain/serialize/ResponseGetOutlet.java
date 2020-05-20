@@ -1,10 +1,12 @@
-package com.myapp.domain.response;
+package com.myapp.domain.serialize;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.HomePageModel;
+import com.myapp.domain.model.OutletModel;
 
-public class ResponseGetOverview {
+import java.util.List;
+
+public class ResponseGetOutlet {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -16,7 +18,7 @@ public class ResponseGetOverview {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private HomePageModel data;
+    private List<OutletModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -42,21 +44,12 @@ public class ResponseGetOverview {
         this.responseMessage = responseMessage;
     }
 
-    public HomePageModel getData() {
+    public List<OutletModel> getData() {
         return data;
     }
 
-    public void setData(HomePageModel data) {
+    public void setData(List<OutletModel> data) {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "ResponseGetOverview{" +
-                "status=" + status +
-                ", responseCode=" + responseCode +
-                ", responseMessage='" + responseMessage + '\'' +
-                ", data=" + data +
-                '}';
-    }
 }

@@ -1,12 +1,9 @@
-package com.myapp.domain.response;
+package com.myapp.domain.serialize;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.UserModel;
 
-import java.util.List;
-
-public class ResponseGetKaryawan {
+public class ResponsePost {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -16,9 +13,6 @@ public class ResponseGetKaryawan {
     @SerializedName("response_message")
     @Expose
     private String responseMessage;
-    @SerializedName("data")
-    @Expose
-    private List<UserModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -44,21 +38,4 @@ public class ResponseGetKaryawan {
         this.responseMessage = responseMessage;
     }
 
-    public List<UserModel> getData() {
-        return data;
-    }
-
-    public void setData(List<UserModel> data) {
-        this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return "ResponseGetKaryawan{" +
-                "status=" + status +
-                ", responseCode=" + responseCode +
-                ", responseMessage='" + responseMessage + '\'' +
-                ", data=" + data +
-                '}';
-    }
 }

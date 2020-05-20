@@ -10,7 +10,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.realmobject.KotaObject;
-import com.myapp.domain.response.ResponsePost;
+import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import java.util.List;
@@ -36,26 +36,29 @@ public class DataKotaViewModel extends ViewModel {
         fetchFromApi();
 
     }
-    public void setSendDataListener(SendDataListener listener){
+
+    public void setSendDataListener(SendDataListener listener) {
         this.listener = listener;
 
     }
+
     public void fetchFromApi() {
         LaporanRepository.getInstance(context).getDataKota();
     }
-    public void hapus(KotaModel model){
+
+    public void hapus(KotaModel model) {
         listener.onStart();
         apiService.hapuskota(model).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                if(cek(response.code(),context,"Hapus Kota")){
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                if (cek(response.code(), context, "Hapus Kota")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         listener.onSuccess(response.body().getResponseMessage());
-                    }else {
+                    } else {
                         listener.onFailed(response.body().getResponseMessage());
                     }
 
-                }else {
+                } else {
                     listener.onFailed(response.message());
                 }
             }
@@ -67,6 +70,7 @@ public class DataKotaViewModel extends ViewModel {
         });
 
     }
+
     public void init() {
         try {
 

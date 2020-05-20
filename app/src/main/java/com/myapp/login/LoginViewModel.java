@@ -11,7 +11,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LoginModel;
 import com.myapp.domain.realmobject.HomePageObject;
-import com.myapp.domain.response.ResponsePostLogin;
+import com.myapp.domain.serialize.ResponsePostLogin;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import io.realm.Realm;
@@ -50,12 +50,13 @@ public class LoginViewModel extends ViewModel {
         realm.close();
 
     }
-    public void setSaveListener(SendDataListener ltr){
+
+    public void setSaveListener(SendDataListener ltr) {
         this.listener = ltr;
     }
 
 
-    public void login(View v){
+    public void login(View v) {
         listener.onStart();
         LoginModel loginModel = new LoginModel();
         loginModel.setUsername_nip(username.getValue());
@@ -64,15 +65,15 @@ public class LoginViewModel extends ViewModel {
         apiService.login(loginModel).enqueue(new Callback<ResponsePostLogin>() {
             @Override
             public void onResponse(Call<ResponsePostLogin> call, Response<ResponsePostLogin> response) {
-                if(cek(response.code(),context,"login")){
-                    if(response.body().getResponseCode().toString().equalsIgnoreCase("200")){
+                if (cek(response.code(), context, "login")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
 //                        Log.e("login",response.body().toString());
                         MyUser.getInstance(context).setUser(response.body().getData());
                         listener.onSuccess(response.body().getData().getLevelUser());
-                    }else {
+                    } else {
                         listener.onFailed(response.body().getResponseMessage());
                     }
-                }else {
+                } else {
                     listener.onError(response.message());
                 }
             }

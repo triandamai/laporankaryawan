@@ -1,12 +1,10 @@
-package com.myapp.domain.response;
+package com.myapp.domain.serialize;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.domain.model.UserModel;
 
-import java.util.List;
-
-public class ResponseGetLaporanHarian {
+public class ResponsePostLogin {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -18,7 +16,7 @@ public class ResponseGetLaporanHarian {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private List<LaporanHarianModel> data = null;
+    private UserModel data;
 
     public Boolean getStatus() {
         return status;
@@ -44,21 +42,21 @@ public class ResponseGetLaporanHarian {
         this.responseMessage = responseMessage;
     }
 
-    public List<LaporanHarianModel> getData() {
+    public UserModel getData() {
         return data;
     }
 
-    public void setData(List<LaporanHarianModel> data) {
+    public void setData(UserModel data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "ResponseGetLaporanHarian{" +
+        return "ResponsePostLogin{" +
                 "status=" + status +
                 ", responseCode=" + responseCode +
                 ", responseMessage='" + responseMessage + '\'' +
-                ", data=" + data +
+
                 '}';
     }
 }

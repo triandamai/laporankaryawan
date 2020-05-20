@@ -18,12 +18,12 @@ import com.myapp.domain.realmobject.KotaObject;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.domain.realmobject.OutletObject;
-import com.myapp.domain.response.ResponseGetKaryawan;
-import com.myapp.domain.response.ResponseGetKota;
-import com.myapp.domain.response.ResponseGetLaporanBulanan;
-import com.myapp.domain.response.ResponseGetLaporanHarian;
-import com.myapp.domain.response.ResponseGetOutlet;
-import com.myapp.domain.response.ResponseGetOverview;
+import com.myapp.domain.serialize.ResponseGetKaryawan;
+import com.myapp.domain.serialize.ResponseGetKota;
+import com.myapp.domain.serialize.ResponseGetLaporanBulanan;
+import com.myapp.domain.serialize.ResponseGetLaporanHarian;
+import com.myapp.domain.serialize.ResponseGetOutlet;
+import com.myapp.domain.serialize.ResponseGetOverview;
 
 import org.json.JSONException;
 

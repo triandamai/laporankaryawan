@@ -1,12 +1,12 @@
-package com.myapp.domain.response;
+package com.myapp.domain.serialize;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.model.LaporanBulananModel;
 
 import java.util.List;
 
-public class ResponseGetOutlet {
+public class ResponseGetLaporanBulanan {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -18,7 +18,7 @@ public class ResponseGetOutlet {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private List<OutletModel> data = null;
+    private List<LaporanBulananModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -44,12 +44,21 @@ public class ResponseGetOutlet {
         this.responseMessage = responseMessage;
     }
 
-    public List<OutletModel> getData() {
+    public List<LaporanBulananModel> getData() {
         return data;
     }
 
-    public void setData(List<OutletModel> data) {
+    public void setData(List<LaporanBulananModel> data) {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "ResponseGetLaporanBulanan{" +
+                "status=" + status +
+                ", responseCode=" + responseCode +
+                ", responseMessage='" + responseMessage + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

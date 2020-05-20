@@ -10,7 +10,7 @@ import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.domain.response.ResponseGetLaporanBulanan;
+import com.myapp.domain.serialize.ResponseGetLaporanBulanan;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.RekapanListener;
 

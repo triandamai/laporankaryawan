@@ -11,7 +11,7 @@ import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
 import com.myapp.domain.realmobject.LaporanHarianObject;
-import com.myapp.domain.response.ResponseGetLaporanHarian;
+import com.myapp.domain.serialize.ResponseGetLaporanHarian;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.RekapanListener;
 

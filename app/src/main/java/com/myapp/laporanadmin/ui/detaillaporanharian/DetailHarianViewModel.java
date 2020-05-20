@@ -11,7 +11,7 @@ import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.PostProsesLaporanHarian;
 import com.myapp.domain.realmobject.LaporanHarianObject;
-import com.myapp.domain.response.ResponsePost;
+import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import io.realm.Realm;
@@ -82,7 +82,7 @@ public class DetailHarianViewModel extends ViewModel {
     }
 
     public LiveData<LaporanHarianObject> getLaporanHarianObjectLiveData() {
-        if(laporanHarianObjectLiveData == null){
+        if (laporanHarianObjectLiveData == null) {
             laporanHarianObjectLiveData = new MutableLiveData<>();
         }
         return laporanHarianObjectLiveData;

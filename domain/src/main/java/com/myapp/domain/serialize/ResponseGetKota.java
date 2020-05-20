@@ -1,10 +1,12 @@
-package com.myapp.domain.response;
+package com.myapp.domain.serialize;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.myapp.domain.model.UserModel;
+import com.myapp.domain.model.KotaModel;
 
-public class ResponsePostLogin {
+import java.util.List;
+
+public class ResponseGetKota {
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -16,7 +18,7 @@ public class ResponsePostLogin {
     private String responseMessage;
     @SerializedName("data")
     @Expose
-    private UserModel data;
+    private List<KotaModel> data = null;
 
     public Boolean getStatus() {
         return status;
@@ -42,21 +44,11 @@ public class ResponsePostLogin {
         this.responseMessage = responseMessage;
     }
 
-    public UserModel getData() {
+    public List<KotaModel> getData() {
         return data;
     }
 
-    public void setData(UserModel data) {
+    public void setData(List<KotaModel> data) {
         this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return "ResponsePostLogin{" +
-                "status=" + status +
-                ", responseCode=" + responseCode +
-                ", responseMessage='" + responseMessage + '\'' +
-
-                '}';
     }
 }

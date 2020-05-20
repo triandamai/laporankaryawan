@@ -11,7 +11,7 @@ import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.realmobject.OutletObject;
-import com.myapp.domain.response.ResponsePost;
+import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import java.util.List;

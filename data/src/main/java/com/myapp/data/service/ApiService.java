@@ -11,14 +11,16 @@ import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.model.PostProsesLaporanBulanan;
 import com.myapp.domain.model.PostProsesLaporanHarian;
 import com.myapp.domain.model.UserModel;
-import com.myapp.domain.response.ResponseGetKaryawan;
-import com.myapp.domain.response.ResponseGetKota;
-import com.myapp.domain.response.ResponseGetLaporanBulanan;
-import com.myapp.domain.response.ResponseGetLaporanHarian;
-import com.myapp.domain.response.ResponseGetOutlet;
-import com.myapp.domain.response.ResponseGetOverview;
-import com.myapp.domain.response.ResponsePost;
-import com.myapp.domain.response.ResponsePostLogin;
+import com.myapp.domain.serialize.ResponseGetKaryawan;
+import com.myapp.domain.serialize.ResponseGetKota;
+import com.myapp.domain.serialize.ResponseGetLaporanBulanan;
+import com.myapp.domain.serialize.ResponseGetLaporanHarian;
+import com.myapp.domain.serialize.ResponseGetOutlet;
+import com.myapp.domain.serialize.ResponseGetOverview;
+import com.myapp.domain.serialize.ResponsePost;
+import com.myapp.domain.serialize.ResponsePostLogin;
+import com.myapp.domain.serialize.req.RequestSimpanBulanan;
+import com.myapp.domain.serialize.req.RequestSimpanHarian;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -106,7 +108,7 @@ public interface ApiService {
 
     @Headers({accept_json, content_type, api_key})
     @POST("laporanharian/add")
-    Call<ResponsePost> tambahlaporanharian(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> tambahlaporanharian(@Body RequestSimpanHarian laporanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("laporanharian/proses")
@@ -115,10 +117,6 @@ public interface ApiService {
     @Headers({accept_json, content_type, api_key})
     @POST("outlet/data")
     Call<ResponseGetOutlet> getAllOutlet(@Body OutletModel outletModel);
-
-    @Headers({accept_json, content_type, api_key})
-    @POST("outlet/add")
-    Call<ResponsePost> tambahoutlet(@Body OutletModel outletModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("outlet/update")
@@ -134,7 +132,7 @@ public interface ApiService {
 
     @Headers({accept_json, content_type, api_key})
     @POST("laporanbulanan/add")
-    Call<ResponsePost> tambahlaporanbulanan(@Body LaporanHarianModel laporanModel);
+    Call<ResponsePost> tambahlaporanbulanan(@Body RequestSimpanBulanan laporanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("laporanbulanan/proses")

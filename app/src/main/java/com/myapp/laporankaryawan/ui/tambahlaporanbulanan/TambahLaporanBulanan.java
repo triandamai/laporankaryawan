@@ -20,6 +20,7 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
     private TambahLaporanBulananViewModel mViewModel;
     private TambahLaporanBulananFragmentBinding binding;
 
+
     public static TambahLaporanBulanan newInstance() {
         return new TambahLaporanBulanan();
     }

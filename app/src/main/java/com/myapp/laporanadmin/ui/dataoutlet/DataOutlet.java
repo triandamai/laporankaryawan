@@ -50,7 +50,6 @@ public class DataOutlet extends BaseFragment {
         binding.setIsLoading(true);
         adapterDataOutlet = new AdapterDataOutlet(adapterItemClicked);
         binding.rv.setAdapter(adapterDataOutlet);
-        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         return binding.getRoot();
     }
 
@@ -103,12 +102,13 @@ public class DataOutlet extends BaseFragment {
                 postOutletModel.setNamaOutlet(outletModel.getNamaOutlet());
                 postOutletModel.setIdOutlet(outletModel.getIdOutlet());
                 postOutletModel.setNamaKota(outletModel.getKota().getNamaKota());
-                bundle.putString("outlet",gson.toJson(postOutletModel));
+                bundle.putString("outlet", gson.toJson(postOutletModel));
                 tambahOutlet.setArguments(bundle);
                 replaceFragment(tambahOutlet, null);
             });
             builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton("Hapus", (dialog, which) -> {
+                dialog.dismiss();
                 mViewModel.hapus(outletModel);
 
             });

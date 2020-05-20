@@ -32,9 +32,11 @@ public class TambahOutlet extends BaseFragment {
     private TambahOutletViewModel mViewModel;
     private TambahOutletFragmentBinding binding;
     private SheetKota sheetKota;
-    private String tipe ;
+    private String tipe;
     private OutletModel outletModel;
-    public TambahOutlet(){ }
+
+    public TambahOutlet() {
+    }
 
     public static TambahOutlet newInstance() {
         return new TambahOutlet();
@@ -46,7 +48,7 @@ public class TambahOutlet extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_outlet_fragment, container, false);
 
 
-        mViewModel = new ViewModelProvider(requireActivity(),new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), new TambahOutletFactory(getContext())).get(TambahOutletViewModel.class);
         setHasOptionsMenu(true);
 
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
@@ -60,10 +62,10 @@ public class TambahOutlet extends BaseFragment {
         sheetKota.setOnSheetListener(sheetListener);
         Gson gson = new Gson();
         Bundle bundle = getArguments();
-        if(bundle != null){
-            setActionBar(binding.toolbar,"Ubah Outlet","");
+        if (bundle != null) {
+            setActionBar(binding.toolbar, "Ubah Outlet", "");
 
-            PostOutletModel pot = gson.fromJson(bundle.getString("outlet"),PostOutletModel.class);
+            PostOutletModel pot = gson.fromJson(bundle.getString("outlet"), PostOutletModel.class);
             KotaModel kotaModel = new KotaModel();
             kotaModel.setIdKota(String.valueOf(pot.getIdKota()));
             kotaModel.setNamaKota(pot.getNamaKota());
@@ -74,10 +76,21 @@ public class TambahOutlet extends BaseFragment {
             mViewModel.kotamodel.setValue(kotaModel);
             binding.setKota(kotaModel);
 
-        }else {
-
+        } else {
+            PostOutletModel postOutletModel = new PostOutletModel();
+            postOutletModel.setIdOutlet("");
+            postOutletModel.setNamaKota("");
+            postOutletModel.setNamaOutlet("");
+            postOutletModel.setIdKota(0);
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setCreatedAt("");
+            kotaModel.setUpdatedAt("");
+            kotaModel.setNamaKota("");
+            kotaModel.setIdKota("");
+            mViewModel.outletmodel.setValue(postOutletModel);
+            mViewModel.kotamodel.setValue(kotaModel);
             mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
-            setActionBar(binding.toolbar,"Tambah Outlet","");
+            setActionBar(binding.toolbar, "Tambah Outlet", "");
         }
 
         return binding.getRoot();
@@ -93,12 +106,12 @@ public class TambahOutlet extends BaseFragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.toolbarformnav,menu);
+        inflater.inflate(R.menu.toolbarformnav, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_close:
                 back();
                 return true;
@@ -107,6 +120,7 @@ public class TambahOutlet extends BaseFragment {
         }
 
     }
+
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {
@@ -118,7 +132,7 @@ public class TambahOutlet extends BaseFragment {
             binding.setIsLoading(false);
             builder.setTitle("Info");
             builder.setMessage(message);
-            builder.setPositiveButton("Oke", (dialog, which) ->{
+            builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             });
@@ -140,7 +154,7 @@ public class TambahOutlet extends BaseFragment {
     private SheetShow sheetShow = new SheetShow() {
         @Override
         public void sheetShow(View v) {
-            sheetKota.show(getActivity().getSupportFragmentManager(),"Show Outlet");
+            sheetKota.show(getActivity().getSupportFragmentManager(), "Show Outlet");
         }
     };
     private SheetKota.BottomSheetListener sheetListener = new SheetKota.BottomSheetListener() {
@@ -153,7 +167,7 @@ public class TambahOutlet extends BaseFragment {
             kotaModel1.setCreatedAt(kotaModel.getCreatedAt());
             kotaModel1.setUpdatedAt(kotaModel.getUpdatedAt());
             kotaModel1.setNamaKota(kotaModel.getNamaKota());
-            Log.e("on sheet click",kotaModel1.toString());
+            Log.e("on sheet click", kotaModel1.toString());
             mViewModel.kotamodel.setValue(kotaModel1);
             binding.setKota(kotaModel1);
         }
@@ -162,8 +176,18 @@ public class TambahOutlet extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mViewModel.outletmodel.setValue(null);
-        mViewModel.kotamodel.setValue(null);
-        mViewModel.tipe.setValue(null);
+        PostOutletModel postOutletModel = new PostOutletModel();
+        postOutletModel.setIdOutlet("");
+        postOutletModel.setNamaKota("");
+        postOutletModel.setNamaOutlet("");
+        postOutletModel.setIdKota(0);
+        KotaModel kotaModel = new KotaModel();
+        kotaModel.setCreatedAt("");
+        kotaModel.setUpdatedAt("");
+        kotaModel.setNamaKota("");
+        kotaModel.setIdKota("");
+        mViewModel.outletmodel.setValue(postOutletModel);
+        mViewModel.kotamodel.setValue(kotaModel);
+        mViewModel.tipe.setValue("");
     }
 }

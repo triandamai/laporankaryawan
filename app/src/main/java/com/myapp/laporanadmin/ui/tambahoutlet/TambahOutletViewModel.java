@@ -1,6 +1,8 @@
 package com.myapp.laporanadmin.ui.tambahoutlet;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
@@ -38,6 +40,10 @@ public class TambahOutletViewModel extends ViewModel implements Callback<Respons
             outletmodel.getValue().getIdKota();
             outletmodel.getValue().getNamaKota();
             outletmodel.getValue().getIdOutlet();
+            kotamodel.getValue().getNamaKota();
+            kotamodel.getValue().getUpdatedAt();
+            kotamodel.getValue().getCreatedAt();
+            kotamodel.getValue().getIdKota();
         } catch (NullPointerException e) {
             PostOutletModel outletModel = new PostOutletModel();
             outletModel.setNamaOutlet("");
@@ -62,33 +68,38 @@ public class TambahOutletViewModel extends ViewModel implements Callback<Respons
         listener.onStart();
         PostOutletModel outletModel = new PostOutletModel();
 
+        try {
 
-        if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
-            outletModel.setIdOutlet("");
-            outletModel.setNamaOutlet(outletmodel.getValue().getNamaOutlet());
-            outletModel.setIdKota(Integer.parseInt(kotamodel.getValue().getIdKota()));
-            if (outletModel.isValid()) {
-                apiService.simpanoutlet(outletModel).enqueue(this);
-            } else {
-                listener.onFailed("Mohon Isi Semua Data!");
-            }
-        } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
-            outletModel.setIdOutlet(outletmodel.getValue().getIdOutlet());
-            outletModel.setNamaOutlet(outletmodel.getValue().getNamaOutlet());
-            outletModel.setIdKota(Integer.parseInt(kotamodel.getValue().getIdKota()));
-            if (outletModel.isValid()) {
-                apiService.ubahoutlet(outletModel).enqueue(this);
-            } else {
-                listener.onFailed("Mohon Isi Semua Data!");
-            }
 
-        } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))) {
-            if (outletModel.isValid()) {
-                apiService.hapusoutlet(outletModel).enqueue(this);
-            } else {
-                listener.onFailed("Mohon Isi Semua Data!");
-            }
+            if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+                outletModel.setIdOutlet("");
+                outletModel.setNamaOutlet(outletmodel.getValue().getNamaOutlet());
+                if (kotamodel.getValue().getIdKota() == null || TextUtils.isEmpty(kotamodel.getValue().getIdKota())) {
+                    listener.onFailed("Pilih Kota Terlebih dahulu!");
+                } else {
+                    outletModel.setIdKota(Integer.parseInt(kotamodel.getValue().getIdKota()));
+                    if (outletModel.isValid()) {
+                        apiService.simpanoutlet(outletModel).enqueue(this);
+                    } else {
+                        listener.onFailed("Mohon Isi Semua Data!");
+                    }
+                }
+            } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
+                outletModel.setIdOutlet(outletmodel.getValue().getIdOutlet());
+                outletModel.setNamaOutlet(outletmodel.getValue().getNamaOutlet());
+                outletModel.setIdKota(Integer.parseInt(kotamodel.getValue().getIdKota()));
+                if (outletModel.isValid()) {
+                    apiService.ubahoutlet(outletModel).enqueue(this);
+                } else {
+                    listener.onFailed("Mohon Isi Semua Data!");
+                }
 
+            } else {
+                listener.onFailed("Tidak Diketahui...");
+            }
+        } catch (NullPointerException e) {
+            listener.onFailed("Data Masih Kosong!");
+            Log.e("Tambah Outlet", e.getMessage());
         }
 
     }

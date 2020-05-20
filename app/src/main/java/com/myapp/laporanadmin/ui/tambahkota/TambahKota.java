@@ -38,7 +38,6 @@ public class TambahKota extends BaseFragment {
     }
 
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -51,12 +50,19 @@ public class TambahKota extends BaseFragment {
         mViewModel.setOnSendData(sendDataListener);
         Gson gson = new Gson();
         Bundle bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             setActionBar(binding.toolbar, "Ubah Kota", "");
-            kotaModel = gson.fromJson(bundle.getString("kota"),KotaModel.class);
+            kotaModel = gson.fromJson(bundle.getString("kota"), KotaModel.class);
             mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
             mViewModel.kotamodel.setValue(kotaModel);
-        }else {
+        } else {
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setIdKota("");
+            kotaModel.setNamaKota("");
+            kotaModel.setUpdatedAt("");
+            kotaModel.setCreatedAt("");
+            mViewModel.kotamodel.setValue(kotaModel);
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
             setActionBar(binding.toolbar, "Tambah Kota", "");
             mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
 
@@ -97,7 +103,7 @@ public class TambahKota extends BaseFragment {
             binding.setIsLoading(false);
             builder.setTitle("Info");
             builder.setMessage(message);
-            builder.setPositiveButton("Oke", (dialog, which) ->{
+            builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             });
@@ -120,7 +126,12 @@ public class TambahKota extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mViewModel.kotamodel.setValue(null);
-        mViewModel.tipe.setValue(null);
+        KotaModel kotaModel = new KotaModel();
+        kotaModel.setIdKota("");
+        kotaModel.setNamaKota("");
+        kotaModel.setUpdatedAt("");
+        kotaModel.setCreatedAt("");
+        mViewModel.kotamodel.setValue(kotaModel);
+        mViewModel.tipe.setValue("");
     }
 }

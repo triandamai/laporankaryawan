@@ -30,10 +30,10 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
     public MutableLiveData<String> foto = new MutableLiveData<>();
     public MutableLiveData<String> tipe = new MutableLiveData<>();
 
-    public TambahUserViewModel(Context context, SendDataListener sendDataListener) {
+    public TambahUserViewModel(Context context) {
         this.context = context;
         this.apiService = LaporanRepository.getService(context);
-        this.listener = sendDataListener;
+
         try {
             usermodel.getValue().getIdUser();
             usermodel.getValue().getIdUser();
@@ -60,6 +60,10 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
         }
     }
 
+    public void setListener(SendDataListener listener) {
+        this.listener = listener;
+    }
+
     public void setUsermodel(UserModel usermodel) {
         this.usermodel.setValue(usermodel);
     }
@@ -68,62 +72,54 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
 
         listener.onStart();
         UserModel userModel = new UserModel();
+        try {
+            if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+                if (foto.getValue() == null || TextUtils.isEmpty(foto.getValue())) {
+                    listener.onFailed("Belum Memili Foto");
+                } else {
+                    userModel.setIdUser(null);
+                    userModel.setNamaUser(usermodel.getValue().getNamaUser());
+                    userModel.setUsernameUser(null);
+                    userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+                    userModel.setFotoUser(foto.getValue());
+                    userModel.setNipUser(usermodel.getValue().getNipUser());
+                    userModel.setCreatedAt(null);
+                    userModel.setUpdatedAt(null);
+                    userModel.setLevelUser("1");
+                    if (userModel.validData() || !TextUtils.isEmpty(usermodel.getValue().getFotoUser())) {
+                        apiService.simpanuser(userModel).enqueue(this);
+                    } else {
+                        listener.onFailed("Isi semua data");
+                    }
+                }
 
-        if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
-            try {
-                userModel.setIdUser(null);
+            } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
+
+                if (foto.getValue() == null || TextUtils.isEmpty(foto.getValue())) {
+                    userModel.setFotoUser(null);
+                } else {
+                    userModel.setFotoUser(foto.getValue());
+                }
+                userModel.setIdUser(usermodel.getValue().getIdUser());
                 userModel.setNamaUser(usermodel.getValue().getNamaUser());
                 userModel.setUsernameUser(null);
                 userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
-                userModel.setFotoUser(foto.getValue());
                 userModel.setNipUser(usermodel.getValue().getNipUser());
-                userModel.setCreatedAt(null);
-                userModel.setUpdatedAt(null);
+                userModel.setCreatedAt("");
+                userModel.setUpdatedAt("");
                 userModel.setLevelUser("1");
-                if (userModel.validData() || !TextUtils.isEmpty(usermodel.getValue().getFotoUser())) {
-                    apiService.simpanuser(userModel).enqueue(this);
+                Log.e("Ubah", "Proses" + userModel.toString());
+                if (userModel.validData()) {
+                    apiService.updateuser(userModel).enqueue(this);
                 } else {
                     listener.onFailed("Isi semua data");
                 }
-            } catch (NullPointerException e) {
-                listener.onFailed(e.getMessage());
-            }
 
-
-        } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
-
-            userModel.setIdUser(usermodel.getValue().getIdUser());
-            userModel.setNamaUser(usermodel.getValue().getNamaUser());
-            userModel.setUsernameUser(null);
-            userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
-            userModel.setFotoUser(foto.getValue());
-            userModel.setNipUser(usermodel.getValue().getNipUser());
-            userModel.setCreatedAt("");
-            userModel.setUpdatedAt("");
-            userModel.setLevelUser("1");
-            Log.e("Ubah", "Proses" + userModel.toString());
-            if (userModel.validData()) {
-                apiService.updateuser(userModel).enqueue(this);
             } else {
-                listener.onFailed("Isi semua data");
+                listener.onFailed("Tidak Diketahui...");
             }
-
-        } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))) {
-            userModel.setIdUser(usermodel.getValue().getIdUser());
-            userModel.setNamaUser(usermodel.getValue().getNamaUser());
-            userModel.setUsernameUser(usermodel.getValue().getUsernameUser());
-            userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
-            userModel.setFotoUser(foto.getValue());
-            userModel.setNipUser(usermodel.getValue().getNipUser());
-            userModel.setCreatedAt("");
-            userModel.setUpdatedAt("");
-            userModel.setLevelUser("1");
-            if (userModel.validData()) {
-                apiService.hapususer(userModel).enqueue(this);
-            } else {
-                listener.onFailed("Isi semua data");
-            }
-
+        } catch (NullPointerException e) {
+            listener.onFailed(e.getMessage());
         }
 
 
@@ -146,6 +142,7 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
 
     @Override
     public void onFailure(Call<ResponsePost> call, Throwable t) {
+        Log.e("Hasil", t.getMessage());
         listener.onError(t.getMessage());
     }
     // TODO: Implement the ViewModel

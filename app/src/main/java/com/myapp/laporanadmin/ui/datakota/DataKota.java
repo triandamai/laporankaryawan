@@ -46,6 +46,7 @@ public class DataKota extends BaseFragment {
         adapterDataKota = new AdapterDataKota(adapterItemClicked);
         binding.rv.setAdapter(adapterDataKota);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         return binding.getRoot();
     }
 
@@ -93,12 +94,13 @@ public class DataKota extends BaseFragment {
                 Bundle bundle = new Bundle();
                 Gson gson = new Gson();
 
-                bundle.putString("kota",gson.toJson(kotaModel));
+                bundle.putString("kota", gson.toJson(kotaModel));
                 tambahKota.setArguments(bundle);
                 replaceFragment(tambahKota, null);
             });
             builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
             builder.setNegativeButton("Hapus", (dialog, which) -> {
+                dialog.dismiss();
                 mViewModel.hapus(kotaModel);
             });
             builder.show();
@@ -123,7 +125,8 @@ public class DataKota extends BaseFragment {
         @Override
         public void onSuccess(String message) {
             dismissProgress();
-            dialogBerhasil(message);
+            
+
             mViewModel.fetchFromApi();
         }
 

@@ -58,14 +58,15 @@ public class TambahUser extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_user_fragment, container, false);
+        binding.setIsLoading(false);
         binding.setPick(pickImage);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
-        mViewModel = new ViewModelProvider(requireActivity(), new TambahUserFactory(getContext(), sendDataListener))
+        mViewModel = new ViewModelProvider(requireActivity(), new TambahUserFactory(getContext()))
                 .get(TambahUserViewModel.class);
         setHasOptionsMenu(true);
-
-
+        mViewModel.setListener(sendDataListener);
+        binding.setVm(mViewModel);
         Bundle bundle = getArguments();
         if (bundle != null) {
             Gson gson = new Gson();
@@ -96,9 +97,6 @@ public class TambahUser extends BaseFragment {
         }
 
 
-        binding.setIsLoading(false);
-        binding.setVm(mViewModel);
-
         ImagePickerActivity.clearCache(getContext());
 
         return binding.getRoot();
@@ -115,7 +113,9 @@ public class TambahUser extends BaseFragment {
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {
+
             binding.setIsLoading(true);
+
         }
 
         @Override
@@ -182,8 +182,17 @@ public class TambahUser extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         MyUser.getInstance(getContext()).setTipeFormUser(null);
-
-        mViewModel.usermodel.setValue(null);
+        UserModel userModel = new UserModel();
+        userModel.setFotoUser("");
+        userModel.setUsernameUser("");
+        userModel.setPasswordUser("");
+        userModel.setIdUser("");
+        userModel.setCreatedAt("");
+        userModel.setUsernameUser("");
+        userModel.setNipUser("");
+        userModel.setLevelUser("");
+        mViewModel.usermodel.setValue(userModel);
+        mViewModel.tipe.setValue("");
     }
 
     @Override

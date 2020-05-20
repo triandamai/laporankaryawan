@@ -42,6 +42,8 @@ public class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.create();
     }
 
     public void showProgress(String pesan) {

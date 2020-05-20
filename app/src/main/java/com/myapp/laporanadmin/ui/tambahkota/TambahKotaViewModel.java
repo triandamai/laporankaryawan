@@ -54,21 +54,24 @@ public class TambahKotaViewModel extends ViewModel implements Callback<ResponseP
         listener.onStart();
         KotaModel kota = new KotaModel();
 
-
-        if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
-            kota.setIdKota(kotamodel.getValue().getIdKota());
-            kota.setNamaKota(kotamodel.getValue().getNamaKota());
-            kota.setUpdatedAt("");
-            kota.setCreatedAt("");
-            apiService.simpankota(kota).enqueue(this);
-        } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
-            kota.setIdKota(kotamodel.getValue().getIdKota());
-            kota.setNamaKota(kotamodel.getValue().getNamaKota());
-            kota.setUpdatedAt(kotamodel.getValue().getUpdatedAt());
-            kota.setCreatedAt(kotamodel.getValue().getCreatedAt());
-            apiService.ubahkota(kota).enqueue(this);
-        } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_HAPUS))) {
-            apiService.hapuskota(kota).enqueue(this);
+        try {
+            if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+                kota.setIdKota(kotamodel.getValue().getIdKota());
+                kota.setNamaKota(kotamodel.getValue().getNamaKota());
+                kota.setUpdatedAt("");
+                kota.setCreatedAt("");
+                apiService.simpankota(kota).enqueue(this);
+            } else if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_UBAH))) {
+                kota.setIdKota(kotamodel.getValue().getIdKota());
+                kota.setNamaKota(kotamodel.getValue().getNamaKota());
+                kota.setUpdatedAt(kotamodel.getValue().getUpdatedAt());
+                kota.setCreatedAt(kotamodel.getValue().getCreatedAt());
+                apiService.ubahkota(kota).enqueue(this);
+            } else {
+                listener.onFailed("Tidak Diketahui...");
+            }
+        } catch (NullPointerException e) {
+            listener.onFailed(e.getMessage());
         }
     }
 

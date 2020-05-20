@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.serialize.ResponsePost;
@@ -16,6 +17,8 @@ import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.myapp.data.service.ApiHandler.cek;
 
 public class ResetPasswordViewModel extends ViewModel {
     private Context context;
@@ -40,14 +43,22 @@ public class ResetPasswordViewModel extends ViewModel {
     public void ubah() {
         listener.onStart();
         RequestUbahPassword requestUbahPassword = new RequestUbahPassword();
+        requestUbahPassword.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
+        requestUbahPassword.setPasswordLama(req.getValue().getPasswordLama());
+        requestUbahPassword.setPasswordBaru(req.getValue().getPasswordBaru());
+
         apiService.ubahpassword(requestUbahPassword).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 Log.e("Hasil", response.body().toString());
-                if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                    listener.onSuccess(response.body().getResponseMessage());
+                if (cek(response.code(), context, "Cek")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        listener.onSuccess(response.body().getResponseMessage());
+                    } else {
+                        listener.onFailed(response.body().getResponseMessage());
+                    }
                 } else {
-                    listener.onFailed(response.body().getResponseMessage());
+                    listener.onFailed(response.message());
                 }
             }
 

@@ -15,6 +15,10 @@
             type="String" />
 
         <variable
+            name="pick"
+            type="com.myapp.laporanadmin.callback.PickImage" />
+
+        <variable
             name="vm"
             type="com.myapp.laporankaryawan.ui.ubahprofil.UbahProfilViewModel" />
     </data>
@@ -31,7 +35,9 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:popupTheme="@style/Theme.AppCompat.Light" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -96,6 +102,7 @@
                     android:maxHeight="@dimen/dp_200"
                     android:minHeight="@dimen/dp_100"
                     android:layout_marginBottom="10dp"
+                    android:onClick="@{(v)->pick.ImageClicked(v)}"
                     setImageUrl="@{foto}"
                     android:scaleType="centerCrop" />
 
@@ -110,7 +117,7 @@
                     android:background="@drawable/ripple_primary"
                     android:clickable="true"
                     viewGone="@{!isLoading}"
-                    android:onClick="@{}"
+                    android:onClick="@{()->vm.simpan()}"
                     android:text="Simpan" />
 
                 <ProgressBar

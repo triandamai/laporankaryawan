@@ -1,6 +1,7 @@
 package com.myapp.laporankaryawan.ui.ubahprofil;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -42,7 +43,16 @@ public class UbahProfilViewModel extends ViewModel {
         userModel.setNamaUser(usermodel.getValue().getNamaUser());
         userModel.setUsernameUser(null);
         userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
-        userModel.setFotoUser(foto.getValue());
+        try {
+            if (foto.getValue() == null || TextUtils.isEmpty(foto.getValue())) {
+                userModel.setFotoUser(null);
+            } else {
+                userModel.setFotoUser(foto.getValue());
+            }
+        } catch (NullPointerException e) {
+            userModel.setFotoUser(null);
+        }
+
         userModel.setNipUser(usermodel.getValue().getNipUser());
         userModel.setCreatedAt("");
         userModel.setUpdatedAt("");

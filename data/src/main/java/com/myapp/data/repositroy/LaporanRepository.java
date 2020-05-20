@@ -113,13 +113,15 @@ public class LaporanRepository {
     public void getDataHomeKaryawan() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id_user", MyUser.getInstance(context).getUser().getIdUser());
+        Log.e(TAG, jsonObject.toString());
         service.getOverviewKaryawan(jsonObject).enqueue(new Callback<ResponseHomePageKaryawan>() {
             @Override
             public void onResponse(Call<ResponseHomePageKaryawan> call, Response<ResponseHomePageKaryawan> response) {
                 try {
 
-                    Log.e(TAG, response.body().toString());
+
                     if (cek(response.code(), context, "getData Home Page")) {
+                        Log.e(TAG, response.body().toString());
                         HomePageKaryawan object = new HomePageKaryawan();
                         object.setId(0);
                         object.setLapHarian(response.body().getData().getLapHarian());

@@ -2,6 +2,9 @@ package com.myapp.laporankaryawan.ui.listubahprofil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,6 +35,8 @@ public class ListUbahProfil extends BaseKaryawanFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.list_ubah_profil_fragment, container, false);
+        setActionBar(binding.toolbar, "Ubah Profil", "");
+        setHasOptionsMenu(true);
         binding.setEvent(listRekapan);
         mViewModel = new ViewModelProvider(getActivity(), new KaryawanFactory(getContext())).get(ListUbahProfilViewModel.class);
 
@@ -51,4 +56,20 @@ public class ListUbahProfil extends BaseKaryawanFragment {
         }
     };
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbarformnav, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_close:
+                back();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

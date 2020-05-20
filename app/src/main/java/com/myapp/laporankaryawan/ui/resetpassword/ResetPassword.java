@@ -31,6 +31,8 @@ public class ResetPassword extends BaseKaryawanFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.reset_password_fragment, container, false);
+        setActionBar(binding.toolbar, "Ubah Password", "");
+        setHasOptionsMenu(true);
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(ResetPasswordViewModel.class);
         mViewModel.setListener(sendDataListener);
         mViewModel.repass.setValue("");
@@ -47,22 +49,32 @@ public class ResetPassword extends BaseKaryawanFragment {
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {
-
+            binding.setIsLoading(true);
         }
 
         @Override
         public void onSuccess(String message) {
-
+            binding.setIsLoading(false);
+            builder.setCancelable(false);
+            builder.setTitle("Infor");
+            builder.setMessage(message);
+            builder.setNeutralButton("Oke", (dialog, which) -> {
+                dialog.dismiss();
+                back();
+            });
+            builder.show();
         }
 
         @Override
         public void onFailed(String message) {
-
+            binding.setIsLoading(false);
+            dialogGagal(message);
         }
 
         @Override
         public void onError(String message) {
-
+            binding.setIsLoading(false);
+            dialogGagal(message);
         }
     };
 

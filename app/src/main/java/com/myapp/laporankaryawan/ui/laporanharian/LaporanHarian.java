@@ -2,6 +2,9 @@ package com.myapp.laporankaryawan.ui.laporanharian;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,13 +19,12 @@ import com.myapp.databinding.LaporanHarianFragment2Binding;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
-import com.myapp.laporankaryawan.ui.laporanbulanan.AdapterLaporanBulanan;
 
 public class LaporanHarian extends BaseKaryawanFragment {
 
     private LaporanHarianViewModel mViewModel;
     private LaporanHarianFragment2Binding binding;
-    private AdapterLaporanBulanan adapterLaporanBulanan;
+    private AdapterLaporanHarian adapterLaporanHarian;
 
     public static LaporanHarian newInstance() {
         return new LaporanHarian();
@@ -32,10 +34,12 @@ public class LaporanHarian extends BaseKaryawanFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.laporan_harian_fragment2, container, false);
+        setActionBar(binding.toolbar, "Laporan Harian", "");
+        setHasOptionsMenu(true);
         binding.setIsLoading(false);
         binding.setListener(refreshListener);
-        adapterLaporanBulanan = new AdapterLaporanBulanan(itemClicked);
-        binding.rv.setAdapter(adapterLaporanBulanan);
+        adapterLaporanHarian = new AdapterLaporanHarian(itemClicked);
+        binding.rv.setAdapter(adapterLaporanHarian);
         return binding.getRoot();
     }
 
@@ -44,6 +48,22 @@ public class LaporanHarian extends BaseKaryawanFragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext(), getRequestHarian())).get(LaporanHarianViewModel.class);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.fetchFromApi(getRequestHarian());
+
+        observe(mViewModel);
+    }
+
+    private void observe(LaporanHarianViewModel mViewModel) {
+        mViewModel.init().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
+            if (laporanHarianObjects != null) {
+                adapterLaporanHarian.setData(laporanHarianObjects);
+            }
+        });
     }
 
     private AdapterItemClicked itemClicked = new AdapterItemClicked() {
@@ -76,5 +96,21 @@ public class LaporanHarian extends BaseKaryawanFragment {
         }
     };
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbarformnav, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_close:
+                back();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

@@ -49,4 +49,14 @@ public class ResponseHomePageKaryawan {
     public void setData(HomePageKaryawanModel data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseHomePageKaryawan{" +
+                "status=" + status +
+                ", responseCode=" + responseCode +
+                ", responseMessage='" + responseMessage + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

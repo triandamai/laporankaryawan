@@ -1,6 +1,7 @@
 package com.myapp.laporankaryawan.ui.homepage;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.HomeKaryawanFragmentBinding;
+import com.myapp.domain.realmobject.HomePageKaryawan;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
 import com.myapp.laporankaryawan.callback.HomePageCallback;
@@ -36,9 +38,14 @@ public class HomeKaryawan extends BaseKaryawanFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_karyawan_fragment, container, false);
+        HomePageKaryawan homePageKaryawan = new HomePageKaryawan();
+        homePageKaryawan.setLapBulanan(0);
+        homePageKaryawan.setLapHarian(0);
+        homePageKaryawan.setId(0);
         binding.setClick(homePageCallback);
         binding.setProfil(MyUser.getInstance(getContext()).getUser());
         binding.setIsLoading(true);
+        binding.setData(homePageKaryawan);
         binding.setListener(refreshListener);
         return binding.getRoot();
     }
@@ -70,6 +77,7 @@ public class HomeKaryawan extends BaseKaryawanFragment {
         mViewModel.getHomePageModelLiveData().observe(getViewLifecycleOwner(), homePageKaryawan -> {
             binding.setIsLoading(false);
             if (homePageKaryawan != null) {
+                Log.e("observe", homePageKaryawan.toString());
                 binding.setData(homePageKaryawan);
             }
         });

@@ -26,4 +26,12 @@ public class HomePageKaryawanModel {
     public void setLapBulanan(Integer lapBulanan) {
         this.lapBulanan = lapBulanan;
     }
+
+    @Override
+    public String toString() {
+        return "HomePageKaryawanModel{" +
+                "lapHarian=" + lapHarian +
+                ", lapBulanan=" + lapBulanan +
+                '}';
+    }
 }

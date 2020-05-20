@@ -63,7 +63,7 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
             builder.setTitle("Infor");
             builder.setMessage(message);
             builder.setCancelable(false);
-            builder.setNeutralButton("Oke", (dialog, which) -> {
+            builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             }).show();

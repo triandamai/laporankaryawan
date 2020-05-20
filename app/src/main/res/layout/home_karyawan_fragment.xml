@@ -100,7 +100,7 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/sp_16"
-                                    android:text="@string/admin" />
+                                    android:text="@{profil.namaUser}" />
                             </LinearLayout>
                         </RelativeLayout>
 

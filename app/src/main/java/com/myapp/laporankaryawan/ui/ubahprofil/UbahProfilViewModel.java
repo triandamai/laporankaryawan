@@ -7,16 +7,19 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.UserModel;
-import com.myapp.domain.serialize.ResponsePost;
+import com.myapp.domain.serialize.res.ResponseUbahProfil;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.myapp.data.service.ApiHandler.cek;
 
 public class UbahProfilViewModel extends ViewModel {
     private Context context;
@@ -39,10 +42,10 @@ public class UbahProfilViewModel extends ViewModel {
     public void simpan() {
         listener.onStart();
         UserModel userModel = new UserModel();
-        userModel.setIdUser(usermodel.getValue().getIdUser());
+        userModel.setIdUser(MyUser.getInstance(context).getUser().getIdUser());
         userModel.setNamaUser(usermodel.getValue().getNamaUser());
         userModel.setUsernameUser(null);
-        userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+        userModel.setPasswordUser(null);
         try {
             if (foto.getValue() == null || TextUtils.isEmpty(foto.getValue())) {
                 userModel.setFotoUser(null);
@@ -57,19 +60,25 @@ public class UbahProfilViewModel extends ViewModel {
         userModel.setCreatedAt("");
         userModel.setUpdatedAt("");
         userModel.setLevelUser("1");
-        apiService.updateuser(userModel).enqueue(new Callback<ResponsePost>() {
+        apiService.updateuserkaryawan(userModel).enqueue(new Callback<ResponseUbahProfil>() {
             @Override
-            public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+            public void onResponse(Call<ResponseUbahProfil> call, Response<ResponseUbahProfil> response) {
                 Log.e("Hasil", response.body().toString());
-                if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                    listener.onSuccess(response.body().getResponseMessage());
+                if (cek(response.code(), context, "Ubah Profil")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        listener.onSuccess(response.body().getResponseMessage());
+                        MyUser.getInstance(context).setUser(response.body().getData());
+
+                    } else {
+                        listener.onFailed(response.body().getResponseMessage());
+                    }
                 } else {
-                    listener.onFailed(response.body().getResponseMessage());
+                    listener.onFailed(response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponsePost> call, Throwable t) {
+            public void onFailure(Call<ResponseUbahProfil> call, Throwable t) {
                 listener.onError(t.getMessage());
             }
         });

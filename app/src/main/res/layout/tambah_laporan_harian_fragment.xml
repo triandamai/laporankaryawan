@@ -23,6 +23,10 @@
             type="String" />
 
         <variable
+            name="pick"
+            type="com.myapp.laporanadmin.callback.PickImage" />
+
+        <variable
             name="vm"
             type="com.myapp.laporankaryawan.ui.tambahlaporanharian.TambahLaporanHarianViewModel" />
     </data>
@@ -128,6 +132,7 @@
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     android:layout_marginBottom="@dimen/padding_10"
+                    android:onClick="@{(v)->pick.ImageClicked(v)}"
                     setImageUrl="@{image}"
                     android:src="@drawable/logo" />
 

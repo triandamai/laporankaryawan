@@ -58,7 +58,7 @@ public class ResetPassword extends BaseKaryawanFragment {
             builder.setCancelable(false);
             builder.setTitle("Infor");
             builder.setMessage(message);
-            builder.setNeutralButton("Oke", (dialog, which) -> {
+            builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             });

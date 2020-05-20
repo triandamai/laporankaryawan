@@ -61,6 +61,7 @@ public class UbahProfil extends BaseKaryawanFragment {
         binding.setFoto(MyUser.getInstance(getContext()).getUser().getFotoUser());
         binding.setIsLoading(false);
         binding.setVm(mViewModel);
+        binding.setPick(pickImage);
         ImagePickerActivity.clearCache(getContext());
         return binding.getRoot();
     }
@@ -139,7 +140,7 @@ public class UbahProfil extends BaseKaryawanFragment {
             builder.setTitle("Info");
             builder.setMessage(message);
             builder.setCancelable(false);
-            builder.setNeutralButton("OKE", (dialog, which) -> {
+            builder.setPositiveButton("OKE", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             });

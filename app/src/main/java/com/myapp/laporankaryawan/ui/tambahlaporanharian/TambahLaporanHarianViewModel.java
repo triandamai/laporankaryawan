@@ -26,6 +26,7 @@ public class TambahLaporanHarianViewModel extends ViewModel {
     public MutableLiveData<String> tipe = new MutableLiveData<>();
     public MutableLiveData<RequestSimpanHarian> req = new MutableLiveData<>();
     public MutableLiveData<OutletModel> outletmodel = new MutableLiveData<>();
+    public MutableLiveData<String> foto = new MutableLiveData<>();
 
     public TambahLaporanHarianViewModel(Context context) {
         this.context = context;

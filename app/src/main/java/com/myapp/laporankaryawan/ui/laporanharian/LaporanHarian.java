@@ -32,7 +32,7 @@ public class LaporanHarian extends BaseKaryawanFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.laporan_harian_fragment2, container, false);
-        binding.setIsLoading(true);
+        binding.setIsLoading(false);
         binding.setListener(refreshListener);
         adapterLaporanBulanan = new AdapterLaporanBulanan(itemClicked);
         binding.rv.setAdapter(adapterLaporanBulanan);

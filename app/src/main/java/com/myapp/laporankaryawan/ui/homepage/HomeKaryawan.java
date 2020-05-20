@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
@@ -36,6 +37,9 @@ public class HomeKaryawan extends BaseKaryawanFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_karyawan_fragment, container, false);
         binding.setClick(homePageCallback);
+        binding.setProfil(MyUser.getInstance(getContext()).getUser());
+        binding.setIsLoading(true);
+        binding.setListener(refreshListener);
         return binding.getRoot();
     }
 
@@ -43,7 +47,32 @@ public class HomeKaryawan extends BaseKaryawanFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(HomeKaryawanViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel.fetchFromApi();
+        mViewModel.init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.fetchFromApi();
+        mViewModel.init();
+        binding.setIsLoading(false);
+        observe(mViewModel);
+    }
+
+    private SwipeRefreshLayout.OnRefreshListener refreshListener = () -> {
+        mViewModel.fetchFromApi();
+        mViewModel.init();
+        binding.setIsLoading(false);
+    };
+
+    private void observe(HomeKaryawanViewModel mViewModel) {
+        mViewModel.getHomePageModelLiveData().observe(getViewLifecycleOwner(), homePageKaryawan -> {
+            binding.setIsLoading(false);
+            if (homePageKaryawan != null) {
+                binding.setData(homePageKaryawan);
+            }
+        });
     }
 
     private HomePageCallback homePageCallback = new HomePageCallback() {

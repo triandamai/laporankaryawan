@@ -1,5 +1,6 @@
 package com.myapp.data.service;
 
+import com.google.gson.JsonObject;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianRekapanRequestData;
@@ -21,6 +22,7 @@ import com.myapp.domain.serialize.ResponsePostLogin;
 import com.myapp.domain.serialize.req.RequestSimpanBulanan;
 import com.myapp.domain.serialize.req.RequestSimpanHarian;
 import com.myapp.domain.serialize.req.RequestUbahPassword;
+import com.myapp.domain.serialize.res.ResponseHomePageKaryawan;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -41,6 +43,10 @@ public interface ApiService {
     @Headers({accept_json, content_type, api_key})
     @GET("dashboard/data")
     Call<ResponseGetOverview> getOverview();
+
+    @Headers({accept_json, content_type, api_key})
+    @POST("dashboard/data_karyawan")
+    Call<ResponseHomePageKaryawan> getOverviewKaryawan(@Body JsonObject idUser);
 
     @Headers({accept_json, content_type, api_key})
     @POST("auth/login")

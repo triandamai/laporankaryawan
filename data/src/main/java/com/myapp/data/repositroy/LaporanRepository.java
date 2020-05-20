@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.LaporanBulananModel;
@@ -12,6 +14,7 @@ import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.LaporanHarianRequestData;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.UserModel;
+import com.myapp.domain.realmobject.HomePageKaryawan;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.realmobject.KaryawanObject;
 import com.myapp.domain.realmobject.KotaObject;
@@ -24,6 +27,7 @@ import com.myapp.domain.serialize.ResponseGetLaporanBulanan;
 import com.myapp.domain.serialize.ResponseGetLaporanHarian;
 import com.myapp.domain.serialize.ResponseGetOutlet;
 import com.myapp.domain.serialize.ResponseGetOverview;
+import com.myapp.domain.serialize.res.ResponseHomePageKaryawan;
 
 import org.json.JSONException;
 
@@ -62,7 +66,7 @@ public class LaporanRepository {
         return service;
     }
 
-    public void getDataHomepgae() {
+    public void getDataHomepage() {
 
         service.getOverview().enqueue(new Callback<ResponseGetOverview>() {
             @Override
@@ -99,6 +103,42 @@ public class LaporanRepository {
 
             @Override
             public void onFailure(Call<ResponseGetOverview> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+
+
+    }
+
+    public void getDataHomeKaryawan() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id_user", MyUser.getInstance(context).getUser().getIdUser());
+        service.getOverviewKaryawan(jsonObject).enqueue(new Callback<ResponseHomePageKaryawan>() {
+            @Override
+            public void onResponse(Call<ResponseHomePageKaryawan> call, Response<ResponseHomePageKaryawan> response) {
+                try {
+
+                    Log.e(TAG, response.body().toString());
+                    if (cek(response.code(), context, "getData Home Page")) {
+                        HomePageKaryawan object = new HomePageKaryawan();
+                        object.setId(0);
+                        object.setLapHarian(response.body().getData().getLapHarian());
+                        object.setLapBulanan(response.body().getData().getLapBulanan());
+                        realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(object));
+
+                    } else {
+
+                    }
+
+                } finally {
+                    if (realm != null) {
+                        //realm.close();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseHomePageKaryawan> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
             }
         });

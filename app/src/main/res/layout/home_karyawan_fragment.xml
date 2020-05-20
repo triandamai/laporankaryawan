@@ -16,7 +16,11 @@
 
         <variable
             name="profil"
-            type="String" />
+            type="com.myapp.domain.model.UserModel" />
+
+        <variable
+            name="data"
+            type="com.myapp.domain.realmobject.HomePageKaryawan" />
 
         <variable
             name="listener"
@@ -80,7 +84,7 @@
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:layout_width="@dimen/dp_50"
                                     android:layout_height="@dimen/dp_50"
-                                    setImageUrlC="@{profil}"
+                                    setImageUrlC="@{profil.fotoUser}"
                                     android:src="@drawable/logo" />
 
                                 <TextView
@@ -152,7 +156,7 @@
                                             android:layout_marginBottom="5dp"
                                             android:textStyle="bold"
                                             android:textColor="@color/black"
-                                            android:text="@{`0`}" />
+                                            android:text="@{data.lapHarian}" />
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -193,7 +197,7 @@
                                             android:layout_marginBottom="5dp"
                                             android:textStyle="bold"
                                             android:textColor="@color/black"
-                                            android:text="@{`0`}" />
+                                            android:text="@{data.lapBulanan}" />
 
                                         <TextView
                                             android:layout_width="wrap_content"

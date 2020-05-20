@@ -16,7 +16,7 @@ public class HomePageViewModel extends ViewModel {
     private Context context;
     private Realm realm;
 
-    private  LiveData<HomePageObject> homePageModelLiveData;
+    private LiveData<HomePageObject> homePageModelLiveData;
 
     public HomePageViewModel(Context context) {
         this.context = context;
@@ -27,19 +27,19 @@ public class HomePageViewModel extends ViewModel {
     }
 
     public void fetchFromApi() {
-        LaporanRepository.getInstance(context).getDataHomepgae();
+        LaporanRepository.getInstance(context).getDataHomepage();
     }
 
-    public void init(){
+    public void init() {
         try {
             homePageModelLiveData = new RealmLiveObject((realm.where(HomePageObject.class).findFirst()));
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             homePageModelLiveData = new MutableLiveData<>();
         }
     }
 
     public LiveData<HomePageObject> getHomePageModelLiveData() {
-        if (homePageModelLiveData == null){
+        if (homePageModelLiveData == null) {
             homePageModelLiveData = new MutableLiveData<>();
         }
         return homePageModelLiveData;

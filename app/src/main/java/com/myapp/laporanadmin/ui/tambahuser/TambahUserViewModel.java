@@ -77,8 +77,8 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
                 userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
                 userModel.setFotoUser(foto.getValue());
                 userModel.setNipUser(usermodel.getValue().getNipUser());
-                userModel.setCreatedAt("");
-                userModel.setUpdatedAt("");
+                userModel.setCreatedAt(null);
+                userModel.setUpdatedAt(null);
                 userModel.setLevelUser("1");
                 if (userModel.validData() || !TextUtils.isEmpty(usermodel.getValue().getFotoUser())) {
                     apiService.simpanuser(userModel).enqueue(this);

@@ -20,7 +20,6 @@ import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
-import com.myapp.laporanadmin.RootAdmin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -124,7 +123,7 @@ public class BaseKaryawanFragment extends Fragment {
     }
 
     protected void signOut() {
-        ((RootAdmin) getActivity()).onSignOut();
+        ((RootKaryawan) getActivity()).onSignOut();
     }
 
 

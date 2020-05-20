@@ -75,12 +75,23 @@ public class TambahUser extends BaseFragment {
             binding.setIsEdit(false);
             binding.setImage(userModel.getFotoUser());
             mViewModel.usermodel.setValue(userModel);
-            mViewModel.foto.setValue("");
+            mViewModel.foto.setValue(null);
             mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
 
         } else {
             binding.setIsEdit(true);
             setActionBar(binding.toolbar, "Tambah Karyawan", "");
+            mViewModel.foto.setValue(null);
+            UserModel userModel = new UserModel();
+            userModel.setFotoUser("");
+            userModel.setUsernameUser("");
+            userModel.setPasswordUser("");
+            userModel.setIdUser("");
+            userModel.setCreatedAt("");
+            userModel.setUsernameUser("");
+            userModel.setNipUser("");
+            userModel.setLevelUser("");
+            mViewModel.usermodel.setValue(userModel);
             mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
         }
 

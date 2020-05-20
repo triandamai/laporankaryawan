@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.ResetPasswordFragmentBinding;
 import com.myapp.domain.serialize.req.RequestUbahPassword;
@@ -36,6 +37,8 @@ public class ResetPassword extends BaseKaryawanFragment {
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(ResetPasswordViewModel.class);
         mViewModel.setListener(sendDataListener);
         mViewModel.repass.setValue("");
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         RequestUbahPassword requestUbahPassword = new RequestUbahPassword();
         requestUbahPassword.setIdUser(0);
         requestUbahPassword.setPasswordBaru("");

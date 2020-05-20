@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveResult;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.realmobject.LaporanBulananObject;
@@ -41,7 +42,7 @@ public class LaporanBulananViewModel extends ViewModel {
     public LiveData<List<LaporanBulananObject>> init() {
         try {
 
-            listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).findAll());
+            listLiveData = new RealmLiveResult(realm.where(LaporanBulananObject.class).equalTo("idUser", MyUser.getInstance(context).getUser().getIdUser()).findAll());
         } catch (NullPointerException e) {
             listLiveData = new MutableLiveData<>();
         }

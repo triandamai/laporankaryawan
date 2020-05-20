@@ -41,7 +41,7 @@ public class LaporanHarianViewModel extends ViewModel {
     public LiveData<List<LaporanHarianObject>> init() {
         try {
 
-            listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).equalTo("id_user", MyUser.getInstance(context).getUser().getIdUser()).findAll());
+            listLiveData = new RealmLiveResult(realm.where(LaporanHarianObject.class).equalTo("idUser", MyUser.getInstance(context).getUser().getIdUser()).findAll());
         } catch (NullPointerException e) {
             listLiveData = new MutableLiveData<>();
         }

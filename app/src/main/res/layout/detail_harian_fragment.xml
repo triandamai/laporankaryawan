@@ -15,6 +15,7 @@
         <variable
             name="isEditable"
             type="boolean" />
+
         <variable
             name="data"
             type="com.myapp.domain.realmobject.LaporanHarianObject" />
@@ -190,6 +191,20 @@
                     android:scaleType="fitXY"
                     android:layout_marginTop="@dimen/dp_4"
                     setImageUrl="@{data.buktiLaporanharian}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lokasi"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/padding_10"
+                    android:textColor="@color/colorPrimary" />
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_300" />
 
                 <LinearLayout
                     android:layout_marginTop="@dimen/dp_8"

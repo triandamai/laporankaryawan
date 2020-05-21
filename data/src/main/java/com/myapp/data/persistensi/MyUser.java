@@ -10,24 +10,25 @@ import com.myapp.domain.model.UserModel;
 public class MyUser {
     private static String TAG = "PERSISTENSI ::";
     private static MyUser myUser;
-    private static   SharedPreferences sharedPreferences ;
+    private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-    private  Context context;
-    private MyUser(Context ctx){
+    private Context context;
+
+    private MyUser(Context ctx) {
         context = ctx;
-        sharedPreferences = ctx.getSharedPreferences("data_laporan",0);
+        sharedPreferences = ctx.getSharedPreferences("data_laporan", 0);
         editor = sharedPreferences.edit();
     }
+
     public static MyUser getInstance(Context context) {
-        if(myUser == null){
+        if (myUser == null) {
             myUser = new MyUser(context);
         }
         return myUser;
     }
 
 
-
-    public void setUser( UserModel user) {
+    public void setUser(UserModel user) {
         try {
 
             Gson gson = new Gson();
@@ -39,7 +40,7 @@ public class MyUser {
     }
 
 
-    public  UserModel getUser() {
+    public UserModel getUser() {
         try {
             Gson gson = new Gson();
             String json = sharedPreferences.getString("userdata", "");
@@ -50,28 +51,44 @@ public class MyUser {
             return null;
         }
     }
-    public void setTipeFormUser(String tipe){
-        editor.putString("tambahuser",tipe);
+
+    public void setTipeFormUser(String tipe) {
+        editor.putString("tambahuser", tipe);
         editor.apply();
     }
-    public String getTipeFormUser(){
-        return sharedPreferences.getString("tambahuser","tambah");
+
+    public String getTipeFormUser() {
+        return sharedPreferences.getString("tambahuser", "tambah");
     }
-    public void setTipeFormKota(String tipe){
-        editor.putString("tambahkota",tipe);
+
+    public void setTipeFormKota(String tipe) {
+        editor.putString("tambahkota", tipe);
         editor.apply();
     }
-    public String getTipeFormKota(){
-        return sharedPreferences.getString("tambakota","tambah");
+
+    public String getTipeFormKota() {
+        return sharedPreferences.getString("tambakota", "tambah");
     }
-    public void setTipeFormOutlet(String tipe){
-        editor.putString("tambaoutlet",tipe);
+
+    public void setTipeFormOutlet(String tipe) {
+        editor.putString("tambaoutlet", tipe);
         editor.apply();
     }
-    public String getTipeFormOutlet(){
-        return sharedPreferences.getString("tambahoutlet","tambah");
+
+    public String getTipeFormOutlet() {
+        return sharedPreferences.getString("tambahoutlet", "tambah");
     }
-    public  void signOut() {
+
+    public void setLocation(String tipe) {
+        editor.putString("alamat", tipe);
+        editor.apply();
+    }
+
+    public String getLocation() {
+        return sharedPreferences.getString("alamat", null);
+    }
+
+    public void signOut() {
         editor.remove("userdata");
         editor.apply();
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="data"
+            type="com.myapp.domain.realmobject.OutletObject" />
+
+        <variable
+            name="callback"
+            type="com.myapp.laporanadmin.ui.bottomsheet.AdapterSheetOutlet.ItemClicked" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/ripple_white"
+        android:onClick="@{()->callback.onClick(data)}"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black_tua_hehe"
+            android:text="@{data.namaOutlet}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@{data.namaKota}" />
+
+    </LinearLayout>
+</layout>

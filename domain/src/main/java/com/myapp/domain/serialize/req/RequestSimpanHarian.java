@@ -16,10 +16,10 @@ public class RequestSimpanHarian {
     private String alamatLaporanharian;
     @SerializedName("latitude_laporanharian")
     @Expose
-    private Integer latitudeLaporanharian;
+    private Double latitudeLaporanharian;
     @SerializedName("longitude_laporanharian")
     @Expose
-    private Integer longitudeLaporanharian;
+    private Double longitudeLaporanharian;
     @SerializedName("keterangan_laporanharian")
     @Expose
     private String keteranganLaporanharian;
@@ -51,19 +51,19 @@ public class RequestSimpanHarian {
         this.alamatLaporanharian = alamatLaporanharian;
     }
 
-    public Integer getLatitudeLaporanharian() {
+    public Double getLatitudeLaporanharian() {
         return latitudeLaporanharian;
     }
 
-    public void setLatitudeLaporanharian(Integer latitudeLaporanharian) {
+    public void setLatitudeLaporanharian(Double latitudeLaporanharian) {
         this.latitudeLaporanharian = latitudeLaporanharian;
     }
 
-    public Integer getLongitudeLaporanharian() {
+    public Double getLongitudeLaporanharian() {
         return longitudeLaporanharian;
     }
 
-    public void setLongitudeLaporanharian(Integer longitudeLaporanharian) {
+    public void setLongitudeLaporanharian(Double longitudeLaporanharian) {
         this.longitudeLaporanharian = longitudeLaporanharian;
     }
 

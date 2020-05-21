@@ -1,6 +1,7 @@
 package com.myapp.laporankaryawan.ui.tambahlaporanharian;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -24,9 +25,12 @@ public class TambahLaporanHarianViewModel extends ViewModel {
     private ApiService apiService;
     private SendDataListener listener;
     public MutableLiveData<String> tipe = new MutableLiveData<>();
-    public MutableLiveData<RequestSimpanHarian> req = new MutableLiveData<>();
+    public MutableLiveData<Double> lat = new MutableLiveData<>();
+    public MutableLiveData<Double> lng = new MutableLiveData<>();
+    public MutableLiveData<String> isi = new MutableLiveData<>();
     public MutableLiveData<OutletModel> outletmodel = new MutableLiveData<>();
     public MutableLiveData<String> foto = new MutableLiveData<>();
+    public MutableLiveData<String> alamat = new MutableLiveData<>();
 
     public TambahLaporanHarianViewModel(Context context) {
         this.context = context;
@@ -40,32 +44,44 @@ public class TambahLaporanHarianViewModel extends ViewModel {
     public void simpan() {
         listener.onStart();
         if (tipe.getValue().equalsIgnoreCase(context.getString(R.string.AKSI_TAMBAH))) {
+
             RequestSimpanHarian simpanHarian = new RequestSimpanHarian();
-            simpanHarian.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
-            simpanHarian.setAlamatLaporanharian(req.getValue().getAlamatLaporanharian());
-            simpanHarian.setBuktiLaporanharian(req.getValue().getBuktiLaporanharian());
-            simpanHarian.setIdOutlet(Integer.parseInt(outletmodel.getValue().getIdOutlet()));
-            simpanHarian.setKeteranganLaporanharian(req.getValue().getKeteranganLaporanharian());
-            simpanHarian.setLatitudeLaporanharian(req.getValue().getLatitudeLaporanharian());
-            simpanHarian.setLongitudeLaporanharian(req.getValue().getLongitudeLaporanharian());
+            try {
+                if (outletmodel.getValue().getIdOutlet() != null ||
+                        !TextUtils.isEmpty(outletmodel.getValue().getIdOutlet()) ||
+                        alamat.getValue() == null ||
+                        !TextUtils.isEmpty(alamat.getValue())) {
+                    simpanHarian.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
+                    simpanHarian.setAlamatLaporanharian(alamat.getValue());
+                    simpanHarian.setBuktiLaporanharian(foto.getValue());
+                    simpanHarian.setIdOutlet(Integer.parseInt(outletmodel.getValue().getIdOutlet()));
+                    simpanHarian.setKeteranganLaporanharian(isi.getValue());
+                    simpanHarian.setLatitudeLaporanharian(lat.getValue());
+                    simpanHarian.setLongitudeLaporanharian(lng.getValue());
 
-            apiService.tambahlaporanharian(simpanHarian).enqueue(new Callback<ResponsePost>() {
-                @Override
-                public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                    Log.e("Hasil", response.body().toString());
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                        listener.onSuccess(response.body().getResponseMessage());
-                    } else {
-                        listener.onFailed(response.body().getResponseMessage());
-                    }
+                    apiService.tambahlaporanharian(simpanHarian).enqueue(new Callback<ResponsePost>() {
+                        @Override
+                        public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                            Log.e("Hasil", response.body().toString());
+                            if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                                listener.onSuccess(response.body().getResponseMessage());
+                            } else {
+                                listener.onFailed(response.body().getResponseMessage());
+                            }
 
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponsePost> call, Throwable t) {
+                            listener.onFailed(t.getMessage());
+                        }
+                    });
+                } else {
+                    listener.onFailed("Mohon Isi semua data");
                 }
-
-                @Override
-                public void onFailure(Call<ResponsePost> call, Throwable t) {
-                    listener.onFailed(t.getMessage());
-                }
-            });
+            } catch (NullPointerException e) {
+                listener.onFailed(e.getMessage());
+            }
         } else {
         }
 

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahLaporanBulananFragmentBinding;
@@ -35,6 +36,8 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.tambah_laporan_bulanan_fragment, container, false);
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         setHasOptionsMenu(true);
         setActionBar(binding.toolbar, "Tambah Laporan Bulanan", "");
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanBulananViewModel.class);

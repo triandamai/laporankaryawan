@@ -46,6 +46,7 @@ public class MyBindingAdapter {
 
     @BindingAdapter("setImageUrl")
     public static void setImageUrl(ImageView v, String url) {
+
         Picasso.get().load(url)
                 .placeholder(R.drawable.ic_user)
                 .into(v);

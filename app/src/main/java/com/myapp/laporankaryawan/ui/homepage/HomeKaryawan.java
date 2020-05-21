@@ -40,6 +40,7 @@ public class HomeKaryawan extends BaseKaryawanFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_karyawan_fragment, container, false);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         HomePageKaryawan homePageKaryawan = new HomePageKaryawan();
         homePageKaryawan.setLapBulanan(0);
         homePageKaryawan.setLapHarian(0);

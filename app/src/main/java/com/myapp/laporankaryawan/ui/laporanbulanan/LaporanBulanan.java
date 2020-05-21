@@ -16,9 +16,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.myapp.R;
 import com.myapp.databinding.LaporanBulananFragment2Binding;
+import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
+import com.myapp.laporankaryawan.ui.detaillaporanbulanankaryawan.DetailBulanan;
 
 public class LaporanBulanan extends BaseKaryawanFragment {
 
@@ -68,7 +70,14 @@ public class LaporanBulanan extends BaseKaryawanFragment {
 
         @Override
         public void onDetail(int pos) {
+            LaporanBulananObject obj = adapterLaporanBulanan.getFromPosition(pos);
 
+            Bundle bundle = new Bundle();
+            bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
+            bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
+            DetailBulanan bulanan = new DetailBulanan();
+            bulanan.setArguments(bundle);
+            replaceFragment(bulanan, null);
         }
     };
 

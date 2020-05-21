@@ -16,9 +16,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.myapp.R;
 import com.myapp.databinding.LaporanHarianFragment2Binding;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
+import com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan.DetailHarian;
 
 public class LaporanHarian extends BaseKaryawanFragment {
 
@@ -84,7 +86,13 @@ public class LaporanHarian extends BaseKaryawanFragment {
 
         @Override
         public void onDetail(int pos) {
-
+            LaporanHarianObject obj = adapterLaporanHarian.getFromPosition(pos);
+            Bundle bundle = new Bundle();
+            bundle.putString("idlaporanharian", obj.getIdLaporanharian());
+            bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
+            DetailHarian detailHarian = new DetailHarian();
+            detailHarian.setArguments(bundle);
+            replaceFragment(detailHarian, null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

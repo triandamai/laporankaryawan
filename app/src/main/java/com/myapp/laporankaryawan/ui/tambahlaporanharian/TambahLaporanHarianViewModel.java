@@ -51,6 +51,7 @@ public class TambahLaporanHarianViewModel extends ViewModel {
                         !TextUtils.isEmpty(outletmodel.getValue().getIdOutlet()) ||
                         alamat.getValue() == null ||
                         !TextUtils.isEmpty(alamat.getValue())) {
+                    Log.e("foto", foto.getValue());
                     simpanHarian.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
                     simpanHarian.setAlamatLaporanharian(alamat.getValue());
                     simpanHarian.setBuktiLaporanharian(foto.getValue());

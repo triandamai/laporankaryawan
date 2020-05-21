@@ -246,10 +246,10 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_marginBottom="10dp"
-                            android:weightSum="3">
+                            android:weightSum="2">
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp_8"
                                 app:cardCornerRadius="@dimen/dp_8"
@@ -289,7 +289,7 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp_8"
                                 app:cardCornerRadius="@dimen/dp_8"
@@ -328,8 +328,18 @@
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
 
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="2">
+
                             <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp_8"
                                 app:cardCornerRadius="@dimen/dp_8"
@@ -365,6 +375,44 @@
                                         android:textStyle="bold"
                                         android:textColor="@color/black_tua_hehe"
                                         android:text="@string/editprofil" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                android:elevation="@dimen/dp_16"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?attr/selectableItemBackground"
+                                android:layout_weight="1">
+
+                                <LinearLayout
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/dp_12">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dp_40"
+                                        android:layout_height="@dimen/dp_40"
+                                        android:src="@drawable/ic_rekap" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/dp_4"
+                                        android:layout_marginBottom="2dp"
+                                        android:text="@string/rekapan_nlaporan_saya"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black_tua_hehe"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>

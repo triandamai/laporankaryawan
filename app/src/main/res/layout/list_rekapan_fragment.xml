@@ -82,7 +82,7 @@
                                 android:layout_marginBottom="2dp"
                                 android:textStyle="bold"
                                 android:textColor="@color/black_tua_hehe"
-                                android:text="@string/bulanan" />
+                                android:text="@string/laporan_bulanan" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

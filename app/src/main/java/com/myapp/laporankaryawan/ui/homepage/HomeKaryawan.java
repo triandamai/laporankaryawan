@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.HomeKaryawanFragmentBinding;
@@ -113,8 +114,19 @@ public class HomeKaryawan extends BaseKaryawanFragment {
 
         @Override
         public void onSignOut() {
-            MyUser.getInstance(getContext()).signOut();
-            signOut();
+            builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+            builder.create();
+            builder.setTitle("Hi..");
+            builder.setMessage("Yakin Mau Keluar ?");
+            builder.setPositiveButton("Keluar", (dialog, which) -> {
+                MyUser.getInstance(getContext()).signOut();
+                signOut();
+            });
+            builder.setNegativeButton("Batal", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            builder.show();
+            
         }
     };
 

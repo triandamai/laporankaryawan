@@ -72,7 +72,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Outlet" />
+                    android:text="@string/outlet"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/dp_8"
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -93,7 +96,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Alamat" />
+                    android:text="@string/alamat_laporan"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/dp_8"
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -102,50 +108,55 @@
                     android:inputType="textCapSentences|textMultiLine"
                     android:padding="@dimen/dp_16"
                     android:gravity="top"
-                    android:minHeight="@dimen/dp_100"
+                    android:minHeight="@dimen/dp_80"
                     android:textSize="@dimen/sp_14"
                     android:focusable="false"
                     android:onClick="@{(v)->pickAlamat.pickAlamat(v)}"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={alamat}"
-                    android:hint="Masukkan Alamat Laporan" />
+                    android:hint="@string/masukkan_alamat_laporan" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Keterangan" />
+                    android:text="@string/keterangan"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/dp_8"
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_muda_banget"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:padding="@dimen/dp_16"
+                    android:minHeight="@dimen/dp_80"
                     android:gravity="top"
                     android:textSize="@dimen/sp_14"
                     android:singleLine="false"
                     android:textColor="@color/black_tua_hehe"
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={vm.isi}"
-                    android:hint="Masukkan Keterangan Laporan" />
+                    android:hint="@string/masukkan_keterangan_laporan" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Keterangan" />
+                    android:text="@string/bukti_laporan"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/dp_8"
+                    android:textColor="@color/colorPrimary" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/dp_100"
-                    android:maxHeight="@dimen/dp_200"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     android:layout_marginBottom="@dimen/padding_10"
                     android:onClick="@{(v)->pick.ImageClicked(v)}"
                     setImageUrl="@{image}"
-                    android:src="@drawable/logo" />
+                    android:src="@drawable/ic_user2" />
 
 
                 <Button

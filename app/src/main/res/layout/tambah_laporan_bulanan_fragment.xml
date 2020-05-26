@@ -48,7 +48,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Isi Laporan" />
+                    android:text="@string/isi_laporan"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/dp_8"
+                    android:textColor="@color/colorPrimary" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -63,7 +66,7 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:text="@={vm.req.isiLaporanbulanan}"
                     android:layout_marginBottom="@dimen/sp_16"
-                    android:hint="Masukkan Isi LaporanBaru" />
+                    android:hint="@string/masukkan_isi_laporan_baru" />
 
 
                 <Button

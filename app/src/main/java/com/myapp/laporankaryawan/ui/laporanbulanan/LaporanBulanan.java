@@ -20,7 +20,7 @@ import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
-import com.myapp.laporankaryawan.ui.detaillaporanbulanankaryawan.DetailBulanan;
+import com.myapp.laporankaryawan.ui.detaillaporanbulanankaryawan.DetailBulananKaryawan;
 
 public class LaporanBulanan extends BaseKaryawanFragment {
 
@@ -75,7 +75,7 @@ public class LaporanBulanan extends BaseKaryawanFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
             bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
-            DetailBulanan bulanan = new DetailBulanan();
+            DetailBulananKaryawan bulanan = new DetailBulananKaryawan();
             bulanan.setArguments(bundle);
             replaceFragment(bulanan, null);
         }

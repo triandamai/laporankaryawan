@@ -1,4 +1,4 @@
-package com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan;
+package com.myapp.laporanadmin.ui.detaillaporanharian;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,32 +19,33 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
-import com.myapp.databinding.DetailHarianKaryawanFragmentBinding;
+import com.myapp.databinding.DetailHarianFragmentBinding;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
-public class DetailHarian extends BaseAdminFragment {
+public class DetailHarianAdmin extends BaseAdminFragment {
 
     private GoogleMap gmaps;
 
-    private DetailHarianViewModel mViewModel;
-    private DetailHarianKaryawanFragmentBinding binding;
+    private DetailHarianAdminViewModel mViewModel;
+    private DetailHarianFragmentBinding binding;
     private String id;
     private LaporanHarianObject laporanHarianObject;
 
-    public static DetailHarian newInstance() {
-        return new DetailHarian();
+    public static DetailHarianAdmin newInstance() {
+        return new DetailHarianAdmin();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.detail_harian_karyawan_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.detail_harian_fragment, container, false);
 
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(getActivity(), new DetailHarianFactory(getContext())).get(DetailHarianViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity(), new DetailHarianAdminFactory(getContext())).get(DetailHarianAdminViewModel.class);
         mViewModel.setSendDataListener(sendDataListener);
+        binding.setVm(mViewModel);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
         Bundle bundle = getArguments();
@@ -79,7 +80,7 @@ public class DetailHarian extends BaseAdminFragment {
             gmaps = googleMap;
             LatLng latLng = new LatLng(Double.parseDouble(laporanHarianObject.getLatitudeLaporanharian()), Double.parseDouble(laporanHarianObject.getLongitudeLaporanharian()));
             gmaps.addMarker(new MarkerOptions().position(latLng).title("Lokasi Laporan").snippet(laporanHarianObject.getAlamatLaporanharian()));
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(16.0f).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         });
         return binding.getRoot();
@@ -93,7 +94,7 @@ public class DetailHarian extends BaseAdminFragment {
         binding.mapview.onResume();
     }
 
-    private void observe(DetailHarianViewModel mViewModel) {
+    private void observe(DetailHarianAdminViewModel mViewModel) {
         mViewModel.getObject(id);
         mViewModel.getLaporanHarianObjectLiveData().observe(getViewLifecycleOwner(), new Observer<LaporanHarianObject>() {
             @Override
@@ -101,7 +102,7 @@ public class DetailHarian extends BaseAdminFragment {
                 if (laporanHarianObject != null) {
 
                     binding.setData(laporanHarianObject);
-                    DetailHarian.this.laporanHarianObject = laporanHarianObject;
+                    DetailHarianAdmin.this.laporanHarianObject = laporanHarianObject;
                     if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("1")) {
                         binding.setISrejected(false);
                     } else if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("2")) {

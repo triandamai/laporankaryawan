@@ -13,17 +13,19 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.myapp.R;
+import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.DetailBulananKaryawanFragmentBinding;
+import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.domain.serialize.req.RequestSimpanBulanan;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.callback.OnViewClicked;
 import com.myapp.laporankaryawan.ui.tambahlaporanbulanan.TambahLaporanBulanan;
 
-public class DetailBulanan extends BaseKaryawanFragment {
+public class DetailBulananKaryawan extends BaseKaryawanFragment {
 
-    private DetailBulananViewModel mViewModel;
+    private DetailBulananKaryawanViewModel mViewModel;
     private DetailBulananKaryawanFragmentBinding binding;
     private String id = "";
     private LaporanBulananObject laporanBulananObject;
@@ -33,8 +35,9 @@ public class DetailBulanan extends BaseKaryawanFragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_bulanan_karyawan_fragment, container, false);
+        binding.setUpdate(viewClicked);
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(getActivity(), new DetailBulananFactory(getContext())).get(DetailBulananViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity(), new DetailBulananKaryawanFactory(getContext())).get(DetailBulananKaryawanViewModel.class);
         mViewModel.setSendDataListener(sendDataListener);
 
 
@@ -74,13 +77,13 @@ public class DetailBulanan extends BaseKaryawanFragment {
         observe(mViewModel);
     }
 
-    private void observe(DetailBulananViewModel mViewModel) {
+    private void observe(DetailBulananKaryawanViewModel mViewModel) {
         mViewModel.getObject(id);
         mViewModel.getLaporanBulananObjectLiveData().observe(getViewLifecycleOwner(), new Observer<LaporanBulananObject>() {
             @Override
             public void onChanged(LaporanBulananObject laporanBulananObject) {
                 if (laporanBulananObject != null) {
-                    DetailBulanan.this.laporanBulananObject = laporanBulananObject;
+                    DetailBulananKaryawan.this.laporanBulananObject = laporanBulananObject;
                     binding.setData(laporanBulananObject);
                     if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("1")) {
                         binding.setISrejected(false);
@@ -94,16 +97,41 @@ public class DetailBulanan extends BaseKaryawanFragment {
         });
     }
 
-    private OnViewClicked viewClicked = () -> {
-        Bundle bundle = new Bundle();
-        RequestSimpanBulanan simpanBulanan = new RequestSimpanBulanan();
-        simpanBulanan.setIsiLaporanbulanan(laporanBulananObject.getIsiLaporanbulanan());
-        simpanBulanan.setIdUser(Integer.parseInt(laporanBulananObject.getIdUser()));
-        Gson gson = new Gson();
-        bundle.putString("laporanbulanan", gson.toJson(simpanBulanan));
-        TambahLaporanBulanan tambahLaporanBulanan = new TambahLaporanBulanan();
-        tambahLaporanBulanan.setArguments(bundle);
+    private OnViewClicked viewClicked = new OnViewClicked() {
+        @Override
+        public void onUpdateBulanan(LaporanBulananObject l) {
+
+            builder.setTitle("Hi");
+            builder.setMessage("Mau Edit Laporan " + l.getNamaUser() + "?");
+            builder.setPositiveButton("Edit", (dialog, which) -> {
+                dialog.dismiss();
+                Gson gson = new Gson();
+
+                LaporanBulananModel b = new LaporanBulananModel();
+                b.setUser(MyUser.getInstance(getContext()).getUser());
+                b.setUpdatedAt(l.getUpdatedAt());
+                b.setIsiLaporanbulanan(l.getIsiLaporanbulanan());
+                b.setStatusLaporanbulanan(l.getStatusLaporanbulanan());
+                b.setIdUser(l.getIdUser());
+                b.setCreatedAt(l.getCreatedAt());
+                b.setIdLaporanbulanan(l.getIdLaporanbulanan());
+
+                Bundle bundle = new Bundle();
+                bundle.putString("laporanbulanan", gson.toJson(b));
+                TambahLaporanBulanan tambahUser = new TambahLaporanBulanan();
+                tambahUser.setArguments(bundle);
+                replaceFragment(tambahUser, null);
+            });
+            builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
+            builder.show();
+        }
+
+        @Override
+        public void onUpdateHarian(LaporanHarianObject l) {
+
+        }
     };
+
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {

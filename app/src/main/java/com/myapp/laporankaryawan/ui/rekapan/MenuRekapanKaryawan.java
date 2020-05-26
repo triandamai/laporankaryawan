@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myapp.R;
 import com.myapp.databinding.MenuRekapanKaryawanFragmentBinding;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
+import com.myapp.laporankaryawan.ui.rekapan.bulanan.RekapanBulananKaryawan;
 import com.myapp.laporankaryawan.ui.rekapan.harian.RekapanHarianKaryawan;
 
 public class MenuRekapanKaryawan extends BaseKaryawanFragment {
@@ -34,7 +35,7 @@ public class MenuRekapanKaryawan extends BaseKaryawanFragment {
         binding.setEvent(new com.myapp.laporanadmin.callback.ListRekapan() {
             @Override
             public void onBulanan() {
-                replaceFragment(RekapanHarianKaryawan.newInstance(), null);
+                replaceFragment(RekapanBulananKaryawan.newInstance(), null);
             }
 
             @Override

@@ -17,9 +17,9 @@ import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
-public class DetailBulanan extends BaseAdminFragment {
+public class DetailBulananAdmin extends BaseAdminFragment {
 
-    private DetailBulananViewModel mViewModel;
+    private DetailBulananAdminViewModel mViewModel;
     private DetailBulananFragmentBinding binding;
     private String id = "";
 
@@ -29,7 +29,7 @@ public class DetailBulanan extends BaseAdminFragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_bulanan_fragment, container, false);
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(getActivity(), new DetailBulananFactory(getContext())).get(DetailBulananViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity(), new DetailBulananAdminFactory(getContext())).get(DetailBulananAdminViewModel.class);
         mViewModel.setSendDataListener(sendDataListener);
         binding.setVm(mViewModel);
 
@@ -69,7 +69,7 @@ public class DetailBulanan extends BaseAdminFragment {
         observe(mViewModel);
     }
 
-    private void observe(DetailBulananViewModel mViewModel) {
+    private void observe(DetailBulananAdminViewModel mViewModel) {
         mViewModel.getObject(id);
         mViewModel.getLaporanBulananObjectLiveData().observe(getViewLifecycleOwner(), new Observer<LaporanBulananObject>() {
             @Override

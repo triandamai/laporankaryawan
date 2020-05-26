@@ -166,7 +166,7 @@
                         android:text="@string/edit"
                         android:textColor="@color/putih"
                         android:layout_margin="2.5dp"
-                        android:onClick="@{()->update.onUpdate()}"
+                        android:onClick="@{()->update.onUpdateBulanan(data)}"
                         android:background="@drawable/ripple_primary"
                         android:src="@drawable/ic_check" />
                 </LinearLayout>

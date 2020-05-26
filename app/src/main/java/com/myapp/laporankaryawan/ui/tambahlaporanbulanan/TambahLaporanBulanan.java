@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahLaporanBulananFragmentBinding;
+import com.myapp.domain.model.LaporanBulananModel;
 import com.myapp.domain.serialize.req.RequestSimpanBulanan;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
@@ -42,15 +43,17 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
         setHasOptionsMenu(true);
 
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanBulananViewModel.class);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
+        Bundle bundle = new Bundle();
+        if (bundle.getString("laporanbulanan") != null) {
             setActionBar(binding.toolbar, "Ubah Laporan Bulanan", "");
             Gson gson = new Gson();
-
-            RequestSimpanBulanan requestSimpanBulanan = gson.fromJson("laporanbulanan", RequestSimpanBulanan.class);
+            LaporanBulananModel b = gson.fromJson(bundle.getString("laporanbulanan"), LaporanBulananModel.class);
+            RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();
+            requestSimpanBulanan.setIdUser(Integer.parseInt(b.getIdUser()));
+            requestSimpanBulanan.setIsiLaporanbulanan(b.getIsiLaporanbulanan());
 
             mViewModel.setListener(sendDataListener);
-            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
             mViewModel.req.setValue(requestSimpanBulanan);
         } else {
             setActionBar(binding.toolbar, "Tambah Laporan Bulanan", "");
@@ -59,11 +62,12 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
             requestSimpanBulanan.setIsiLaporanbulanan("");
 
             mViewModel.setListener(sendDataListener);
-            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
             mViewModel.req.setValue(requestSimpanBulanan);
         }
         binding.setVm(mViewModel);
         binding.setIsLoading(false);
+
 
         return binding.getRoot();
     }

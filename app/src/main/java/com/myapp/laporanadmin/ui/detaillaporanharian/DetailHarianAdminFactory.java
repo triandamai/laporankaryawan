@@ -1,4 +1,4 @@
-package com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan;
+package com.myapp.laporanadmin.ui.detaillaporanharian;
 
 import android.content.Context;
 
@@ -6,11 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class DetailHarianFactory implements ViewModelProvider.Factory {
+public class DetailHarianAdminFactory implements ViewModelProvider.Factory {
     private Context context;
 
 
-    public DetailHarianFactory(Context context) {
+    public DetailHarianAdminFactory(Context context) {
 
         this.context = context;
     }
@@ -19,8 +19,8 @@ public class DetailHarianFactory implements ViewModelProvider.Factory {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(DetailHarianViewModel.class)) {
-            return (T) new DetailHarianViewModel(context);
+        if (modelClass.isAssignableFrom(DetailHarianAdminViewModel.class)) {
+            return (T) new DetailHarianAdminViewModel(context);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

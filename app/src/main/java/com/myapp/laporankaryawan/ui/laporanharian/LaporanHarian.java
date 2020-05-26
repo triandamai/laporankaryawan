@@ -20,7 +20,7 @@ import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
 import com.myapp.laporankaryawan.KaryawanFactory;
-import com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan.DetailHarian;
+import com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan.DetailHarianKaryawan;
 
 public class LaporanHarian extends BaseKaryawanFragment {
 
@@ -90,9 +90,9 @@ public class LaporanHarian extends BaseKaryawanFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanharian", obj.getIdLaporanharian());
             bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
-            DetailHarian detailHarian = new DetailHarian();
-            detailHarian.setArguments(bundle);
-            replaceFragment(detailHarian, null);
+            DetailHarianKaryawan detailHarianKaryawan = new DetailHarianKaryawan();
+            detailHarianKaryawan.setArguments(bundle);
+            replaceFragment(detailHarianKaryawan, null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

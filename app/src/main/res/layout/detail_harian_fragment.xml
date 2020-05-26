@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    tools:context="com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian">
+    tools:context="com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianAdmin">
 
     <data>
 
@@ -22,7 +22,7 @@
 
         <variable
             name="vm"
-            type="com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianViewModel" />
+            type="com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianAdminViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

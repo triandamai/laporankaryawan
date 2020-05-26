@@ -16,7 +16,7 @@ import com.myapp.databinding.LaporanHarianFragmentBinding;
 import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;
+import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianAdmin;
 
 ;
 
@@ -115,9 +115,9 @@ public class LaporanHarian extends BaseAdminFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanharian", obj.getIdLaporanharian());
             bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
-            DetailHarian detailHarian = new DetailHarian();
-            detailHarian.setArguments(bundle);
-            replaceFragment(detailHarian, null);
+            DetailHarianAdmin detailHarianAdmin = new DetailHarianAdmin();
+            detailHarianAdmin.setArguments(bundle);
+            replaceFragment(detailHarianAdmin, null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

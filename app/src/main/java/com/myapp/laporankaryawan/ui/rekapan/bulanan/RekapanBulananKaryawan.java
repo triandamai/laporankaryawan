@@ -34,9 +34,10 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
-import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
+import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulananAdmin;
 import com.myapp.laporanadmin.ui.rekapan.bulanan.AdapterRekapanBulananAdmin;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
+import com.myapp.laporankaryawan.ui.rekapan.RekapanKaryawanFactory;
 
 import org.joda.time.DateTime;
 
@@ -67,7 +68,7 @@ public class RekapanBulananKaryawan extends BaseKaryawanFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.rekapan_bulanan_karyawan_fragment, container, false);
         setActionBar(binding.toolbar, "Rekap Data Bulanan", "");
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(requireActivity()).get(RekapanBulananKaryawanViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), new RekapanKaryawanFactory(getContext())).get(RekapanBulananKaryawanViewModel.class);
         mViewModel.setRekapanListener(prosesrekap);
         mViewModel.setExportListener(exportListener);
         binding.setIsLoading(false);
@@ -156,7 +157,7 @@ public class RekapanBulananKaryawan extends BaseKaryawanFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
             bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
-            DetailBulanan bulanan = new DetailBulanan();
+            DetailBulananAdmin bulanan = new DetailBulananAdmin();
             bulanan.setArguments(bundle);
             replaceFragment(bulanan, null);
         }

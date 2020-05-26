@@ -37,7 +37,7 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
-import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
+import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulananAdmin;
 import com.myapp.laporanadmin.ui.rekapan.RekapanAdminFactory;
 
 import org.joda.time.DateTime;
@@ -160,7 +160,7 @@ public class RekapanBulananAdmin extends BaseAdminFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
             bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
-            DetailBulanan bulanan = new DetailBulanan();
+            DetailBulananAdmin bulanan = new DetailBulananAdmin();
             bulanan.setArguments(bundle);
             replaceFragment(bulanan, null);
         }

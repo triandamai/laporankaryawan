@@ -1,4 +1,4 @@
-package com.myapp.laporanadmin.ui.detaillaporanharian;
+package com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,34 +18,41 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
-import com.myapp.databinding.DetailHarianFragmentBinding;
+import com.myapp.data.persistensi.MyUser;
+import com.myapp.databinding.DetailHarianKaryawanFragmentBinding;
+import com.myapp.domain.model.KotaModel;
+import com.myapp.domain.model.LaporanHarianModel;
+import com.myapp.domain.model.OutletModel;
+import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.domain.realmobject.LaporanHarianObject;
-import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
+import com.myapp.laporankaryawan.BaseKaryawanFragment;
+import com.myapp.laporankaryawan.callback.OnViewClicked;
+import com.myapp.laporankaryawan.ui.tambahlaporanharian.TambahLaporanHarian;
 
-public class DetailHarian extends BaseAdminFragment {
+public class DetailHarianKaryawan extends BaseKaryawanFragment {
 
     private GoogleMap gmaps;
 
-    private DetailHarianViewModel mViewModel;
-    private DetailHarianFragmentBinding binding;
+    private DetailHarianKaryawanViewModel mViewModel;
+    private DetailHarianKaryawanFragmentBinding binding;
     private String id;
     private LaporanHarianObject laporanHarianObject;
 
-    public static DetailHarian newInstance() {
-        return new DetailHarian();
+    public static DetailHarianKaryawan newInstance() {
+        return new DetailHarianKaryawan();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.detail_harian_fragment, container, false);
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.detail_harian_karyawan_fragment, container, false);
+        binding.setUpdate(onViewClicked);
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(getActivity(), new DetailHarianFactory(getContext())).get(DetailHarianViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity(), new DetailHarianKaryawanFactory(getContext())).get(DetailHarianKaryawanViewModel.class);
         mViewModel.setSendDataListener(sendDataListener);
-        binding.setVm(mViewModel);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
         Bundle bundle = getArguments();
@@ -80,7 +87,7 @@ public class DetailHarian extends BaseAdminFragment {
             gmaps = googleMap;
             LatLng latLng = new LatLng(Double.parseDouble(laporanHarianObject.getLatitudeLaporanharian()), Double.parseDouble(laporanHarianObject.getLongitudeLaporanharian()));
             gmaps.addMarker(new MarkerOptions().position(latLng).title("Lokasi Laporan").snippet(laporanHarianObject.getAlamatLaporanharian()));
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(16.0f).build();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         });
         return binding.getRoot();
@@ -94,7 +101,7 @@ public class DetailHarian extends BaseAdminFragment {
         binding.mapview.onResume();
     }
 
-    private void observe(DetailHarianViewModel mViewModel) {
+    private void observe(DetailHarianKaryawanViewModel mViewModel) {
         mViewModel.getObject(id);
         mViewModel.getLaporanHarianObjectLiveData().observe(getViewLifecycleOwner(), new Observer<LaporanHarianObject>() {
             @Override
@@ -102,7 +109,7 @@ public class DetailHarian extends BaseAdminFragment {
                 if (laporanHarianObject != null) {
 
                     binding.setData(laporanHarianObject);
-                    DetailHarian.this.laporanHarianObject = laporanHarianObject;
+                    DetailHarianKaryawan.this.laporanHarianObject = laporanHarianObject;
                     if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("1")) {
                         binding.setISrejected(false);
                     } else if (laporanHarianObject.getStatusLaporanharian().equalsIgnoreCase("2")) {
@@ -114,6 +121,58 @@ public class DetailHarian extends BaseAdminFragment {
             }
         });
     }
+
+    private OnViewClicked onViewClicked = new OnViewClicked() {
+        @Override
+        public void onUpdateBulanan(LaporanBulananObject l) {
+
+        }
+
+        @Override
+        public void onUpdateHarian(LaporanHarianObject l) {
+            builder.setTitle("Hi");
+            builder.setMessage("Mau Edit Laporan " + l.getKeteranganLaporanharian() + "?");
+            builder.setPositiveButton("Edit", (dialog, which) -> {
+                dialog.dismiss();
+                Gson gson = new Gson();
+
+                KotaModel k = new KotaModel();
+                k.setNamaKota(l.getNamaKota());
+                k.setIdKota(l.getIdKota());
+                k.setUpdatedAt(l.getUpdatedAt());
+                k.setCreatedAt(l.getCreatedAt());
+                OutletModel o = new OutletModel();
+                o.setKota(k);
+                o.setIdOutlet(l.getIdOutlet());
+                o.setNamaOutlet(l.getNamaOutlet());
+                o.setUpdatedAt(l.getUpdatedAt());
+                o.setCreatedAt(l.getCreatedAt());
+                o.setIdKota(l.getIdKota());
+
+                LaporanHarianModel h = new LaporanHarianModel();
+                h.setOutlet(o);
+                h.setUser(MyUser.getInstance(getContext()).getUser());
+                h.setStatusLaporanharian(l.getStatusLaporanharian());
+                h.setLongitudeLaporanharian(l.getLongitudeLaporanharian());
+                h.setLatitudeLaporanharian(l.getLatitudeLaporanharian());
+                h.setKeteranganLaporanharian(l.getKeteranganLaporanharian());
+                h.setUpdatedAt(l.getUpdatedAt());
+                h.setIdUser(MyUser.getInstance(getContext()).getUser().getIdUser());
+                h.setIdOutlet(l.getIdOutlet());
+                h.setIdLaporanharian(l.getIdLaporanharian());
+                h.setBuktiLaporanharian(l.getBuktiLaporanharian());
+                h.setAlamatLaporanharian(l.getAlamatLaporanharian());
+
+                Bundle bundle = new Bundle();
+                bundle.putString("laporanharian", gson.toJson(h));
+                TambahLaporanHarian tambahUser = new TambahLaporanHarian();
+                tambahUser.setArguments(bundle);
+                replaceFragment(tambahUser, null);
+            });
+            builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());
+            builder.show();
+        }
+    };
 
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override

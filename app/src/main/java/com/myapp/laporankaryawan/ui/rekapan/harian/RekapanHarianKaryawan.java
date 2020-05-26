@@ -35,8 +35,9 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
-import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;
+import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianAdmin;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
+import com.myapp.laporankaryawan.ui.rekapan.RekapanKaryawanFactory;
 
 import org.joda.time.DateTime;
 
@@ -67,7 +68,7 @@ public class RekapanHarianKaryawan extends BaseKaryawanFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.rekapan_harian_karyawan_fragment, container, false);
         setActionBar(binding.toolbar, "Rekap Harian", "");
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(requireActivity()).get(RekapanHarianKaryawanViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), new RekapanKaryawanFactory(getContext())).get(RekapanHarianKaryawanViewModel.class);
         mViewModel.setRekapanListener(prosesrekap);
         mViewModel.setExportListener(exportListener);
         binding.setIsLoading(false);
@@ -158,9 +159,9 @@ public class RekapanHarianKaryawan extends BaseKaryawanFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanharian", obj.getIdLaporanharian());
             bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
-            DetailHarian detailHarian = new DetailHarian();
-            detailHarian.setArguments(bundle);
-            replaceFragment(detailHarian, null);
+            DetailHarianAdmin detailHarianAdmin = new DetailHarianAdmin();
+            detailHarianAdmin.setArguments(bundle);
+            replaceFragment(detailHarianAdmin, null);
         }
     };
 

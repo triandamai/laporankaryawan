@@ -1,15 +1,16 @@
-package com.myapp.laporanadmin.ui.detaillaporanbulanan;
+package com.myapp.laporanadmin.ui.detaillaporanharian;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.myapp.data.local.RealmLiveObject;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
-import com.myapp.domain.model.PostProsesLaporanBulanan;
-import com.myapp.domain.realmobject.LaporanBulananObject;
+import com.myapp.domain.model.PostProsesLaporanHarian;
+import com.myapp.domain.realmobject.LaporanHarianObject;
 import com.myapp.domain.serialize.ResponsePost;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
@@ -20,19 +21,18 @@ import retrofit2.Response;
 
 import static com.myapp.data.service.ApiHandler.cek;
 
-public class DetailBulananViewModel extends ViewModel {
+public class DetailHarianAdminViewModel extends ViewModel {
     private Context context;
+    private LaporanHarianObject obj;
     private ApiService apiService;
     private Realm realm;
     private SendDataListener sendDataListener;
+    public LiveData<LaporanHarianObject> laporanHarianObjectLiveData;
 
-    public LiveData<LaporanBulananObject> laporanBulananObjectLiveData;
-
-    public DetailBulananViewModel(Context context) {
+    public DetailHarianAdminViewModel(Context context) {
         this.context = context;
-
-        this.apiService = LaporanRepository.getService(context);
         this.realm = Realm.getDefaultInstance();
+        this.apiService = LaporanRepository.getService(context);
 
     }
 
@@ -40,16 +40,12 @@ public class DetailBulananViewModel extends ViewModel {
         this.sendDataListener = sendDataListener;
     }
 
-    public void getObject(String id) {
-        laporanBulananObjectLiveData = new RealmLiveObject(realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan", id).findFirst());
-    }
-
     public void aksi(int s, String idl) {
         sendDataListener.onStart();
-        PostProsesLaporanBulanan post = new PostProsesLaporanBulanan();
-        post.setIdLaporanbulanan(idl);
-        post.setStatusLaporanbulanan(s);
-        apiService.laporanbulananproses(post).enqueue(new Callback<ResponsePost>() {
+        PostProsesLaporanHarian post = new PostProsesLaporanHarian();
+        post.setIdLaporanharian(idl);
+        post.setStatusLaporanharian(s);
+        apiService.proseslaporanharian(post).enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if (cek(response.code(), context, "Proses Laporan Harian")) {
@@ -58,9 +54,9 @@ public class DetailBulananViewModel extends ViewModel {
                         realm.executeTransactionAsync(new Realm.Transaction() {
                             @Override
                             public void execute(Realm realm) {
-                                LaporanBulananObject obj = realm.where(LaporanBulananObject.class).equalTo("idLaporanbulanan", idl).findFirst();
+                                LaporanHarianObject obj = realm.where(LaporanHarianObject.class).equalTo("idLaporanharian", idl).findFirst();
                                 if (obj != null) {
-                                    obj.setStatusLaporanbulanan(String.valueOf(s));
+                                    obj.setStatusLaporanharian(String.valueOf(s));
                                 }
                             }
                         });
@@ -80,8 +76,16 @@ public class DetailBulananViewModel extends ViewModel {
         });
     }
 
-    public LiveData<LaporanBulananObject> getLaporanBulananObjectLiveData() {
-        return laporanBulananObjectLiveData;
+    public void getObject(String id) {
+        laporanHarianObjectLiveData = new RealmLiveObject(realm.where(LaporanHarianObject.class)
+                .equalTo("idLaporanharian", id).findFirst());
     }
 
+    public LiveData<LaporanHarianObject> getLaporanHarianObjectLiveData() {
+        if (laporanHarianObjectLiveData == null) {
+            laporanHarianObjectLiveData = new MutableLiveData<>();
+        }
+        return laporanHarianObjectLiveData;
+    }
+    // TODO: Implement the ViewModel
 }

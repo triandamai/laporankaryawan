@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -32,6 +33,7 @@ import com.myapp.bottomsheet.SheetOutlet;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahLaporanHarianFragmentBinding;
 import com.myapp.domain.model.KotaModel;
+import com.myapp.domain.model.LaporanHarianModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.realmobject.OutletObject;
 import com.myapp.laporanadmin.callback.PickImage;
@@ -67,30 +69,26 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
         setHasOptionsMenu(true);
         Bundle bundle = new Bundle();
         OutletModel outletModel = new OutletModel();
-        if (bundle != null) {
+        if (bundle.getString("laporanharian") != null) {
             setActionBar(binding.toolbar, "Ubah Laporan Harian", "");
-            KotaModel kotaModel = new KotaModel();
-            kotaModel.setIdKota("");
-            kotaModel.setNamaKota("");
-            kotaModel.setUpdatedAt("");
-            kotaModel.setCreatedAt("");
-            outletModel.setKota(kotaModel);
-            outletModel.setIdOutlet("");
-            outletModel.setUpdatedAt("");
-            outletModel.setCreatedAt("");
-            outletModel.setNamaOutlet("");
-            outletModel.setIdKota("");
+            Gson gson = new Gson();
+
+            LaporanHarianModel laporanHarianModel = gson.fromJson(bundle.getString("laporanharian"), LaporanHarianModel.class);
+
+            binding.setAlamat(laporanHarianModel.getAlamatLaporanharian());
+            binding.setImage(laporanHarianModel.getBuktiLaporanharian());
+            binding.setOutlet(laporanHarianModel.getOutlet());
 
             mViewModel.setListener(sendDataListener);
             mViewModel.foto.setValue("");
-            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
             mViewModel.outletmodel.setValue(outletModel);
-            mViewModel.lat.setValue(0.0);
-            mViewModel.lng.setValue(0.0);
-            mViewModel.isi.setValue("");
-            mViewModel.alamat.setValue("");
+            mViewModel.lat.setValue(Double.parseDouble(laporanHarianModel.getLatitudeLaporanharian()));
+            mViewModel.lng.setValue(Double.parseDouble(laporanHarianModel.getLongitudeLaporanharian()));
+            mViewModel.isi.setValue(laporanHarianModel.getKeteranganLaporanharian());
+            mViewModel.alamat.setValue(laporanHarianModel.getAlamatLaporanharian());
         } else {
-            setActionBar(binding.toolbar, "Tambah Laporan Harian", "");
+            setActionBar(binding.toolbar, "Ubah Laporan Harian", "");
             KotaModel kotaModel = new KotaModel();
             kotaModel.setIdKota("");
             kotaModel.setNamaKota("");

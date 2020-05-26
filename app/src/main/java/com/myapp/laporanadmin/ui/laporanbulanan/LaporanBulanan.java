@@ -17,7 +17,7 @@ import com.myapp.databinding.LaporanBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
 import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
-import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
+import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulananAdmin;
 
 public class LaporanBulanan extends BaseAdminFragment {
     public static String TAG = "LaporanHarianObject";
@@ -119,7 +119,7 @@ public class LaporanBulanan extends BaseAdminFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanbulanan", obj.getIdLaporanbulanan());
             bundle.putString("statuslaporanbulanan", obj.getStatusLaporanbulanan());
-            DetailBulanan bulanan = new DetailBulanan();
+            DetailBulananAdmin bulanan = new DetailBulananAdmin();
             bulanan.setArguments(bundle);
             replaceFragment(bulanan, null);
         }

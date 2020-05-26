@@ -14,14 +14,15 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myapp.R;
 import com.myapp.databinding.DetailBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
-public class DetailBulanan extends BaseFragment {
+public class DetailBulanan extends BaseAdminFragment {
 
     private DetailBulananViewModel mViewModel;
     private DetailBulananFragmentBinding binding;
     private String id = "";
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -33,32 +34,29 @@ public class DetailBulanan extends BaseFragment {
         binding.setVm(mViewModel);
 
         Bundle bundle = getArguments();
-        if (bundle != null){
+        if (bundle != null) {
 
-           this.id = bundle.getString("idlaporanbulanan");
+            this.id = bundle.getString("idlaporanbulanan");
 
-           String status = bundle.getString("statuslaporanbulanan");
-            if(status.equalsIgnoreCase("1")){
+            String status = bundle.getString("statuslaporanbulanan");
+            if (status.equalsIgnoreCase("1")) {
                 binding.setIsEditable(true);
 
                 binding.setISrejected(false);
-            }else if(status.equalsIgnoreCase("2")){
+            } else if (status.equalsIgnoreCase("2")) {
                 binding.setIsEditable(false);
 
                 binding.setISrejected(false);
-            }else {
+            } else {
                 binding.setIsEditable(false);
 
                 binding.setISrejected(true);
             }
 
-            setActionBar(binding.toolbar, "Laporan Bulanan " , "");
-        }else {
+            setActionBar(binding.toolbar, "Laporan Bulanan ", "");
+        } else {
 
         }
-
-
-
 
 
         return binding.getRoot();
@@ -102,7 +100,7 @@ public class DetailBulanan extends BaseFragment {
 
             builder.setTitle("Info");
             builder.setMessage(message);
-            builder.setPositiveButton("Oke", (dialog, which) ->{
+            builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();
             });

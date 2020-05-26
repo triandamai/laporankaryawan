@@ -15,11 +15,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.LaporanBulananFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.ui.detaillaporanbulanan.DetailBulanan;
 
-public class LaporanBulanan extends BaseFragment {
+public class LaporanBulanan extends BaseAdminFragment {
     public static String TAG = "LaporanHarianObject";
     private LaporanBulananViewModel mViewModel;
     private LaporanBulananFragmentBinding binding;

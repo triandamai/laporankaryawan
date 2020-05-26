@@ -18,10 +18,10 @@ import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.TambahKotaFragmentBinding;
 import com.myapp.domain.model.KotaModel;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
-public class TambahKota extends BaseFragment {
+public class TambahKota extends BaseAdminFragment {
     public static String TAG = "Tambah Kota";
     private TambahKotaViewModel mViewModel;
     private TambahKotaFragmentBinding binding;

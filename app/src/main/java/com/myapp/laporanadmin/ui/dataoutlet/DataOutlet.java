@@ -21,12 +21,12 @@ import com.myapp.databinding.DataOutletFragmentBinding;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.realmobject.OutletObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.tambahoutlet.TambahOutlet;
 
-public class DataOutlet extends BaseFragment {
+public class DataOutlet extends BaseAdminFragment {
     public static String TAG = "Data Outlet";
     private DataOutletViewModel mViewModel;
     private DataOutletFragmentBinding binding;

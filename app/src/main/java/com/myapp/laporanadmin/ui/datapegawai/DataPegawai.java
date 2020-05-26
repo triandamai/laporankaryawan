@@ -20,12 +20,12 @@ import com.myapp.R;
 import com.myapp.databinding.DataPegawaiFragmentBinding;
 import com.myapp.domain.model.UserModel;
 import com.myapp.domain.realmobject.KaryawanObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
-public class DataPegawai extends BaseFragment {
+public class DataPegawai extends BaseAdminFragment {
     public static String TAG = "Data Pegawai";
     private DataPegawaiViewModel mViewModel;
     private DataPegawaiFragmentBinding binding;
@@ -95,7 +95,7 @@ public class DataPegawai extends BaseFragment {
                 dialog.dismiss();
                 Gson gson = new Gson();
                 Bundle bundle = new Bundle();
-                bundle.putString("user",gson.toJson(userModel));
+                bundle.putString("user", gson.toJson(userModel));
                 TambahUser tambahUser = new TambahUser();
                 tambahUser.setArguments(bundle);
                 replaceFragment(tambahUser, null);

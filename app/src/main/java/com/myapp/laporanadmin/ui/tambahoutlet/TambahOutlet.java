@@ -17,17 +17,17 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.myapp.R;
+import com.myapp.bottomsheet.SheetKota;
 import com.myapp.databinding.TambahOutletFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.model.OutletModel;
 import com.myapp.domain.model.PostOutletModel;
 import com.myapp.domain.realmobject.KotaObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.callback.SheetShow;
-import com.myapp.laporanadmin.ui.bottomsheet.SheetKota;
 
-public class TambahOutlet extends BaseFragment {
+public class TambahOutlet extends BaseAdminFragment {
     public static String TAG = "Tambah Outlet";
     private TambahOutletViewModel mViewModel;
     private TambahOutletFragmentBinding binding;

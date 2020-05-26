@@ -20,12 +20,12 @@ import com.myapp.R;
 import com.myapp.databinding.DataKotaFragmentBinding;
 import com.myapp.domain.model.KotaModel;
 import com.myapp.domain.realmobject.KotaObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporanadmin.ui.tambahkota.TambahKota;
 
-public class DataKota extends BaseFragment {
+public class DataKota extends BaseAdminFragment {
     public static String TAG = "Data Kota";
     private DataKotaViewModel mViewModel;
     private DataKotaFragmentBinding binding;
@@ -125,7 +125,7 @@ public class DataKota extends BaseFragment {
         @Override
         public void onSuccess(String message) {
             dismissProgress();
-            
+
 
             mViewModel.fetchFromApi();
         }

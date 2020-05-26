@@ -14,13 +14,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.myapp.R;
 import com.myapp.databinding.LaporanHarianFragmentBinding;
 import com.myapp.domain.realmobject.LaporanHarianObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;
 
 ;
 
-public class LaporanHarian extends BaseFragment {
+public class LaporanHarian extends BaseAdminFragment {
     public static String TAG = "LaporanHarianObject";
     private LaporanHarianViewModel mViewModel;
     private LaporanHarianFragmentBinding binding;

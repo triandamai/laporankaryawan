@@ -21,10 +21,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.databinding.DetailHarianKaryawanFragmentBinding;
 import com.myapp.domain.realmobject.LaporanHarianObject;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.SendDataListener;
 
-public class DetailHarian extends BaseFragment {
+public class DetailHarian extends BaseAdminFragment {
 
     private GoogleMap gmaps;
 

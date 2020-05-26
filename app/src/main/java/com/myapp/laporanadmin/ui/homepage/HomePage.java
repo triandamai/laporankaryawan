@@ -15,17 +15,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.HomePageAdminFragmentBinding;
-import com.myapp.laporanadmin.BaseFragment;
+import com.myapp.laporanadmin.BaseAdminFragment;
 import com.myapp.laporanadmin.callback.HomePageItemClicked;
 import com.myapp.laporanadmin.ui.datakota.DataKota;
 import com.myapp.laporanadmin.ui.dataoutlet.DataOutlet;
 import com.myapp.laporanadmin.ui.datapegawai.DataPegawai;
 import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
-import com.myapp.laporanadmin.ui.rekapan.ListRekapan;
+import com.myapp.laporanadmin.ui.rekapan.MenuRekapanAdmin;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
 
-public class HomePage extends BaseFragment {
+public class HomePage extends BaseAdminFragment {
     public static String TAG = "Home Page Fragment";
 
     private HomePageViewModel mViewModel;
@@ -173,7 +173,7 @@ public class HomePage extends BaseFragment {
 
         @Override
         public void RekapLaporan(View v) {
-            replaceFragment(ListRekapan.newInstance(), null);
+            replaceFragment(MenuRekapanAdmin.newInstance(), null);
         }
     };
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {

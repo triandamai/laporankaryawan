@@ -35,8 +35,8 @@ import com.myapp.laporanadmin.callback.AdapterItemClicked;
 import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
-import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarianAdmin;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
+import com.myapp.laporankaryawan.ui.detaillaporanhariankaryawan.DetailHarianKaryawan;
 import com.myapp.laporankaryawan.ui.rekapan.RekapanKaryawanFactory;
 
 import org.joda.time.DateTime;
@@ -159,7 +159,7 @@ public class RekapanHarianKaryawan extends BaseKaryawanFragment {
             Bundle bundle = new Bundle();
             bundle.putString("idlaporanharian", obj.getIdLaporanharian());
             bundle.putString("statuslaporanharian", obj.getStatusLaporanharian());
-            DetailHarianAdmin detailHarianAdmin = new DetailHarianAdmin();
+            DetailHarianKaryawan detailHarianAdmin = new DetailHarianKaryawan();
             detailHarianAdmin.setArguments(bundle);
             replaceFragment(detailHarianAdmin, null);
         }

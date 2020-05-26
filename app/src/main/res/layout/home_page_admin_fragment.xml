@@ -540,6 +540,61 @@
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="@color/black_tua_hehe"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:text="@string/lainnya" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_8"
+                            app:cardCornerRadius="@dimen/dp_8"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_marginBottom="@dimen/sp_20"
+                            android:foreground="?attr/selectableItemBackground"
+                            viewGone="@{isNotifikasiHarian}">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="4"
+                                android:gravity="center_vertical"
+                                android:paddingTop="@dimen/dp_8"
+                                android:paddingBottom="@dimen/dp_8"
+                                android:onClick="@{(v)->click.ResetPassword(v)}"
+                                android:background="@color/putih">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp_16"
+                                    android:layout_height="@dimen/dp_16"
+                                    android:layout_margin="@dimen/dp_4"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_settings" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/biru"
+                                    android:layout_weight="2"
+                                    android:text="@{`Ubah Password`}" />
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp_16"
+                                    android:layout_height="@dimen/dp_16"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_keyboard_arrow_right" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.core.widget.NestedScrollView>

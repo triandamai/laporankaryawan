@@ -24,6 +24,7 @@ import com.myapp.laporanadmin.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporanadmin.ui.laporanharian.LaporanHarian;
 import com.myapp.laporanadmin.ui.rekapan.MenuRekapanAdmin;
 import com.myapp.laporanadmin.ui.tambahuser.TambahUser;
+import com.myapp.laporankaryawan.ui.profil.resetpassword.ResetPassword;
 
 public class HomePage extends BaseAdminFragment {
     public static String TAG = "Home Page Fragment";
@@ -149,6 +150,11 @@ public class HomePage extends BaseAdminFragment {
         @Override
         public void LogOut(View v) {
             keluar();
+        }
+
+        @Override
+        public void ResetPassword(View v) {
+            replaceFragment(ResetPassword.newInstance(), null);
         }
 
         @Override

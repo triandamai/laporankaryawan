@@ -16,6 +16,9 @@
             name="data"
             type="com.myapp.domain.realmobject.LaporanBulananObject" />
 
+        <variable
+            name="update"
+            type="com.myapp.laporankaryawan.callback.OnViewClicked" />
 
     </data>
 
@@ -153,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="2"
-                    android:visibility="gone"
+                    viewGone="@{isEditable}"
                     android:orientation="horizontal">
 
                     <Button
@@ -163,6 +166,7 @@
                         android:text="@string/edit"
                         android:textColor="@color/putih"
                         android:layout_margin="2.5dp"
+                        android:onClick="@{()->update.onUpdate()}"
                         android:background="@drawable/ripple_primary"
                         android:src="@drawable/ic_check" />
                 </LinearLayout>

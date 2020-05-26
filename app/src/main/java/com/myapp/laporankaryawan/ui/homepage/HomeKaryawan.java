@@ -66,7 +66,6 @@ public class HomeKaryawan extends BaseKaryawanFragment {
         super.onResume();
         mViewModel.fetchFromApi();
         mViewModel.init();
-        binding.setIsLoading(false);
         observe(mViewModel);
     }
 
@@ -78,6 +77,7 @@ public class HomeKaryawan extends BaseKaryawanFragment {
 
     private void observe(HomeKaryawanViewModel mViewModel) {
         mViewModel.getHomePageModelLiveData().observe(getViewLifecycleOwner(), homePageKaryawan -> {
+            //  Log.e("observe", homePageKaryawan.toString());
             binding.setIsLoading(false);
             if (homePageKaryawan != null) {
                 Log.e("observe", homePageKaryawan.toString());

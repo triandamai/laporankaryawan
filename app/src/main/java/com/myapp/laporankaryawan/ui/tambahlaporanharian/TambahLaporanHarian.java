@@ -63,29 +63,56 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanHarianViewModel.class);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
-        setActionBar(binding.toolbar, "Tambah Laporan Harian", "");
-        setHasOptionsMenu(true);
-        OutletModel outletModel = new OutletModel();
-        KotaModel kotaModel = new KotaModel();
-        kotaModel.setIdKota("");
-        kotaModel.setNamaKota("");
-        kotaModel.setUpdatedAt("");
-        kotaModel.setCreatedAt("");
-        outletModel.setKota(kotaModel);
-        outletModel.setIdOutlet("");
-        outletModel.setUpdatedAt("");
-        outletModel.setCreatedAt("");
-        outletModel.setNamaOutlet("");
-        outletModel.setIdKota("");
 
-        mViewModel.setListener(sendDataListener);
-        mViewModel.foto.setValue("");
-        mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
-        mViewModel.outletmodel.setValue(outletModel);
-        mViewModel.lat.setValue(0.0);
-        mViewModel.lng.setValue(0.0);
-        mViewModel.isi.setValue("");
-        mViewModel.alamat.setValue("");
+        setHasOptionsMenu(true);
+        Bundle bundle = new Bundle();
+        OutletModel outletModel = new OutletModel();
+        if (bundle != null) {
+            setActionBar(binding.toolbar, "Ubah Laporan Harian", "");
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setIdKota("");
+            kotaModel.setNamaKota("");
+            kotaModel.setUpdatedAt("");
+            kotaModel.setCreatedAt("");
+            outletModel.setKota(kotaModel);
+            outletModel.setIdOutlet("");
+            outletModel.setUpdatedAt("");
+            outletModel.setCreatedAt("");
+            outletModel.setNamaOutlet("");
+            outletModel.setIdKota("");
+
+            mViewModel.setListener(sendDataListener);
+            mViewModel.foto.setValue("");
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+            mViewModel.outletmodel.setValue(outletModel);
+            mViewModel.lat.setValue(0.0);
+            mViewModel.lng.setValue(0.0);
+            mViewModel.isi.setValue("");
+            mViewModel.alamat.setValue("");
+        } else {
+            setActionBar(binding.toolbar, "Tambah Laporan Harian", "");
+            KotaModel kotaModel = new KotaModel();
+            kotaModel.setIdKota("");
+            kotaModel.setNamaKota("");
+            kotaModel.setUpdatedAt("");
+            kotaModel.setCreatedAt("");
+            outletModel.setKota(kotaModel);
+            outletModel.setIdOutlet("");
+            outletModel.setUpdatedAt("");
+            outletModel.setCreatedAt("");
+            outletModel.setNamaOutlet("");
+            outletModel.setIdKota("");
+
+            mViewModel.setListener(sendDataListener);
+            mViewModel.foto.setValue("");
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+            mViewModel.outletmodel.setValue(outletModel);
+            mViewModel.lat.setValue(0.0);
+            mViewModel.lng.setValue(0.0);
+            mViewModel.isi.setValue("");
+            mViewModel.alamat.setValue("");
+
+        }
         sheetOutlet = new SheetOutlet();
         sheetOutlet.setOnSheetListener(sheetListener);
 
@@ -97,7 +124,6 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
         binding.setVm(mViewModel);
         binding.setPick(pickImage);
         binding.setPickAlamat(pickAlamat);
-
         return binding.getRoot();
     }
 
@@ -229,6 +255,7 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
                 double lng = data.getDoubleExtra("lng", 0);
                 mViewModel.lng.setValue(lng);
                 mViewModel.lat.setValue(lat);
+                mViewModel.alamat.setValue(alamat);
                 Log.e("hasil Alamat", alamat);
                 binding.setAlamat(alamat);
                 mViewModel.alamat.getValue();

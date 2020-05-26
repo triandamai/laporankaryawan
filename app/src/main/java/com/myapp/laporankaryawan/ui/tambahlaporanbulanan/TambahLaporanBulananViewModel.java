@@ -62,6 +62,26 @@ public class TambahLaporanBulananViewModel extends ViewModel {
                 }
             });
         } else {
+            RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();
+            requestSimpanBulanan.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
+            requestSimpanBulanan.setIsiLaporanbulanan(req.getValue().getIsiLaporanbulanan());
+            apiService.tambahlaporanbulanan(requestSimpanBulanan).enqueue(new Callback<ResponsePost>() {
+                @Override
+                public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                    Log.e("Hasil", response.body().toString());
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        listener.onSuccess(response.body().getResponseMessage());
+                    } else {
+                        listener.onFailed(response.body().getResponseMessage());
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponsePost> call, Throwable t) {
+                    listener.onFailed(t.getMessage());
+                }
+            });
         }
 
     }

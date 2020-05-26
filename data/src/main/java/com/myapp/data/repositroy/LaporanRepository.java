@@ -3,7 +3,6 @@ package com.myapp.data.repositroy;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.service.ApiService;
@@ -119,14 +118,17 @@ public class LaporanRepository {
             public void onResponse(Call<ResponseHomePageKaryawan> call, Response<ResponseHomePageKaryawan> response) {
                 try {
 
-
+                    //  realm.beginTransaction();
                     if (cek(response.code(), context, "getData Home Page")) {
                         Log.e(TAG, response.body().toString());
                         HomePageKaryawan object = new HomePageKaryawan();
                         object.setId(0);
                         object.setLapHarian(response.body().getData().getLapHarian());
                         object.setLapBulanan(response.body().getData().getLapBulanan());
-                        realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(object));
+                        realm.executeTransaction(realm -> {
+                            Log.e("simpan", "hehe");
+                            realm.copyToRealmOrUpdate(object);
+                        });
 
                     } else {
 
@@ -149,8 +151,6 @@ public class LaporanRepository {
     }
 
     public void getLaporanHarian(LaporanHarianRequestData laporanHarianRequestData) throws JSONException {
-        Gson gson = new Gson();
-
 
         service.getAllLaporanharian(laporanHarianRequestData).enqueue(new Callback<ResponseGetLaporanHarian>() {
             @Override

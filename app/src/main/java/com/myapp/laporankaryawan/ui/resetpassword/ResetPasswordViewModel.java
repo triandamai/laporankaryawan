@@ -47,9 +47,15 @@ public class ResetPasswordViewModel extends ViewModel {
         requestUbahPassword.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
         requestUbahPassword.setPasswordLama(req.getValue().getPasswordLama());
         requestUbahPassword.setPasswordBaru(req.getValue().getPasswordBaru());
-        if (req.getValue().getPasswordBaru().equals(repass.getValue()) ||
-                !TextUtils.isEmpty(req.getValue().getPasswordBaru()) ||
-                !TextUtils.isEmpty(req.getValue().getPasswordLama())) {
+        if (!req.getValue().getPasswordBaru().equals(repass.getValue())) {
+            listener.onFailed("Ulang Password Tidak Sesuai!");
+        } else if (
+                TextUtils.isEmpty(req.getValue().getPasswordBaru()) ||
+                        TextUtils.isEmpty(req.getValue().getPasswordLama()) ||
+                        TextUtils.isEmpty(repass.getValue())) {
+            listener.onFailed("Isi Dulu Semua");
+
+        } else {
             apiService.ubahpassword(requestUbahPassword).enqueue(new Callback<ResponsePost>() {
                 @Override
                 public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
@@ -70,8 +76,6 @@ public class ResetPasswordViewModel extends ViewModel {
                     listener.onError(t.getMessage());
                 }
             });
-        } else {
-            listener.onFailed("Ulang Pasword Tidak sesaui !");
         }
     }
 }

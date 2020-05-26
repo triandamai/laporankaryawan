@@ -11,17 +11,22 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.databinding.DetailBulananKaryawanFragmentBinding;
 import com.myapp.domain.realmobject.LaporanBulananObject;
+import com.myapp.domain.serialize.req.RequestSimpanBulanan;
 import com.myapp.laporanadmin.callback.SendDataListener;
 import com.myapp.laporankaryawan.BaseKaryawanFragment;
+import com.myapp.laporankaryawan.callback.OnViewClicked;
+import com.myapp.laporankaryawan.ui.tambahlaporanbulanan.TambahLaporanBulanan;
 
 public class DetailBulanan extends BaseKaryawanFragment {
 
     private DetailBulananViewModel mViewModel;
     private DetailBulananKaryawanFragmentBinding binding;
     private String id = "";
+    private LaporanBulananObject laporanBulananObject;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -75,6 +80,7 @@ public class DetailBulanan extends BaseKaryawanFragment {
             @Override
             public void onChanged(LaporanBulananObject laporanBulananObject) {
                 if (laporanBulananObject != null) {
+                    DetailBulanan.this.laporanBulananObject = laporanBulananObject;
                     binding.setData(laporanBulananObject);
                     if (laporanBulananObject.getStatusLaporanbulanan().equalsIgnoreCase("1")) {
                         binding.setISrejected(false);
@@ -88,6 +94,16 @@ public class DetailBulanan extends BaseKaryawanFragment {
         });
     }
 
+    private OnViewClicked viewClicked = () -> {
+        Bundle bundle = new Bundle();
+        RequestSimpanBulanan simpanBulanan = new RequestSimpanBulanan();
+        simpanBulanan.setIsiLaporanbulanan(laporanBulananObject.getIsiLaporanbulanan());
+        simpanBulanan.setIdUser(Integer.parseInt(laporanBulananObject.getIdUser()));
+        Gson gson = new Gson();
+        bundle.putString("laporanbulanan", gson.toJson(simpanBulanan));
+        TambahLaporanBulanan tambahLaporanBulanan = new TambahLaporanBulanan();
+        tambahLaporanBulanan.setArguments(bundle);
+    };
     private SendDataListener sendDataListener = new SendDataListener() {
         @Override
         public void onStart() {

@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.databinding.TambahLaporanBulananFragmentBinding;
@@ -39,15 +40,28 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
         setHasOptionsMenu(true);
-        setActionBar(binding.toolbar, "Tambah Laporan Bulanan", "");
-        mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanBulananViewModel.class);
-        RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();
-        requestSimpanBulanan.setIdUser(Integer.parseInt(MyUser.getInstance(getContext()).getUser().getIdUser()));
-        requestSimpanBulanan.setIsiLaporanbulanan("");
 
-        mViewModel.setListener(sendDataListener);
-        mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
-        mViewModel.req.setValue(requestSimpanBulanan);
+        mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanBulananViewModel.class);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            setActionBar(binding.toolbar, "Ubah Laporan Bulanan", "");
+            Gson gson = new Gson();
+
+            RequestSimpanBulanan requestSimpanBulanan = gson.fromJson("laporanbulanan", RequestSimpanBulanan.class);
+
+            mViewModel.setListener(sendDataListener);
+            mViewModel.tipe.setValue(getString(R.string.AKSI_TAMBAH));
+            mViewModel.req.setValue(requestSimpanBulanan);
+        } else {
+            setActionBar(binding.toolbar, "Tambah Laporan Bulanan", "");
+            RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();
+            requestSimpanBulanan.setIdUser(Integer.parseInt(MyUser.getInstance(getContext()).getUser().getIdUser()));
+            requestSimpanBulanan.setIsiLaporanbulanan("");
+
+            mViewModel.setListener(sendDataListener);
+            mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
+            mViewModel.req.setValue(requestSimpanBulanan);
+        }
         binding.setVm(mViewModel);
         binding.setIsLoading(false);
 

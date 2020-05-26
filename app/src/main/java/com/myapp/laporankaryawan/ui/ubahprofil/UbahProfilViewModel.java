@@ -60,31 +60,31 @@ public class UbahProfilViewModel extends ViewModel {
         userModel.setCreatedAt("");
         userModel.setUpdatedAt("");
         userModel.setLevelUser("1");
-        if (userModel.validData()) {
-            apiService.updateuserkaryawan(userModel).enqueue(new Callback<ResponseUbahProfil>() {
-                @Override
-                public void onResponse(Call<ResponseUbahProfil> call, Response<ResponseUbahProfil> response) {
-                    Log.e("Hasil", response.body().toString());
-                    if (cek(response.code(), context, "Ubah Profil")) {
-                        if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                            listener.onSuccess(response.body().getResponseMessage());
-                            MyUser.getInstance(context).setUser(response.body().getData());
+        //if (userModel.validData()) {
+        apiService.updateuserkaryawan(userModel).enqueue(new Callback<ResponseUbahProfil>() {
+            @Override
+            public void onResponse(Call<ResponseUbahProfil> call, Response<ResponseUbahProfil> response) {
+                Log.e("Hasil", response.body().toString());
+                if (cek(response.code(), context, "Ubah Profil")) {
+                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        listener.onSuccess(response.body().getResponseMessage());
+                        MyUser.getInstance(context).setUser(response.body().getData());
 
-                        } else {
-                            listener.onFailed(response.body().getResponseMessage());
-                        }
                     } else {
-                        listener.onFailed(response.message());
+                        listener.onFailed(response.body().getResponseMessage());
                     }
+                } else {
+                    listener.onFailed(response.message());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ResponseUbahProfil> call, Throwable t) {
-                    listener.onError(t.getMessage());
-                }
-            });
-        } else {
-            listener.onFailed("Data Tidak Boleh Kosong");
-        }
+            @Override
+            public void onFailure(Call<ResponseUbahProfil> call, Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
+//        } else {
+//            listener.onFailed("Data Tidak Boleh Kosong");
+//        }
     }
 }

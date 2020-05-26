@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myapp.laporanadmin.ui.rekapan.bulanan.RekapanBulananAdminViewModel;
 import com.myapp.laporanadmin.ui.rekapan.harian.RekapanHarianAdminViewModel;
 
-public class RekapanFactory implements ViewModelProvider.Factory {
+public class RekapanAdminFactory implements ViewModelProvider.Factory {
     private Context context;
 
-    public RekapanFactory(Context context) {
+    public RekapanAdminFactory(Context context) {
         this.context = context;
     }
 

@@ -20,7 +20,7 @@
 
         <variable
             name="vm"
-            type="com.myapp.laporankaryawan.ui.ubahprofil.UbahProfilViewModel" />
+            type="com.myapp.laporankaryawan.ui.profil.ubahprofil.UbahProfilViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

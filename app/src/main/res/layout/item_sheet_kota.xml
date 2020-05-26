@@ -2,16 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="position"
             type="Integer" />
+
         <variable
             name="data"
             type="com.myapp.domain.realmobject.KotaObject" />
 
         <variable
             name="callback"
-            type="com.myapp.laporanadmin.ui.bottomsheet.AdapterSheetKota.ItemClicked" />
+            type="com.myapp.bottomsheet.AdapterSheetKota.ItemClicked" />
     </data>
 
     <LinearLayout

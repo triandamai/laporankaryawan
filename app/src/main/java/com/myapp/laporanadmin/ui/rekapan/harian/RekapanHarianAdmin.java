@@ -38,7 +38,7 @@ import com.myapp.laporanadmin.callback.ExportListener;
 import com.myapp.laporanadmin.callback.HalamanRekapanCallback;
 import com.myapp.laporanadmin.callback.RekapanListener;
 import com.myapp.laporanadmin.ui.detaillaporanharian.DetailHarian;
-import com.myapp.laporanadmin.ui.rekapan.RekapanFactory;
+import com.myapp.laporanadmin.ui.rekapan.RekapanAdminFactory;
 
 import org.joda.time.DateTime;
 
@@ -69,7 +69,7 @@ public class RekapanHarianAdmin extends BaseAdminFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.rekapan_harian_admin_fragment, container, false);
         setActionBar(binding.toolbar, "Rekap Harian", "");
         setHasOptionsMenu(true);
-        mViewModel = new ViewModelProvider(requireActivity(), new RekapanFactory(getContext())).get(RekapanHarianAdminViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), new RekapanAdminFactory(getContext())).get(RekapanHarianAdminViewModel.class);
         mViewModel.setRekapanListener(prosesrekap);
         mViewModel.setExportListener(exportListener);
         binding.setIsLoading(false);

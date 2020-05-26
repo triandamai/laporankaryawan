@@ -23,6 +23,7 @@ import com.myapp.laporankaryawan.callback.HomePageCallback;
 import com.myapp.laporankaryawan.ui.laporanbulanan.LaporanBulanan;
 import com.myapp.laporankaryawan.ui.laporanharian.LaporanHarian;
 import com.myapp.laporankaryawan.ui.profil.MenuProfil;
+import com.myapp.laporankaryawan.ui.rekapan.MenuRekapanKaryawan;
 import com.myapp.laporankaryawan.ui.tambahlaporanbulanan.TambahLaporanBulanan;
 import com.myapp.laporankaryawan.ui.tambahlaporanharian.TambahLaporanHarian;
 
@@ -107,6 +108,11 @@ public class HomeKaryawan extends BaseKaryawanFragment {
         public void onAllBulanan() {
             LaporanBulanan laporanBulanan = new LaporanBulanan();
             replaceFragment(laporanBulanan, null);
+        }
+
+        @Override
+        public void onRekapan() {
+            replaceFragment(MenuRekapanKaryawan.newInstance(), "menu");
         }
 
         @Override

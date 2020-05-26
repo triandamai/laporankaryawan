@@ -13,7 +13,7 @@
 
         <variable
             name="callback"
-            type="com.myapp.laporanadmin.ui.bottomsheet.AdapterSheetOutlet.ItemClicked" />
+            type="com.myapp.bottomsheet.AdapterSheetOutlet.ItemClicked" />
     </data>
 
     <LinearLayout

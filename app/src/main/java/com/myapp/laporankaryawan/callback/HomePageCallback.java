@@ -9,6 +9,8 @@ public interface HomePageCallback {
 
     void onAllBulanan();
 
+    void onRekapan();
+
     void onEditProfil();
 
     void onSignOut();

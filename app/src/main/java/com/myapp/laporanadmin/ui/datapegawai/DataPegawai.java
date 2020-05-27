@@ -146,6 +146,7 @@ public class DataPegawai extends BaseAdminFragment {
         @Override
         public void onRefresh() {
             mViewModel.fetchFromApi();
+            binding.setIsLoading(false);
         }
     };
 

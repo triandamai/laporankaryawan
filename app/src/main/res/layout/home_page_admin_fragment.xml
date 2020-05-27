@@ -541,60 +541,53 @@
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textColor="@color/black_tua_hehe"
-                            android:layout_marginBottom="@dimen/dp_8"
-                            android:layout_marginTop="@dimen/dp_8"
-                            android:text="@string/lainnya" />
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="2">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_8"
-                            app:cardCornerRadius="@dimen/dp_8"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:layout_marginBottom="@dimen/sp_20"
-                            android:foreground="?attr/selectableItemBackground"
-                            viewGone="@{isNotifikasiHarian}">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="4"
-                                android:gravity="center_vertical"
-                                android:paddingTop="@dimen/dp_8"
-                                android:paddingBottom="@dimen/dp_8"
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                android:elevation="@dimen/dp_16"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?attr/selectableItemBackground"
                                 android:onClick="@{(v)->click.ResetPassword(v)}"
-                                android:background="@color/putih">
+                                android:layout_weight="1">
 
-                                <ImageView
-                                    android:layout_width="@dimen/dp_16"
-                                    android:layout_height="@dimen/dp_16"
-                                    android:layout_margin="@dimen/dp_4"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/ic_settings" />
+                                <LinearLayout
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:onClick="@{(v)->click.ResetPassword(v)}"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/dp_12">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/biru"
-                                    android:layout_weight="2"
-                                    android:text="@{`Ubah Password`}" />
+                                    <ImageView
+                                        android:layout_width="@dimen/dp_40"
+                                        android:layout_height="@dimen/dp_40"
+                                        android:src="@drawable/ic_user2" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/dp_16"
-                                    android:layout_height="@dimen/dp_16"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/ic_keyboard_arrow_right" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/dp_4"
+                                        android:layout_marginBottom="2dp"
+                                        android:text="@string/ubah_password"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black_tua_hehe"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.core.widget.NestedScrollView>

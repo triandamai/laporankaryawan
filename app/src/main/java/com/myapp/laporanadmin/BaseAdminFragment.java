@@ -62,10 +62,10 @@ public class BaseAdminFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanHarianRequestData l = new LaporanHarianRequestData();
-        l.setIduser(null);
-        l.setBulanLaporanharian(month + 1);
-        l.setTahunLaporanharian(year);
-        l.setStatusLaporanharian(null);
+      //  l.setIduser(null);
+      //  l.setBulanLaporanharian(month + 1);
+       // l.setTahunLaporanharian(year);
+        l.setStatusLaporanharian(1);
         return l;
     }
 
@@ -86,10 +86,10 @@ public class BaseAdminFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         LaporanHarianRequestData l = new LaporanHarianRequestData();
-        l.setIduser(null);
-        l.setBulanLaporanharian(null);
+     //   l.setIduser(null)
+        l.setBulanLaporanharian(month + 1);
         l.setTahunLaporanharian(year);
-        l.setStatusLaporanharian(1);
+//        l.setStatusLaporanharian(1);
         return l;
     }
 

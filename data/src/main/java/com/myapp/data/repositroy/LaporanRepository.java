@@ -372,14 +372,7 @@ public class LaporanRepository {
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
                         if (response.body().getData().size() >= 1) {
                             try {
-
-                                realm.executeTransaction(new Realm.Transaction() {
-                                    @Override
-                                    public void execute(Realm realm) {
-                                        realm.delete(OutletObject.class);
-                                    }
-                                });
-
+                                realm.executeTransaction(realm -> realm.delete(OutletObject.class));
                                 for (OutletModel item : response.body().getData()) {
                                     OutletObject outletObject = new OutletObject();
                                     outletObject.setIdOutlet(item.getIdOutlet());
@@ -388,14 +381,7 @@ public class LaporanRepository {
                                     outletObject.setNamaKota(item.getKota().getNamaKota());
                                     outletObject.setCreatedAt(item.getCreatedAt());
                                     outletObject.setUpdatedAt(item.getUpdatedAt());
-
-                                    realm.executeTransaction(new Realm.Transaction() {
-                                        @Override
-                                        public void execute(Realm realm) {
-                                            realm.copyToRealmOrUpdate(outletObject);
-                                        }
-                                    });
-
+                                    realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(outletObject));
                                 }
                             } finally {
                                 if (realm != null) {

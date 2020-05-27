@@ -20,6 +20,7 @@ import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
 import com.myapp.domain.model.LaporanBulananRequestData;
 import com.myapp.domain.model.LaporanHarianRequestData;
+import com.myapp.laporanadmin.RootAdmin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -86,7 +87,12 @@ public class BaseKaryawanFragment extends Fragment {
 
     protected void back() {
         try {
-            ((RootKaryawan) getActivity()).onBack();
+            if(MyUser.getInstance(getContext()).getUser().getLevelUser().equalsIgnoreCase("1")){
+                ((RootKaryawan) getActivity()).onBack();
+            }else {
+                ((RootAdmin) getActivity()).onBack();
+            }
+
         } catch (NullPointerException e) {
             Log.e("onBack Fragment", Objects.requireNonNull(e.getMessage()));
         }

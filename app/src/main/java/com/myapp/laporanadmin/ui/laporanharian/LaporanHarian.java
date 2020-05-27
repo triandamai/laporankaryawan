@@ -1,6 +1,7 @@
 package com.myapp.laporanadmin.ui.laporanharian;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,9 @@ public class LaporanHarian extends BaseAdminFragment {
         setActionBar(binding.toolbar, "Laporan Harian", "");
         binding.setIsLoading(true);
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            isNotif = bundle.getBoolean("isNotif");
-        }
+
+        isNotif = bundle.getBoolean("isNotif");
+        Log.e("isNotif", String.valueOf(bundle.getBoolean("isNotif")));
         adapterLaporanHarian = new AdapterLaporanHarian(adapterItemClicked);
         binding.rv.setAdapter(adapterLaporanHarian);
 
@@ -59,37 +60,46 @@ public class LaporanHarian extends BaseAdminFragment {
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = new ViewModelProvider(requireActivity(), new LaporanHarianFactory(getContext(), getRequestHarian())).get(LaporanHarianViewModel.class);
-
+        if (isNotif) {
+            mViewModel.fetchFromApi(getRequestHarian());
+        } else {
+            mViewModel.fetchFromApi(getRequestHarianAll());
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        binding.setIsLoading(true);
         if (isNotif) {
-            mViewModel.fetchFromApi(getRequestHarianAll());
-        } else {
             mViewModel.fetchFromApi(getRequestHarian());
+            observe(mViewModel);
+        } else {
+            mViewModel.fetchFromApi(getRequestHarianAll());
+            observeAll(mViewModel);
         }
-        observe(mViewModel);
+
 
     }
 
+    private void observeAll(LaporanHarianViewModel mViewModel) {
+        mViewModel.init().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
+            if (laporanHarianObjects.size() >= 1) {
+                binding.setIsLoading(false);
+                adapterLaporanHarian.setData(laporanHarianObjects);
+            }
+        });
+    }
+
     private void observe(LaporanHarianViewModel mViewModel) {
-        if (isNotif) {
-            mViewModel.initnotifikasi().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
+
+        mViewModel.initnotifikasi().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
+            if (laporanHarianObjects.size() >= 1) {
                 binding.setIsLoading(false);
-                if (laporanHarianObjects.size() >= 1) {
-                    adapterLaporanHarian.setData(laporanHarianObjects);
-                }
-            });
-        } else {
-            mViewModel.init().observe(getViewLifecycleOwner(), laporanHarianObjects -> {
-                binding.setIsLoading(false);
-                if (laporanHarianObjects.size() >= 1) {
-                    adapterLaporanHarian.setData(laporanHarianObjects);
-                }
-            });
-        }
+                adapterLaporanHarian.setData(laporanHarianObjects);
+            }
+        });
+
 
     }
 
@@ -120,13 +130,15 @@ public class LaporanHarian extends BaseAdminFragment {
             replaceFragment(detailHarianAdmin, null);
         }
     };
+
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             if (isNotif) {
-                mViewModel.fetchFromApi(getRequestHarianAll());
-            } else {
                 mViewModel.fetchFromApi(getRequestHarian());
+            } else {
+                mViewModel.fetchFromApi(getRequestHarianAll());
+
             }
             binding.setIsLoading(false);
         }

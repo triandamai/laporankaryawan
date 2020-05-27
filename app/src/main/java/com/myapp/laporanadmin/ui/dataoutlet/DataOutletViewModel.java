@@ -40,7 +40,6 @@ public class DataOutletViewModel extends ViewModel {
 
     public void setSendDataListener(SendDataListener listener) {
         this.listener = listener;
-
     }
 
     public void fetchFromApi() {
@@ -77,8 +76,6 @@ public class DataOutletViewModel extends ViewModel {
 
     public void init() {
         try {
-
-
             outletData = new RealmLiveResult(realm.where(OutletObject.class).findAll());
         } finally {
             if (realm != null) {

@@ -73,7 +73,6 @@ public class DataOutlet extends BaseAdminFragment {
         mViewModel.getOutletData().observe(getViewLifecycleOwner(), outletObjects -> {
             binding.setIsLoading(false);
             if (outletObjects != null) {
-
                 adapterDataOutlet.setData(outletObjects);
             }
         });
@@ -155,6 +154,7 @@ public class DataOutlet extends BaseAdminFragment {
         @Override
         public void onRefresh() {
             mViewModel.fetchFromApi();
+            binding.setIsLoading(false);
         }
     };
 

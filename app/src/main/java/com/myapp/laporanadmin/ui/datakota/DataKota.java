@@ -125,8 +125,6 @@ public class DataKota extends BaseAdminFragment {
         @Override
         public void onSuccess(String message) {
             dismissProgress();
-
-
             mViewModel.fetchFromApi();
         }
 
@@ -146,6 +144,7 @@ public class DataKota extends BaseAdminFragment {
         @Override
         public void onRefresh() {
             mViewModel.fetchFromApi();
+            binding.setIsLoading(false);
         }
     };
 

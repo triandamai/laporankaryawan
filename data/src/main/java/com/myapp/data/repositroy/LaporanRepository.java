@@ -370,9 +370,10 @@ public class LaporanRepository {
                 if (cek(response.code(), context, "getData Home Page")) {
 
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        realm.executeTransaction(realm -> realm.delete(OutletObject.class));
                         if (response.body().getData().size() >= 1) {
                             try {
-                                realm.executeTransaction(realm -> realm.delete(OutletObject.class));
+
                                 for (OutletModel item : response.body().getData()) {
                                     OutletObject outletObject = new OutletObject();
                                     outletObject.setIdOutlet(item.getIdOutlet());

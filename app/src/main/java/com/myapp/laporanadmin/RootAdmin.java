@@ -7,12 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-
 import com.myapp.R;
 import com.myapp.databinding.ActivityRootAdminBinding;
 import com.myapp.laporanadmin.ui.homepage.HomePage;
 import com.myapp.login.Login;
-
 
 public class RootAdmin extends AppCompatActivity {
     private ActivityRootAdminBinding binding;

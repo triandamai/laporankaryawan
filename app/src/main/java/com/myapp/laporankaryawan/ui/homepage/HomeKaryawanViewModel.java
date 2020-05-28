@@ -36,7 +36,9 @@ public class HomeKaryawanViewModel extends ViewModel {
     }
 
     public LiveData<HomePageKaryawan> getHomePageModelLiveData() {
-
+        if (data == null) {
+            data = new MutableLiveData<>();
+        }
         return data;
     }
 }

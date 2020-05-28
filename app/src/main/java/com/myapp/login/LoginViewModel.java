@@ -40,13 +40,7 @@ public class LoginViewModel extends ViewModel {
         object.setLapHarian(0);
         object.setLapMasukBulanan(0);
         object.setLapMasukHarian(0);
-
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(object);
-            }
-        });
+        realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(object));
         realm.close();
 
     }

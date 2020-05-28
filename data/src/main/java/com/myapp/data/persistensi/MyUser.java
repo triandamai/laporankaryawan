@@ -30,7 +30,6 @@ public class MyUser {
 
     public void setUser(UserModel user) {
         try {
-
             Gson gson = new Gson();
             editor.putString("userdata", gson.toJson(user));
             editor.apply();

@@ -10,6 +10,7 @@ import com.myapp.data.persistensi.MyUser;
 import com.myapp.data.repositroy.LaporanRepository;
 import com.myapp.data.service.ApiService;
 import com.myapp.domain.model.LoginModel;
+import com.myapp.domain.realmobject.HomePageKaryawan;
 import com.myapp.domain.realmobject.HomePageObject;
 import com.myapp.domain.serialize.ResponsePostLogin;
 import com.myapp.laporanadmin.callback.SendDataListener;
@@ -34,14 +35,21 @@ public class LoginViewModel extends ViewModel {
         this.context = context;
         this.realm = Realm.getDefaultInstance();
         HomePageObject object = new HomePageObject();
+        HomePageKaryawan k = new HomePageKaryawan();
+        k.setId(1);
+        k.setLapHarian(0);
+        k.setLapBulanan(0);
         object.setId("1");
         object.setPegawai(0);
         object.setLapBulanan(0);
         object.setLapHarian(0);
         object.setLapMasukBulanan(0);
         object.setLapMasukHarian(0);
-        realm.executeTransaction(realm -> realm.copyToRealmOrUpdate(object));
-        realm.close();
+        realm.executeTransaction(realm -> {
+            realm.copyToRealmOrUpdate(object);
+            realm.copyToRealmOrUpdate(k);
+        });
+
 
     }
 

@@ -16,6 +16,7 @@ import com.myapp.laporanadmin.callback.SendDataListener;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +54,10 @@ public class DataPegawaiViewModel extends ViewModel {
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if (cek(response.code(), context, "Hapus Karyawan")) {
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        realm.executeTransaction(realm -> {
+                            RealmResults<KaryawanObject> result = realm.where(KaryawanObject.class).equalTo("idUser", model.getIdUser()).findAll();
+                            result.deleteAllFromRealm();
+                        });
                         listener.onSuccess(response.body().getResponseMessage());
                     } else {
                         listener.onFailed(response.body().getResponseMessage());

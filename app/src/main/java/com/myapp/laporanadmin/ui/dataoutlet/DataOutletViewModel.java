@@ -17,6 +17,7 @@ import com.myapp.laporanadmin.callback.SendDataListener;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,6 +58,10 @@ public class DataOutletViewModel extends ViewModel {
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if (cek(response.code(), context, "Hapus Outlet")) {
                     if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                        realm.executeTransaction(realm -> {
+                            RealmResults<OutletObject> result = realm.where(OutletObject.class).equalTo("idOutlet", model.getIdOutlet()).findAll();
+                            result.deleteAllFromRealm();
+                        });
                         listener.onSuccess(response.body().getResponseMessage());
                     } else {
                         listener.onFailed(response.body().getResponseMessage());

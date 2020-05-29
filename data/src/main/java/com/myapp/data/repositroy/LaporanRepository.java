@@ -122,7 +122,7 @@ public class LaporanRepository {
                     if (cek(response.code(), context, "getData Home Page")) {
                         Log.e(TAG, response.body().toString());
                         HomePageKaryawan object = new HomePageKaryawan();
-                        object.setId(0);
+                        object.setId(1);
                         object.setLapHarian(response.body().getData().getLapHarian());
                         object.setLapBulanan(response.body().getData().getLapBulanan());
                         realm.executeTransaction(realm -> {

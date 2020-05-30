@@ -2,7 +2,7 @@
     <string name="app_name">E-Lapor</string>
     <string name="title_karyawan">Halamankaryawan</string>
     <string name="selamat_datang">Selamat datang</string>
-    <string name="admin">Admin</string>
+    <string name="admin">Site Manager</string>
     <string name="pegawai">Pegawai</string>
     <string name="lap_harian">Lap. Harian</string>
     <string name="lap_bulanan">Lap. Bulanan</string>

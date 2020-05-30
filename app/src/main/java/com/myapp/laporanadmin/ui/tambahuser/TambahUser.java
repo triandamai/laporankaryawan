@@ -73,8 +73,9 @@ public class TambahUser extends BaseAdminFragment {
             setActionBar(binding.toolbar, "Ubah Karyawan", "");
             UserModel userModel = gson.fromJson(bundle.getString("user"), UserModel.class);
             Log.e("", userModel.toString());
-            binding.setIsEdit(false);
+            binding.setIsEdit(true);
             binding.setImage(userModel.getFotoUser());
+            userModel.setPasswordUser("");
             mViewModel.usermodel.setValue(userModel);
             mViewModel.foto.setValue(null);
             mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));

@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RequestSimpanBulanan {
+    @SerializedName("id_laporanbulanan")
+    @Expose
+    private String idLaporanbulanan;
     @SerializedName("id_user")
     @Expose
     private Integer idUser;
@@ -25,6 +28,14 @@ public class RequestSimpanBulanan {
 
     public void setIsiLaporanbulanan(String isiLaporanbulanan) {
         this.isiLaporanbulanan = isiLaporanbulanan;
+    }
+
+    public String getIdLaporanbulanan() {
+        return idLaporanbulanan;
+    }
+
+    public void setIdLaporanbulanan(String idLaporanbulanan) {
+        this.idLaporanbulanan = idLaporanbulanan;
     }
 
     @Override

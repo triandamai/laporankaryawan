@@ -19,6 +19,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.myapp.data.service.ApiHandler.cek;
+
 public class TambahLaporanBulananViewModel extends ViewModel {
     private ApiService apiService;
     private Realm realm;
@@ -48,12 +50,15 @@ public class TambahLaporanBulananViewModel extends ViewModel {
                 @Override
                 public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                     Log.e("Hasil", response.body().toString());
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                        listener.onSuccess(response.body().getResponseMessage());
+                    if (cek(response.code(), context, "Tambah")) {
+                        if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                            listener.onSuccess(response.body().getResponseMessage());
+                        } else {
+                            listener.onFailed(response.body().getResponseMessage());
+                        }
                     } else {
-                        listener.onFailed(response.body().getResponseMessage());
+                        listener.onFailed("Gagal " + response.body().getResponseMessage());
                     }
-
                 }
 
                 @Override
@@ -63,18 +68,22 @@ public class TambahLaporanBulananViewModel extends ViewModel {
             });
         } else {
             RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();
+            requestSimpanBulanan.setIdLaporanbulanan(req.getValue().getIdLaporanbulanan());
             requestSimpanBulanan.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
             requestSimpanBulanan.setIsiLaporanbulanan(req.getValue().getIsiLaporanbulanan());
-            apiService.tambahlaporanbulanan(requestSimpanBulanan).enqueue(new Callback<ResponsePost>() {
+            apiService.ubahlaporanbulanan(requestSimpanBulanan).enqueue(new Callback<ResponsePost>() {
                 @Override
                 public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                     Log.e("Hasil", response.body().toString());
-                    if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                        listener.onSuccess(response.body().getResponseMessage());
+                    if (cek(response.code(), context, "Tambah")) {
+                        if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                            listener.onSuccess(response.body().getResponseMessage());
+                        } else {
+                            listener.onFailed(response.body().getResponseMessage());
+                        }
                     } else {
-                        listener.onFailed(response.body().getResponseMessage());
+                        listener.onFailed("Gagal " + response.body().getResponseMessage());
                     }
-
                 }
 
                 @Override

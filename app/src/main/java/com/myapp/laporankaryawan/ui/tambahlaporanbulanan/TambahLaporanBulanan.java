@@ -43,18 +43,19 @@ public class TambahLaporanBulanan extends BaseKaryawanFragment {
         setHasOptionsMenu(true);
 
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanBulananViewModel.class);
-        Bundle bundle = new Bundle();
-        if (bundle.getString("laporanbulanan") != null) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
             setActionBar(binding.toolbar, "Ubah Laporan Bulanan", "");
             Gson gson = new Gson();
             LaporanBulananModel b = gson.fromJson(bundle.getString("laporanbulanan"), LaporanBulananModel.class);
             RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();
             requestSimpanBulanan.setIdUser(Integer.parseInt(b.getIdUser()));
             requestSimpanBulanan.setIsiLaporanbulanan(b.getIsiLaporanbulanan());
-
+            requestSimpanBulanan.setIdLaporanbulanan(b.getIdLaporanbulanan());
             mViewModel.setListener(sendDataListener);
             mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
             mViewModel.req.setValue(requestSimpanBulanan);
+
         } else {
             setActionBar(binding.toolbar, "Tambah Laporan Bulanan", "");
             RequestSimpanBulanan requestSimpanBulanan = new RequestSimpanBulanan();

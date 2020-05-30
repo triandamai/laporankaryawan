@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 import com.myapp.R;
 import com.myapp.data.persistensi.MyUser;
@@ -66,7 +67,8 @@ public class DetailBulananKaryawan extends BaseKaryawanFragment {
 
         }
 
-
+        builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
+        builder.create();
         return binding.getRoot();
     }
 

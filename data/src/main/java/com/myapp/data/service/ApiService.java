@@ -118,6 +118,10 @@ public interface ApiService {
     Call<ResponsePost> tambahlaporanharian(@Body RequestSimpanHarian laporanModel);
 
     @Headers({accept_json, content_type, api_key})
+    @POST("laporanharian/update")
+    Call<ResponsePost> ubahlaporanharian(@Body RequestSimpanHarian laporanModel);
+
+    @Headers({accept_json, content_type, api_key})
     @POST("laporanharian/proses")
     Call<ResponsePost> proseslaporanharian(@Body PostProsesLaporanHarian laporanModel);
 
@@ -136,6 +140,10 @@ public interface ApiService {
     @Headers({accept_json, content_type, api_key})
     @POST("laporanbulanan/add")
     Call<ResponsePost> tambahlaporanbulanan(@Body RequestSimpanBulanan laporanModel);
+
+    @Headers({accept_json, content_type, api_key})
+    @POST("laporanbulanan/update")
+    Call<ResponsePost> ubahlaporanbulanan(@Body RequestSimpanBulanan laporanModel);
 
     @Headers({accept_json, content_type, api_key})
     @POST("laporanbulanan/proses")

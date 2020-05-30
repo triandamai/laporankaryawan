@@ -65,30 +65,34 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
         mViewModel = new ViewModelProvider(requireActivity(), new KaryawanFactory(getContext())).get(TambahLaporanHarianViewModel.class);
         builder = new MaterialAlertDialogBuilder(getContext(), R.style.dialog);
         builder.create();
-
+        binding.setIsLoading(false);
         setHasOptionsMenu(true);
-        Bundle bundle = new Bundle();
-        OutletModel outletModel = new OutletModel();
-        if (bundle.getString("laporanharian") != null) {
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+
             setActionBar(binding.toolbar, "Ubah Laporan Harian", "");
             Gson gson = new Gson();
 
             LaporanHarianModel laporanHarianModel = gson.fromJson(bundle.getString("laporanharian"), LaporanHarianModel.class);
 
-            binding.setAlamat(laporanHarianModel.getAlamatLaporanharian());
-            binding.setImage(laporanHarianModel.getBuktiLaporanharian());
-            binding.setOutlet(laporanHarianModel.getOutlet());
 
             mViewModel.setListener(sendDataListener);
             mViewModel.foto.setValue("");
             mViewModel.tipe.setValue(getString(R.string.AKSI_UBAH));
-            mViewModel.outletmodel.setValue(outletModel);
+            mViewModel.outletmodel.setValue(laporanHarianModel.getOutlet());
             mViewModel.lat.setValue(Double.parseDouble(laporanHarianModel.getLatitudeLaporanharian()));
             mViewModel.lng.setValue(Double.parseDouble(laporanHarianModel.getLongitudeLaporanharian()));
             mViewModel.isi.setValue(laporanHarianModel.getKeteranganLaporanharian());
             mViewModel.alamat.setValue(laporanHarianModel.getAlamatLaporanharian());
+            mViewModel.id.setValue(laporanHarianModel.getIdLaporanharian());
+            binding.setAlamat(laporanHarianModel.getAlamatLaporanharian());
+            binding.setImage(laporanHarianModel.getBuktiLaporanharian());
+            binding.setOutlet(laporanHarianModel.getOutlet());
+            Log.e("mode ubah", laporanHarianModel.getOutlet().toString());
         } else {
-            setActionBar(binding.toolbar, "Ubah Laporan Harian", "");
+            OutletModel outletModel = new OutletModel();
+            setActionBar(binding.toolbar, "Tambah Laporan Harian", "");
             KotaModel kotaModel = new KotaModel();
             kotaModel.setIdKota("");
             kotaModel.setNamaKota("");
@@ -109,16 +113,15 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
             mViewModel.lng.setValue(0.0);
             mViewModel.isi.setValue("");
             mViewModel.alamat.setValue("");
+            binding.setAlamat("");
+            binding.setImage("kosong");
+            binding.setOutlet(outletModel);
 
         }
         sheetOutlet = new SheetOutlet();
         sheetOutlet.setOnSheetListener(sheetListener);
 
         binding.setPickOutlet(pickOutlet);
-        binding.setIsLoading(false);
-        binding.setAlamat("");
-        binding.setImage("dssfd");
-        binding.setOutlet(outletModel);
         binding.setVm(mViewModel);
         binding.setPick(pickImage);
         binding.setPickAlamat(pickAlamat);
@@ -136,7 +139,7 @@ public class TambahLaporanHarian extends BaseKaryawanFragment {
         public void onSuccess(String message) {
             binding.setIsLoading(false);
             builder.setTitle("Info");
-            builder.setMessage("Berhasil Menambahkan Laporan");
+            builder.setMessage(message);
             builder.setPositiveButton("Oke", (dialog, which) -> {
                 dialog.dismiss();
                 back();

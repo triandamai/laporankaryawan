@@ -130,43 +130,44 @@ public class DetailHarianKaryawan extends BaseKaryawanFragment {
 
         @Override
         public void onUpdateHarian(LaporanHarianObject l) {
+            Gson gson = new Gson();
+
+            KotaModel k = new KotaModel();
+            k.setNamaKota(l.getNamaKota());
+            k.setIdKota(l.getIdKota());
+            k.setUpdatedAt("kosong");
+            k.setCreatedAt(l.getCreatedAt());
+            OutletModel o = new OutletModel();
+            o.setKota(k);
+            o.setIdOutlet(l.getIdOutlet());
+            o.setNamaOutlet(l.getNamaOutlet());
+            o.setUpdatedAt("kosong");
+            o.setCreatedAt(l.getCreatedAt());
+            o.setIdKota(l.getIdKota());
+
+            LaporanHarianModel h = new LaporanHarianModel();
+            h.setOutlet(o);
+            h.setUser(MyUser.getInstance(getContext()).getUser());
+            h.setStatusLaporanharian(l.getStatusLaporanharian());
+            h.setLongitudeLaporanharian(l.getLongitudeLaporanharian());
+            h.setLatitudeLaporanharian(l.getLatitudeLaporanharian());
+            h.setKeteranganLaporanharian(l.getKeteranganLaporanharian());
+            h.setUpdatedAt(l.getUpdatedAt());
+            h.setIdUser(MyUser.getInstance(getContext()).getUser().getIdUser());
+            h.setIdOutlet(l.getIdOutlet());
+            h.setIdLaporanharian(l.getIdLaporanharian());
+            h.setBuktiLaporanharian(l.getBuktiLaporanharian());
+            h.setAlamatLaporanharian(l.getAlamatLaporanharian());
+
+            Bundle bundle = new Bundle();
+            bundle.putString("laporanharian", gson.toJson(h));
+            TambahLaporanHarian tambahUser = new TambahLaporanHarian();
+            tambahUser.setArguments(bundle);
             builder.setTitle("Hi");
             builder.setMessage("Mau Edit Laporan " + l.getKeteranganLaporanharian() + "?");
             builder.setPositiveButton("Edit", (dialog, which) -> {
                 dialog.dismiss();
-                Gson gson = new Gson();
 
-                KotaModel k = new KotaModel();
-                k.setNamaKota(l.getNamaKota());
-                k.setIdKota(l.getIdKota());
-                k.setUpdatedAt(l.getUpdatedAt());
-                k.setCreatedAt(l.getCreatedAt());
-                OutletModel o = new OutletModel();
-                o.setKota(k);
-                o.setIdOutlet(l.getIdOutlet());
-                o.setNamaOutlet(l.getNamaOutlet());
-                o.setUpdatedAt(l.getUpdatedAt());
-                o.setCreatedAt(l.getCreatedAt());
-                o.setIdKota(l.getIdKota());
-
-                LaporanHarianModel h = new LaporanHarianModel();
-                h.setOutlet(o);
-                h.setUser(MyUser.getInstance(getContext()).getUser());
-                h.setStatusLaporanharian(l.getStatusLaporanharian());
-                h.setLongitudeLaporanharian(l.getLongitudeLaporanharian());
-                h.setLatitudeLaporanharian(l.getLatitudeLaporanharian());
-                h.setKeteranganLaporanharian(l.getKeteranganLaporanharian());
-                h.setUpdatedAt(l.getUpdatedAt());
-                h.setIdUser(MyUser.getInstance(getContext()).getUser().getIdUser());
-                h.setIdOutlet(l.getIdOutlet());
-                h.setIdLaporanharian(l.getIdLaporanharian());
-                h.setBuktiLaporanharian(l.getBuktiLaporanharian());
-                h.setAlamatLaporanharian(l.getAlamatLaporanharian());
-
-                Bundle bundle = new Bundle();
-                bundle.putString("laporanharian", gson.toJson(h));
-                TambahLaporanHarian tambahUser = new TambahLaporanHarian();
-                tambahUser.setArguments(bundle);
                 replaceFragment(tambahUser, null);
             });
             builder.setNeutralButton("Batal", (dialog, which) -> dialog.dismiss());

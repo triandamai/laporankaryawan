@@ -116,7 +116,7 @@ public class UserModel {
     }
 
 
-    public static UserModel covertdariobjek(KaryawanObject karyawanObject){
+    public static UserModel covertdariobjek(KaryawanObject karyawanObject) {
         UserModel userModel = new UserModel();
         userModel.setIdUser(karyawanObject.getIdUser());
         userModel.setNamaUser(karyawanObject.getNamaUser());
@@ -127,15 +127,16 @@ public class UserModel {
         userModel.setNipUser(karyawanObject.getNipUser());
         userModel.setUpdatedAt(karyawanObject.getUpdatedAt());
         userModel.setCreatedAt(karyawanObject.getCreatedAt());
-        return  userModel;
+        return userModel;
 
     }
-    public boolean validData(){
+
+    public boolean validData() {
         return
-                !TextUtils.isEmpty(passwordUser) &&
                 !TextUtils.isEmpty(namaUser) &&
-                !TextUtils.isEmpty(nipUser);
+                        !TextUtils.isEmpty(nipUser);
     }
+
     @Override
     public String toString() {
         return "KaryawanModel{" +

@@ -86,7 +86,7 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
                     userModel.setCreatedAt(null);
                     userModel.setUpdatedAt(null);
                     userModel.setLevelUser("1");
-                    if (userModel.validData() || !TextUtils.isEmpty(usermodel.getValue().getFotoUser())) {
+                    if (userModel.validData() || !TextUtils.isEmpty(usermodel.getValue().getFotoUser()) || !TextUtils.isEmpty(usermodel.getValue().getPasswordUser())) {
                         apiService.simpanuser(userModel).enqueue(this);
                     } else {
                         listener.onFailed("Isi semua data");
@@ -100,10 +100,16 @@ public class TambahUserViewModel extends ViewModel implements Callback<ResponseP
                 } else {
                     userModel.setFotoUser(foto.getValue());
                 }
+
+                if (usermodel.getValue().getPasswordUser().isEmpty() || usermodel.getValue().getPasswordUser() == null) {
+                    userModel.setPasswordUser("");
+                } else {
+                    userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+                }
                 userModel.setIdUser(usermodel.getValue().getIdUser());
                 userModel.setNamaUser(usermodel.getValue().getNamaUser());
                 userModel.setUsernameUser(null);
-                userModel.setPasswordUser(usermodel.getValue().getPasswordUser());
+
                 userModel.setNipUser(usermodel.getValue().getNipUser());
                 userModel.setCreatedAt("");
                 userModel.setUpdatedAt("");

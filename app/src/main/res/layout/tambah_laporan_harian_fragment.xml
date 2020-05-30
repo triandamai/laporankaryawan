@@ -78,6 +78,7 @@
                     android:textColor="@color/colorPrimary" />
 
                 <EditText
+                    android:id="@+id/et_outlet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_muda_banget"
@@ -102,6 +103,7 @@
                     android:textColor="@color/colorPrimary" />
 
                 <EditText
+                    android:id="@+id/et_alamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_muda_banget"
@@ -149,6 +151,7 @@
                     android:textColor="@color/colorPrimary" />
 
                 <ImageView
+                    android:id="@+id/iv_bukti"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"

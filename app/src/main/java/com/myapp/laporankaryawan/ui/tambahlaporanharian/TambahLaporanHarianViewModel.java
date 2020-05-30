@@ -20,6 +20,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.myapp.data.service.ApiHandler.cek;
+
 public class TambahLaporanHarianViewModel extends ViewModel {
     private Context context;
     private ApiService apiService;
@@ -31,6 +33,7 @@ public class TambahLaporanHarianViewModel extends ViewModel {
     public MutableLiveData<OutletModel> outletmodel = new MutableLiveData<>();
     public MutableLiveData<String> foto = new MutableLiveData<>();
     public MutableLiveData<String> alamat = new MutableLiveData<>();
+    public MutableLiveData<String> id = new MutableLiveData<>();
 
     public TambahLaporanHarianViewModel(Context context) {
         this.context = context;
@@ -64,12 +67,15 @@ public class TambahLaporanHarianViewModel extends ViewModel {
                         @Override
                         public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                             Log.e("Hasil", response.body().toString());
-                            if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                                listener.onSuccess(response.body().getResponseMessage());
+                            if (cek(response.code(), context, "Tambah")) {
+                                if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                                    listener.onSuccess(response.body().getResponseMessage());
+                                } else {
+                                    listener.onFailed(response.body().getResponseMessage());
+                                }
                             } else {
-                                listener.onFailed(response.body().getResponseMessage());
+                                listener.onFailed("Gagal " + response.body().getResponseMessage());
                             }
-
                         }
 
                         @Override
@@ -90,23 +96,30 @@ public class TambahLaporanHarianViewModel extends ViewModel {
                         !TextUtils.isEmpty(outletmodel.getValue().getIdOutlet()) ||
                         alamat.getValue() == null ||
                         !TextUtils.isEmpty(alamat.getValue())) {
-
+                    simpanHarian.setIdLaporanharian(id.getValue());
                     simpanHarian.setIdUser(Integer.parseInt(MyUser.getInstance(context).getUser().getIdUser()));
                     simpanHarian.setAlamatLaporanharian(alamat.getValue());
                     simpanHarian.setBuktiLaporanharian(foto.getValue());
-                    simpanHarian.setIdOutlet(Integer.parseInt(outletmodel.getValue().getIdOutlet()));
+                    if (outletmodel.getValue().getIdOutlet() != null) {
+                        simpanHarian.setIdOutlet(Integer.parseInt(outletmodel.getValue().getIdOutlet()));
+                    }
+
                     simpanHarian.setKeteranganLaporanharian(isi.getValue());
                     simpanHarian.setLatitudeLaporanharian(lat.getValue());
                     simpanHarian.setLongitudeLaporanharian(lng.getValue());
 
-                    apiService.tambahlaporanharian(simpanHarian).enqueue(new Callback<ResponsePost>() {
+                    apiService.ubahlaporanharian(simpanHarian).enqueue(new Callback<ResponsePost>() {
                         @Override
                         public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                             Log.e("Hasil", response.body().toString());
-                            if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
-                                listener.onSuccess(response.body().getResponseMessage());
+                            if (cek(response.code(), context, "Tambah")) {
+                                if (response.body().getResponseCode().toString().equalsIgnoreCase("200")) {
+                                    listener.onSuccess(response.body().getResponseMessage());
+                                } else {
+                                    listener.onFailed(response.body().getResponseMessage());
+                                }
                             } else {
-                                listener.onFailed(response.body().getResponseMessage());
+                                listener.onFailed("Gagal " + response.body().getResponseMessage());
                             }
 
                         }

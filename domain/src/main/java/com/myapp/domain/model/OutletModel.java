@@ -73,7 +73,8 @@ public class OutletModel {
     public void setKota(KotaModel kota) {
         this.kota = kota;
     }
-    public static OutletModel convertdariobject(OutletObject obj){
+
+    public static OutletModel convertdariobject(OutletObject obj) {
 
         KotaModel k = new KotaModel();
         k.setCreatedAt(obj.getCreatedAt());
@@ -88,5 +89,17 @@ public class OutletModel {
         t.setKota(k);
         t.setUpdatedAt(obj.getUpdatedAt());
         return t;
+    }
+
+    @Override
+    public String toString() {
+        return "OutletModel{" +
+                "idOutlet='" + idOutlet + '\'' +
+                ", idKota='" + idKota + '\'' +
+                ", namaOutlet='" + namaOutlet + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", kota=" + kota +
+                '}';
     }
 }

@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 public class DetailHarianKaryawanFactory implements ViewModelProvider.Factory {
     private Context context;
 
-
     public DetailHarianKaryawanFactory(Context context) {
 
         this.context = context;
